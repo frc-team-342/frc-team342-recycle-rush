@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveReverseDistance extends Command {
 	DriveSystem drive;
-	private int distance;
-	private int targetdistance;
+	private double distance;
+	private double targetdistance;
 	
 	
 	public DriveReverseDistance(int target) {

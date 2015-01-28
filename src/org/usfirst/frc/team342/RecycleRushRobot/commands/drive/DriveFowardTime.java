@@ -7,8 +7,8 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 
 public class DriveFowardTime extends Command {
 	DriveSystem drive;
-	long startTime;
-	long duration;
+	private long startTime;
+	private long duration;
 
 	public DriveFowardTime(long time) {
 		// TODO Auto-generated constructor stub

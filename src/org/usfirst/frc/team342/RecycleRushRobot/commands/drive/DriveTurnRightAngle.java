@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveTurnRightAngle extends Command {
 	DriveSystem drive;
-	private int angle;
-	private int targetangle;
+	private double angle;
+	private double targetangle;
 	
 	
 	public DriveTurnRightAngle(int target) {

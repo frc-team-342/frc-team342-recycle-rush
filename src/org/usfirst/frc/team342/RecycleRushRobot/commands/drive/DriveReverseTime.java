@@ -7,8 +7,8 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 
 public class DriveReverseTime extends Command {
 	DriveSystem drive;
-	long startTime;
-	long duration;
+	private long startTime;
+	private long duration;
 
 	public DriveReverseTime(long time) {
 		// TODO Auto-generated constructor stub
@@ -40,7 +40,7 @@ public class DriveReverseTime extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		drive.reverse(RobotMap.AUTONOMOUS_SPEED);
+		drive.reverse(RobotMap.AUTONOMOUS_REVERSE);
 	}
 
 	@Override

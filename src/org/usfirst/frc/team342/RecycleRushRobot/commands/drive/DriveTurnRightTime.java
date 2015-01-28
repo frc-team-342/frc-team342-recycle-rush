@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveTurnRightTime extends Command {
 	DriveSystem drive;
-	long startTime;
-	long duration;
+	private long startTime;
+	private long duration;
 
 	public DriveTurnRightTime(long time) {
 		duration = time;
@@ -31,7 +31,7 @@ public class DriveTurnRightTime extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		drive.turn(0.5);
+		drive.turn(RobotMap.AUTONOMOUS_TURN_RIGHT);
 	}
 
 	@Override

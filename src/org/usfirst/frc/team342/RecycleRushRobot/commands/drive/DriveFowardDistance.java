@@ -8,8 +8,8 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveFowardDistance extends Command {
 	DriveSystem drive;
-	private int distance;
-	private int targetdistance;
+	private double distance;
+	private double targetdistance;
 	
 	
 	public DriveFowardDistance(int target) {
