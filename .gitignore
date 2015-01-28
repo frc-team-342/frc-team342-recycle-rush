@@ -1,0 +1,9 @@
+#Team 342 Ignores for Eclipse
+
+build/
+bin/
+
+#Troublesome binary files that won't merge
+
+*.jar
+*.class
