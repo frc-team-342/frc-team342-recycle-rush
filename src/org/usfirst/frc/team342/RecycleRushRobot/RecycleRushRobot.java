@@ -7,10 +7,14 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import org.usfirst.frc.team342.RecycleRushRobot.commands.BasicAutonomous;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.ExampleCommand;
+//import org.usfirst.frc.team342.RecycleRushRobot.commands.ExampleCommand;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveWithJoystick;
-import org.usfirst.frc.team342.RecycleRushRobot.subsystems.CameraVision;
+import org.usfirst.frc.team342.RecycleRushRobot.subsystems.CameraVisionRedux;
+import org.usfirst.frc.team342.RecycleRushRobot.subsystems.ScissorSystem;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
+import org.usfirst.frc.team342.RecycleRushRobot.subsystems.LiftSystem;
+import org.usfirst.frc.team342.RecycleRushRobot.subsystems.Sensors;
+
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -24,9 +28,12 @@ public class RecycleRushRobot extends IterativeRobot {
 	// public static final ExampleSubsystem exampleSubsystem = new
 	// ExampleSubsystem();
 	private DriveSystem drive;
-	private CameraVision camera;
+	private LiftSystem lift;
 	private OI oi;
 	private Command autonomousCommand;
+	private ScissorSystem claw;
+	private Sensors sense;
+	private CameraVisionRedux camera;
 	
 	// Command autonomousCommand;
 
@@ -35,11 +42,18 @@ public class RecycleRushRobot extends IterativeRobot {
 	 * used for any initialization code.
 	 */
 	public void robotInit() {
-		oi = OI.getInstance();
+		this.oi = OI.getInstance();
 		// instantiate the command used for the autonomous period
 		// autonomousCommand = new ExampleCommand();
 		this.drive = DriveSystem.getInstance();
-		this.camera = CameraVision.getInstance();
+		this.lift = LiftSystem.getInstance();
+		this.claw = ScissorSystem.getInstance();
+		this.camera = CameraVisionRedux.getInstance();
+		this.sense = Sensors.getInstance();
+
+		sense.initializeAccelerometer();
+		sense.initializeGyro();
+		sense.initializeCompass();
 	}
 
 	public void disabledPeriodic() {
@@ -58,6 +72,7 @@ public class RecycleRushRobot extends IterativeRobot {
 	 */
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
+
 	}
 
 	public void teleopInit() {
@@ -90,5 +105,15 @@ public class RecycleRushRobot extends IterativeRobot {
 	 */
 	public void testPeriodic() {
 		LiveWindow.run();
-	}
+		//camera.SeeingIsBelieving();
+		//System.out.println(sense.accelerometerGetAxes(0));
+		//System.out.println("");
+		//System.out.println(sense.gyroGetAxes(0));
+		//try {
+		//	Thread.sleep(1000);
+		//} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+		//	e.printStackTrace();
+		}
+	
 }

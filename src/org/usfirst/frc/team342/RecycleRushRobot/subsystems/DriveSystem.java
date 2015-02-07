@@ -21,6 +21,7 @@ public class DriveSystem extends Subsystem {
 	private final CANJaguar frontRightjaguar;
 	private final CANJaguar rearRightjaguar;
 	private final RobotDrive robotDrive;
+	private boolean mode;
 
 	private DriveSystem() {
 		super();
@@ -41,9 +42,10 @@ public class DriveSystem extends Subsystem {
 		// }
 		robotDrive = new RobotDrive(frontLeftjaguar, rearLeftjaguar,
 				frontRightjaguar, rearRightjaguar);
-		robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);
+		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
 		//invert's the left motors /\ & \/
-		robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
+		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
+		mode = true;
 	}
 
 	public void initDefaultCommand() {
@@ -57,21 +59,34 @@ public class DriveSystem extends Subsystem {
 		double y = joystick.getY();
 		double rotation = joystick.getZ();
 		double angle = 0.0;
-	
+		
 		this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, angle);
 		// CANJaguar.updateSyncGroup((byte) 0x80);
-		System.out.println("Joystick Enabled!");
 	}
 
 	public void fieldOrientedJoystick(Joystick joystick) {
+		
 		double x = joystick.getX();
 		double y = joystick.getY();
 		double rotation = joystick.getZ();
 		double angle = 0.0;
 		//To DO Get Gyro Angle From Sensors
-		this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, angle);
+		if (mode) {
+			this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, angle);
+		} else {
+			this.robotDrive.mecanumDrive_Cartesian(0, 0, rotation, angle);
+		}
 		// CANJaguar.updateSyncGroup((byte) 0x80);
 		System.out.println("Field Oriented Joystick Enabled!");
+	}
+	
+	public void changeMode(){
+		if(mode == true){
+			mode = false;
+		}
+		else{
+			mode = true;
+		}
 	}
 	
 	public static DriveSystem getInstance() {

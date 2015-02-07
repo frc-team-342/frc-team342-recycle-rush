@@ -23,5 +23,24 @@ public class RobotMap {
 	public static final double AUTONOMOUS_REVERSE = -1.0;
 	public static final double AUTONOMOUS_TURN_RIGHT = 0.5;
 	
+	// Sensors
+	public static final int ACCELEROMETER_ADDRESS = 0x53;
+	public static final int GYRO_ADDRESS = 0x68;
+	public static final int COMPASS_ADDRESS = 0x1e;
+	
+	// Sensor Registers
+	public static final int ACCELEROMETER_REG_POWERCTL = 0x2d;
+	public static final int ACCELEROMETER_REG_AXES = 0x32;
+	
+	public static final int GYRO_REG_DLPFFS = 0x16;
+	public static final int GYRO_REG_AXES = 0x1b;
+	
+	public static final int COMPASS_REG_AXES = 0x03;
+	
+	// Ratio of G's per on least significant bit for the accelerometer, used for conversion to G's
+	public static final double GsPerLSB = 0.00390625;
+	public static final double degreesPerLSB = 1;//14.375/16;
+	
+	// Joystick Buttons
 	
 }

@@ -7,23 +7,27 @@ import com.ni.vision.NIVision.Image;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class SeeWithCamera extends Command {
+public class ChangeCamera extends Command {
 
 	private CameraVisionRedux camera;
 
-	public SeeWithCamera() {
+	public ChangeCamera() {
 		camera = CameraVisionRedux.getInstance();
-		requires(camera);
+		//requires(camera);
+		
 	}
 
 	@Override
 	protected void initialize() {
+		
 		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	protected void execute() {
-		camera.SeeingIsBelieving();
+		camera.ChangeCamera();
+		System.out.println("Did run");
 		// TODO Auto-generated method stub
 
 	}
@@ -31,7 +35,7 @@ public class SeeWithCamera extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override
