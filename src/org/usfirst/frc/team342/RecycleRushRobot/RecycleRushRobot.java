@@ -1,7 +1,6 @@
 package org.usfirst.frc.team342.RecycleRushRobot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
-//import java.lang.ClassNotFoundException;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -13,8 +12,7 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.CameraVisionRedux;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.ScissorSystem;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.LiftSystem;
-import org.usfirst.frc.team342.RecycleRushRobot.subsystems.Sensors;
-
+import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripperSystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -32,8 +30,8 @@ public class RecycleRushRobot extends IterativeRobot {
 	private OI oi;
 	private Command autonomousCommand;
 	private ScissorSystem claw;
-	private Sensors sense;
 	private CameraVisionRedux camera;
+	private GripperSystem gripper;
 	
 	// Command autonomousCommand;
 
@@ -49,11 +47,7 @@ public class RecycleRushRobot extends IterativeRobot {
 		this.lift = LiftSystem.getInstance();
 		this.claw = ScissorSystem.getInstance();
 		this.camera = CameraVisionRedux.getInstance();
-		this.sense = Sensors.getInstance();
-
-		sense.initializeAccelerometer();
-		sense.initializeGyro();
-		sense.initializeCompass();
+		this.gripper = GripperSystem.getInstance();
 	}
 
 	public void disabledPeriodic() {
@@ -105,15 +99,5 @@ public class RecycleRushRobot extends IterativeRobot {
 	 */
 	public void testPeriodic() {
 		LiveWindow.run();
-		//camera.SeeingIsBelieving();
-		//System.out.println(sense.accelerometerGetAxes(0));
-		//System.out.println("");
-		//System.out.println(sense.gyroGetAxes(0));
-		//try {
-		//	Thread.sleep(1000);
-		//} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-		//	e.printStackTrace();
-		}
-	
+	}
 }
