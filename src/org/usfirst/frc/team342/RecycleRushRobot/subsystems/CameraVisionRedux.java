@@ -15,48 +15,51 @@ import edu.wpi.first.wpilibj.vision.USBCamera;
 
 public class CameraVisionRedux extends Subsystem {
 	private static final CameraVisionRedux INSTANCE = new CameraVisionRedux();
-		Image frame;
-		int frontCam;
-		int backCam;
-		int currCam;
-	
+	Image frame;
+	int frontCam;
+	int backCam;
+	int currCam;
+
 	public CameraVisionRedux() {
 		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-		frontCam = NIVision.IMAQdxOpenCamera("cam0", NIVision.IMAQdxCameraControlMode.CameraControlModeListener);
-		backCam = NIVision.IMAQdxOpenCamera("cam1", NIVision.IMAQdxCameraControlMode.CameraControlModeListener);
+		frontCam = NIVision.IMAQdxOpenCamera("cam0",
+				NIVision.IMAQdxCameraControlMode.CameraControlModeListener);
+		backCam = NIVision.IMAQdxOpenCamera("cam1",
+				NIVision.IMAQdxCameraControlMode.CameraControlModeListener);
 		currCam = frontCam;
-			NIVision.IMAQdxConfigureGrab(frontCam);
-			NIVision.IMAQdxStartAcquisition(frontCam);
-			//Default camera is Front Camera
+		NIVision.IMAQdxConfigureGrab(frontCam);
+		NIVision.IMAQdxStartAcquisition(frontCam);
+		// Default camera is Front Camera
 	}
-	
+
 	@Override
 	protected void initDefaultCommand() {
 		this.setDefaultCommand(new SeeWithCamera());
 	}
-	
+
 	public static CameraVisionRedux getInstance() {
 		return INSTANCE;
 	}
-	
+
 	public void SeeingIsBelieving() {
 		NIVision.IMAQdxGrab(currCam, frame, 0);
 		CameraServer.getInstance().setImage(frame);
 		System.out.println("Camera Loop Set");
 	}
-	
+
 	public void ChangeCamera() {
 		NIVision.IMAQdxStopAcquisition(currCam);
 		NIVision.IMAQdxUnconfigureAcquisition(currCam);
 		System.out.println("Switching Camera ID From" + currCam);
-			if(currCam == frontCam)
-				currCam = backCam;
-			else
-				currCam = frontCam;
+		if (currCam == frontCam)
+			currCam = backCam;
+		else
+			currCam = frontCam;
 		System.out.println("New Camera ID" + currCam);
 		NIVision.IMAQdxConfigureGrab(currCam);
 		NIVision.IMAQdxStartAcquisition(currCam);
-		//This Switches the camera by stopping the capture then switching then restarting on a new camera.  
+		// This Switches the camera by stopping the capture then switching then
+		// restarting on a new camera.
 	}
-	
+
 }

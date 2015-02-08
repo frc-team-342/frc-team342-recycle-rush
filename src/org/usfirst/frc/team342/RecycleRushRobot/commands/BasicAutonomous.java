@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 
 public class BasicAutonomous extends CommandGroup {
 	DriveSystem drive;
-	
+
 	public BasicAutonomous() {
 		// TODO Auto-generated constructor stub
 		drive = DriveSystem.getInstance();
@@ -18,7 +18,7 @@ public class BasicAutonomous extends CommandGroup {
 		this.addSequential(new DriveTurnRightTime(1000));
 		this.addSequential(new DriveReverseTime(1000));
 		this.addSequential(new DriveTurnLeftTime(1000));
-		
+
 	}
 
 }

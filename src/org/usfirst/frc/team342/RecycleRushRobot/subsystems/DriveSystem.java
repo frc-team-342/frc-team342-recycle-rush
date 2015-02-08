@@ -43,28 +43,29 @@ public class DriveSystem extends Subsystem {
 		robotDrive = new RobotDrive(frontLeftjaguar, rearLeftjaguar,
 				frontRightjaguar, rearRightjaguar);
 		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
-		//invert's the left motors /\ & \/
+		// invert's the left motors /\ & \/
 		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
 		mode = true;
 	}
 
 	public void initDefaultCommand() {
-		//this.setDefaultCommand(new DriveWithJoystick());
+		// this.setDefaultCommand(new DriveWithJoystick());
 		// Set the default command for a subsystem here.
 		// setDefaultCommand(new MySpecialCommand());
 	}
 
 	public void driveWithJoystick(Joystick joystick) {
-		//makes joystick drive run with exponential acceleration, rather than linear
-		//this should smooth out the drive
+		// makes joystick drive run with exponential acceleration, rather than
+		// linear
+		// this should smooth out the drive
 		double power = joystick.getThrottle();
 		double multiplier = (((10 * power) * (10 * power)) / 100);
-		
+
 		double x = joystick.getX() * multiplier;
 		double y = joystick.getY() * multiplier;
 		double rotation = joystick.getZ() * multiplier;
 		double angle = 0.0;
-		
+
 		this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, angle);
 		// CANJaguar.updateSyncGroup((byte) 0x80);
 	}
@@ -74,7 +75,7 @@ public class DriveSystem extends Subsystem {
 		double y = joystick.getY();
 		double rotation = joystick.getZ();
 		double angle = 0.0;
-		//To DO Get Gyro Angle From Sensors
+		// To DO Get Gyro Angle From Sensors
 		if (mode) {
 			this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, angle);
 		} else {
@@ -83,16 +84,15 @@ public class DriveSystem extends Subsystem {
 		// CANJaguar.updateSyncGroup((byte) 0x80);
 		System.out.println("Field Oriented Joystick Enabled!");
 	}
-	
-	public void changeMode(){
-		if(mode == true){
+
+	public void changeMode() {
+		if (mode == true) {
 			mode = false;
-		}
-		else{
+		} else {
 			mode = true;
 		}
 	}
-	
+
 	public static DriveSystem getInstance() {
 		return INSTANCE;
 	}
@@ -108,6 +108,7 @@ public class DriveSystem extends Subsystem {
 	public void stop() {
 		this.robotDrive.mecanumDrive_Polar(0.0, 0.0, 0.0);
 	}
+
 	public void turn(double speed) {
 		this.robotDrive.mecanumDrive_Polar(0.0, 0.0, speed);
 	}

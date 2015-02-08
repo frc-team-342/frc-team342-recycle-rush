@@ -42,7 +42,7 @@ public class DriveWithJoystick extends Command {
 
 	@Override
 	protected void execute() {
-			drive.driveWithJoystick(joystick);
+		drive.driveWithJoystick(joystick);
 		// TODO Auto-generated method stub
 	}
 

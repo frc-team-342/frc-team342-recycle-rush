@@ -13,15 +13,15 @@ public class ChangeCamera extends Command {
 
 	public ChangeCamera() {
 		camera = CameraVisionRedux.getInstance();
-		//requires(camera);
-		
+		// requires(camera);
+
 	}
 
 	@Override
 	protected void initialize() {
-		
+
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override

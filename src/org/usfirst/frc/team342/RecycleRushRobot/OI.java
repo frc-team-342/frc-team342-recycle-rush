@@ -34,24 +34,24 @@ public class OI {
 		JoystickButton clawRetract = new JoystickButton(driveController, 4);
 		JoystickButton changeCamera = new JoystickButton(driveController, 1);
 		JoystickButton changeMode = new JoystickButton(driveController, 7);
-		
+
 		liftDown.whileHeld(new LiftDown());
 		liftDown.whenReleased(new LiftStop());
-		
+
 		liftUp.whileHeld(new LiftUp());
 		liftUp.whenReleased(new LiftStop());
-		
+
 		clawControl.whileHeld(new ScissorOn());
 		clawControl.whenReleased(new ScissorOff());
 
 		clawExtend.whileHeld(new ScissorExtend());
 		clawExtend.whenReleased(new ScissorStop());
-		
+
 		clawRetract.whileHeld(new ScissorRetract());
 		clawRetract.whenReleased(new ScissorStop());
-		
+
 		changeCamera.whenPressed(new ChangeCamera());
-		
+
 		changeMode.whenPressed(new ChangeMode());
 	}
 
@@ -62,5 +62,5 @@ public class OI {
 	public Joystick getJoystick() {
 		return driveController;
 	}
-	
+
 }

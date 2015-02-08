@@ -29,10 +29,10 @@ public class RecycleRushRobot extends IterativeRobot {
 	private LiftSystem lift;
 	private OI oi;
 	private Command autonomousCommand;
-	private ScissorSystem claw;
+	private ScissorSystem scissor;
 	private CameraVisionRedux camera;
 	private GripperSystem gripper;
-	
+
 	// Command autonomousCommand;
 
 	/**
@@ -45,7 +45,7 @@ public class RecycleRushRobot extends IterativeRobot {
 		// autonomousCommand = new ExampleCommand();
 		this.drive = DriveSystem.getInstance();
 		this.lift = LiftSystem.getInstance();
-		this.claw = ScissorSystem.getInstance();
+		this.scissor = ScissorSystem.getInstance();
 		this.camera = CameraVisionRedux.getInstance();
 		this.gripper = GripperSystem.getInstance();
 	}
@@ -58,7 +58,7 @@ public class RecycleRushRobot extends IterativeRobot {
 		// schedule the autonomous command (example)
 		// if (autonomousCommand != null) autonomousCommand.start();
 		autonomousCommand = new BasicAutonomous();
-        autonomousCommand.start();
+		autonomousCommand.start();
 	}
 
 	/**

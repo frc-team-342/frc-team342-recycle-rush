@@ -15,26 +15,25 @@ public class ScissorSystem extends Subsystem {
 	private final DigitalInput scissorOff;
 	private final DigitalInput scissorExtended;
 	private final DigitalInput scissorRetracted;
-	
-	
+
 	public ScissorSystem() {
 		// TODO Auto-generated constructor stub
-		 compressor = new Compressor(0);
-		 solenoid = new Solenoid(0);
-		 talon = new Talon(2);
-		 compressor.setClosedLoopControl(true);
-		 this.scissorOff = new DigitalInput(3);
-		 this.scissorOn = new DigitalInput(2);
-		 this.scissorExtended = new DigitalInput(0);
-		 this.scissorRetracted = new DigitalInput(1);
+		compressor = new Compressor(0);
+		solenoid = new Solenoid(0);
+		talon = new Talon(2);
+		compressor.setClosedLoopControl(true);
+		this.scissorOff = new DigitalInput(3);
+		this.scissorOn = new DigitalInput(2);
+		this.scissorExtended = new DigitalInput(0);
+		this.scissorRetracted = new DigitalInput(1);
 	}
 
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	public static ScissorSystem getInstance() {
 		return INSTANCE;
 	}
@@ -42,35 +41,35 @@ public class ScissorSystem extends Subsystem {
 	public void scissorOn() {
 		solenoid.set(true);
 	}
-	
+
 	public void scissorOff() {
 		solenoid.set(false);
 	}
-	
+
 	public void scissorExtend() {
 		talon.set(0.7);
 	}
-	
+
 	public void scissorRetract() {
 		talon.set(-0.7);
 	}
-	
+
 	public void scissorStop() {
 		talon.set(0.0);
 	}
-	
+
 	public boolean isUp() {
 		return !scissorOn.get();
 	}
-	
+
 	public boolean isDown() {
 		return !scissorOff.get();
 	}
-	
+
 	public boolean isExtended() {
 		return !scissorExtended.get();
 	}
-	
+
 	public boolean isRetracted() {
 		return !scissorExtended.get();
 	}
