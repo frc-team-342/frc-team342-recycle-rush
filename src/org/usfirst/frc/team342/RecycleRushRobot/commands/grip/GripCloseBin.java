@@ -14,7 +14,8 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
  */
 public class GripCloseBin extends Command {
 	GripSystem grip;
-
+	private final double GRIP_BIN = 2;
+	
 	public GripCloseBin() {
 		requires(grip);
 		grip = GripSystem.getInstance();
@@ -49,12 +50,12 @@ public class GripCloseBin extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return grip.gripClose(RobotMap.GRIP_BIN);
+		return grip.close(GRIP_BIN);
 	}
 
 	@Override
 	protected void end() {
-		grip.gripStop();
+		grip.stop();
 
 	}
 

@@ -22,9 +22,6 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
  * directory.
  */
 public class RecycleRushRobot extends IterativeRobot {
-
-	// public static final ExampleSubsystem exampleSubsystem = new
-	// ExampleSubsystem();
 	private DriveSystem drive;
 	private LiftSystem lift;
 	private OI oi;

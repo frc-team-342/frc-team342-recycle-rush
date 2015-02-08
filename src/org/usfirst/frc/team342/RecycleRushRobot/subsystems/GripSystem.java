@@ -42,8 +42,9 @@ public class GripSystem extends Subsystem {
 	private final AnalogInput ultrasonic;
 	private final DigitalInput limitSwitchOut;
 
-	// used to return if the close or open commands have completed
-	private boolean closed;
+	// the gripper calls these as a guide for where to stop the gripper
+	private final double GRIP_STRENGTH = 0.3;
+	private final double GRIP_MINIMUM_STOP_OPEN = 0.2;
 
 	// gripper system instance
 	private GripSystem() {
@@ -68,21 +69,21 @@ public class GripSystem extends Subsystem {
 	 *            close the gripper towards the specified value
 	 * @return true if gripper is between the given values
 	 */
-	public boolean gripClose(double closeTo) {
-		closed = true; // set default state to closed
+	public boolean close(double closeTo) {
+		boolean closed = true; // set default state to closed
 
 		if (potentiometer.get() >= closeTo) {
 			closed = false;
-			talon.set(-.3); // set the strength to open at, this could be made
+			talon.set(-1 * GRIP_STRENGTH); // set the strength to open at, this could be made
 							// non-constant for better control
 		} else if (potentiometer.get() < closeTo
-				- RobotMap.GRIP_MINIMUM_STOP_OPEN) {
+				- GRIP_MINIMUM_STOP_OPEN) {
 			closed = false;
-			talon.set(3); // sets the strength for the potentiometer to open at
+			talon.set(GRIP_STRENGTH); // sets the strength for the talon to open at
 		}
 
 		if (closed)
-			talon.set(0); // stop the motor
+			talon.set(0); // stop the motor if the close function is complete
 		return closed;
 	}
 
@@ -91,27 +92,26 @@ public class GripSystem extends Subsystem {
 	 * should be called in a loop
 	 * 
 	 * @param stop
-	 *            is a double value for when to stop opening the gripper
-	 * @return true if potentiometer detects the gripper as more open than the
-	 *         double
+	 *            potentiometer value for where to open or close the griper towards
+	 * @return true if potentiometer detects the gripper as more open or equal to the stop value
 	 */
-	public boolean gripOpen(double stop) {
-		closed = false; // set default state to open
+	public boolean open(double stop) {
+		boolean open = true; // set default state to open
 
 		if (potentiometer.get() < stop) {
-			talon.set(.3); // sets the strength for the gripper to open at
-			closed = true;
+			talon.set(GRIP_STRENGTH); // sets the strength for the gripper to open at
+			open = false;
 		}
 
-		if (!closed)
-			talon.set(0); // stop the motor
-		return !closed;
+		if (open)
+			talon.set(0); // stop the motor if the open function is complete
+		return open;
 	}
 
 	/**
 	 * stop the gripper
 	 */
-	public void gripStop() {
+	public void stop() {
 		talon.set(0); // stop the motor
 	}
 	

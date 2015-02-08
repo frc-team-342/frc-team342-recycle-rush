@@ -51,10 +51,7 @@ public class CameraVisionRedux extends Subsystem {
 		NIVision.IMAQdxStopAcquisition(currCam);
 		NIVision.IMAQdxUnconfigureAcquisition(currCam);
 		System.out.println("Switching Camera ID From" + currCam);
-		if (currCam == frontCam)
-			currCam = backCam;
-		else
-			currCam = frontCam;
+		currCam = (currCam == frontCam) ? backCam : frontCam;
 		System.out.println("New Camera ID" + currCam);
 		NIVision.IMAQdxConfigureGrab(currCam);
 		NIVision.IMAQdxStartAcquisition(currCam);

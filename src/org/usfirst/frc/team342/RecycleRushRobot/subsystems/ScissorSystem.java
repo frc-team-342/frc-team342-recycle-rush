@@ -15,6 +15,8 @@ public class ScissorSystem extends Subsystem {
 	private final DigitalInput scissorOff;
 	private final DigitalInput scissorExtended;
 	private final DigitalInput scissorRetracted;
+	
+	private final double DEFAULT_SCISSOR_EXTEND_SPEED = 0.7;
 
 	public ScissorSystem() {
 		// TODO Auto-generated constructor stub
@@ -38,23 +40,23 @@ public class ScissorSystem extends Subsystem {
 		return INSTANCE;
 	}
 
-	public void scissorOn() {
+	public void on() {
 		solenoid.set(true);
 	}
 
-	public void scissorOff() {
+	public void off() {
 		solenoid.set(false);
 	}
 
-	public void scissorExtend() {
-		talon.set(0.7);
+	public void extend() {
+		talon.set(DEFAULT_SCISSOR_EXTEND_SPEED);
 	}
 
-	public void scissorRetract() {
-		talon.set(-0.7);
+	public void retract() {
+		talon.set(-1 * DEFAULT_SCISSOR_EXTEND_SPEED);
 	}
 
-	public void scissorStop() {
+	public void stop() {
 		talon.set(0.0);
 	}
 

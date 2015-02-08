@@ -7,10 +7,12 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
 
 /**
  *         this function is not yet implemented. If called it should open the
- *         gripper all the way
+ *         gripper all the way.
  */
 public class GripOpen extends Command {
 	GripSystem grip;
+	private final double GRIP_FULL_OPEN = 3;
+
 
 	public GripOpen() {
 		requires(grip);
@@ -47,7 +49,7 @@ public class GripOpen extends Command {
 	protected boolean isFinished() {
 		// called in the isFinished loop because it makes it easier to call in a
 		// loop, not sure if this will work
-		return grip.gripOpen(RobotMap.GRIP_FULL_OPEN);
+		return grip.open(GRIP_FULL_OPEN);
 	}
 
 	@Override

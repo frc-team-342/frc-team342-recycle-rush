@@ -37,7 +37,7 @@ public class GripStop extends Command {
 
 	@Override
 	protected void execute() {
-		grip.gripStop();
+		grip.stop();
 
 	}
 

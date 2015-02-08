@@ -86,11 +86,8 @@ public class DriveSystem extends Subsystem {
 	}
 
 	public void changeMode() {
-		if (mode == true) {
-			mode = false;
-		} else {
-			mode = true;
-		}
+		//inverts the drive mode
+		mode = !mode;
 	}
 
 	public static DriveSystem getInstance() {
