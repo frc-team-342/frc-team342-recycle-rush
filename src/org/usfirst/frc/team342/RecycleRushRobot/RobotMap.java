@@ -30,13 +30,26 @@ public class RobotMap {
 	public static final int DIGITAL_IO_LIFT_QUADRATURE_ENCODER_B = 7;
 
 	// Gripper System
-	public static final int CAN_CHANNEL_GRIPPER_OPEN_CLOSE = 3;
-	public static final int ANALOG_GRIPPER_POTENTIOMETER_POSITION = 2;
-	public static final int ANALOG_GRIPPER_ULTRASONIC = 3;
-	public static final int DIGITAL_IO_GRIPPER_LIMIT_SWITCH_OUTER_LIMIT = 8;
+	public static final int CAN_CHANNEL_GRIP_OPEN_CLOSE = 3;
+	public static final int ANALOG_GRIP_POTENTIOMETER_POSITION = 2;
+	public static final int ANALOG_GRIP_ULTRASONIC = 3;
+	public static final int DIGITAL_IO_GRIP_LIMIT_SWITCH_OUTER_LIMIT = 8;
 
 	// Controllers
 	public static final int JOYSTICK_DRIVE_CONTROL = 0;
+	public static final int JOYSTICK_CHANGE_CAMERA = 1;
+	public static final int JOYSTICK_LIFT_DOWN = 2;
+	public static final int JOYSTICK_LIFT_UP = 3;
+	public static final int JOYSTICK_SCISSOR_RETRACT = 4;
+	public static final int JOYSTICK_SCISSOR_CONTROL = 5;
+	public static final int JOYSTICK_SCISSOR_EXTEND = 6;
+	public static final int JOYSTICK_CHANGE_MODE = 7;
+	public static final int JOYSTICK_GRIP_CLOSE_BIN = 8;
+	public static final int JOYSTICK_GRIP_CLOSE_TOTE = 9;
+	public static final int JOYSTICK_GRIP_STOP = 10;
+	
+	//Signifies functions that have been reserved for later to be easily changed in OI comments
+	public static final int JOYSTICK_UNEMPLEMENTED = -1;	
 
 	// Autonomous Speed
 	public static final double AUTONOMOUS_SPEED = 1.0;
@@ -44,13 +57,9 @@ public class RobotMap {
 	public static final double AUTONOMOUS_REVERSE = -1.0;
 	public static final double AUTONOMOUS_TURN_RIGHT = 0.5;
 
-	// values for the code to know how much to close the gripper, numbers should
-	// be based on potentiometer voltage values
-	// FOR THE LOVE OF ALL THINGS GOOD DO NOT USE THIS WITHOUT FIRST DETERMINING
-	// (AND IMPLEMENTING)
-	// THE VALUES TO USE FOR THESE, THEY ARE CURRENTLY RELATIVE
-	public static final double GRIPPER_TOTE = 1;
-	public static final double GRIPPER_BIN = 2;
-	public static final double GRIPPER_FULL_OPEN = 3;
-	public static final double GRIPPER_MINIMUM_OPEN = GRIPPER_TOTE - .2;
+	// the gripper calls these as a guide for where to stop the gripper
+	public static final double GRIP_TOTE = 1;
+	public static final double GRIP_BIN = 2;
+	public static final double GRIP_FULL_OPEN = 3;
+	public static final double GRIP_MINIMUM_STOP_OPEN = .2;
 }

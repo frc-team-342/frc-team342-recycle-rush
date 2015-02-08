@@ -15,6 +15,10 @@ import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorOff;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorOn;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorRetract;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorStop;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripCloseBin;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripCloseTote;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripOpen;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripStop;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -27,13 +31,28 @@ public class OI {
 
 	private OI() {
 		this.driveController = new Joystick(RobotMap.JOYSTICK_DRIVE_CONTROL);
-		JoystickButton liftDown = new JoystickButton(driveController, 2);
-		JoystickButton liftUp = new JoystickButton(driveController, 3);
-		JoystickButton clawControl = new JoystickButton(driveController, 5);
-		JoystickButton clawExtend = new JoystickButton(driveController, 6);
-		JoystickButton clawRetract = new JoystickButton(driveController, 4);
-		JoystickButton changeCamera = new JoystickButton(driveController, 1);
-		JoystickButton changeMode = new JoystickButton(driveController, 7);
+		JoystickButton changeCamera = new JoystickButton(driveController,
+				RobotMap.JOYSTICK_DRIVE_CONTROL);
+		JoystickButton liftDown = new JoystickButton(driveController,
+				RobotMap.JOYSTICK_LIFT_DOWN);
+		JoystickButton liftUp = new JoystickButton(driveController,
+				RobotMap.JOYSTICK_LIFT_UP);
+		JoystickButton scissorRetract = new JoystickButton(driveController,
+				RobotMap.JOYSTICK_SCISSOR_RETRACT);
+		JoystickButton scissorControl = new JoystickButton(driveController,
+				RobotMap.JOYSTICK_SCISSOR_CONTROL);
+		JoystickButton scissorExtend = new JoystickButton(driveController,
+				RobotMap.JOYSTICK_SCISSOR_EXTEND);
+		JoystickButton changeMode = new JoystickButton(driveController,
+				RobotMap.JOYSTICK_CHANGE_MODE);
+		JoystickButton gripCloseBin = new JoystickButton(driveController,
+				RobotMap.JOYSTICK_GRIP_CLOSE_BIN);
+		JoystickButton gripCloseTote = new JoystickButton(driveController,
+				RobotMap.JOYSTICK_GRIP_CLOSE_TOTE);
+		JoystickButton gripStop = new JoystickButton(driveController,
+				RobotMap.JOYSTICK_GRIP_STOP);
+		// JoystickButton gripOpen = new JoystickButton(driveController,
+		// RobotMap.JOYSTICK_UNEMPLEMENTED);
 
 		liftDown.whileHeld(new LiftDown());
 		liftDown.whenReleased(new LiftStop());
@@ -41,18 +60,24 @@ public class OI {
 		liftUp.whileHeld(new LiftUp());
 		liftUp.whenReleased(new LiftStop());
 
-		clawControl.whileHeld(new ScissorOn());
-		clawControl.whenReleased(new ScissorOff());
+		scissorControl.whileHeld(new ScissorOn());
+		scissorControl.whenReleased(new ScissorOff());
 
-		clawExtend.whileHeld(new ScissorExtend());
-		clawExtend.whenReleased(new ScissorStop());
+		scissorExtend.whileHeld(new ScissorExtend());
+		scissorExtend.whenReleased(new ScissorStop());
 
-		clawRetract.whileHeld(new ScissorRetract());
-		clawRetract.whenReleased(new ScissorStop());
+		scissorRetract.whileHeld(new ScissorRetract());
+		scissorRetract.whenReleased(new ScissorStop());
 
 		changeCamera.whenPressed(new ChangeCamera());
 
 		changeMode.whenPressed(new ChangeMode());
+
+		// these call the gripSystem close commands to close for a tote and a
+		// bin
+		gripCloseBin.whenPressed(new GripCloseBin());
+		gripCloseTote.whenPressed(new GripCloseTote());
+		gripStop.whenPressed(new GripStop());
 	}
 
 	public static OI getInstance() {

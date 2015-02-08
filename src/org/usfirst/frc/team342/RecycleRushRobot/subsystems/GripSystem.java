@@ -31,9 +31,9 @@ import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
  *         The gripClose and gripOpen should be called in loops. They return
  *         true when they are completed.
  */
-public class GripperSystem extends Subsystem {
+public class GripSystem extends Subsystem {
 	// instantiate the robot
-	private static final GripperSystem INSTANCE = new GripperSystem();
+	private static final GripSystem INSTANCE = new GripSystem();
 
 	// declare motors and sensors
 	private final Talon talon;
@@ -46,21 +46,17 @@ public class GripperSystem extends Subsystem {
 	private boolean closed;
 
 	// gripper system instance
-	private GripperSystem() {
-		this.talon = new Talon(RobotMap.CAN_CHANNEL_GRIPPER_OPEN_CLOSE);
-		this.ultrasonic = new AnalogInput(RobotMap.ANALOG_GRIPPER_ULTRASONIC);
+	private GripSystem() {
+		this.talon = new Talon(RobotMap.CAN_CHANNEL_GRIP_OPEN_CLOSE);
+		this.ultrasonic = new AnalogInput(RobotMap.ANALOG_GRIP_ULTRASONIC);
 		this.potentiometer = new AnalogPotentiometer(
-				RobotMap.ANALOG_GRIPPER_POTENTIOMETER_POSITION);
+				RobotMap.ANALOG_GRIP_POTENTIOMETER_POSITION);
 		this.limitSwitchOut = new DigitalInput(
-				RobotMap.DIGITAL_IO_GRIPPER_LIMIT_SWITCH_OUTER_LIMIT);
-
-		// set default state to all the way open
-		while (this.gripOpen())
-			;
+				RobotMap.DIGITAL_IO_GRIP_LIMIT_SWITCH_OUTER_LIMIT);
 	}
 
 	// returns the gripper system instance for robot.java
-	public static GripperSystem getInstance() {
+	public static GripSystem getInstance() {
 		return INSTANCE;
 	}
 
@@ -70,19 +66,17 @@ public class GripperSystem extends Subsystem {
 	 * 
 	 * @param closeTo
 	 *            close the gripper towards the specified value
-	 * @param openTo
-	 *            if too far closed, open the gripper towards this value before
-	 *            trying to close
 	 * @return true if gripper is between the given values
 	 */
-	public boolean gripClose(double closeTo, double openTo) {
+	public boolean gripClose(double closeTo) {
 		closed = true; // set default state to closed
 
 		if (potentiometer.get() >= closeTo) {
 			closed = false;
 			talon.set(-.3); // set the strength to open at, this could be made
-							// non constant for better control
-		} else if (potentiometer.get() < openTo) {
+							// non-constant for better control
+		} else if (potentiometer.get() < closeTo
+				- RobotMap.GRIP_MINIMUM_STOP_OPEN) {
 			closed = false;
 			talon.set(3); // sets the strength for the potentiometer to open at
 		}
@@ -115,31 +109,12 @@ public class GripperSystem extends Subsystem {
 	}
 
 	/**
-	 * overloads gripOpen to do the default of opening all the way
-	 * 
-	 * @return true if gripper is not closed (getVoltage returns less than
-	 *         FULLOPEN in RobotMap)
-	 */
-	public boolean gripOpen() {
-		closed = false; // set default state to open
-
-		if (potentiometer.get() < RobotMap.GRIPPER_FULL_OPEN) {
-			talon.set(.3); // sets the strength for the gripper to open at
-			closed = true;
-		}
-
-		if (!closed)
-			talon.set(0); // stop the motor
-		return !closed;
-	}
-
-	/**
 	 * stop the gripper
 	 */
-	public void stopGrip() {
+	public void gripStop() {
 		talon.set(0); // stop the motor
 	}
-
+	
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub

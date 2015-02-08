@@ -12,7 +12,7 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.CameraVisionRedux;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.ScissorSystem;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.LiftSystem;
-import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripperSystem;
+import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -31,7 +31,7 @@ public class RecycleRushRobot extends IterativeRobot {
 	private Command autonomousCommand;
 	private ScissorSystem scissor;
 	private CameraVisionRedux camera;
-	private GripperSystem gripper;
+	private GripSystem grip;
 
 	// Command autonomousCommand;
 
@@ -47,7 +47,7 @@ public class RecycleRushRobot extends IterativeRobot {
 		this.lift = LiftSystem.getInstance();
 		this.scissor = ScissorSystem.getInstance();
 		this.camera = CameraVisionRedux.getInstance();
-		this.gripper = GripperSystem.getInstance();
+		this.grip = GripSystem.getInstance();
 	}
 
 	public void disabledPeriodic() {
@@ -82,7 +82,7 @@ public class RecycleRushRobot extends IterativeRobot {
 	 * to reset subsystems before shutting down.
 	 */
 	public void disabledInit() {
-
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
