@@ -55,9 +55,14 @@ public class DriveSystem extends Subsystem {
 	}
 
 	public void driveWithJoystick(Joystick joystick) {
-		double x = joystick.getX();
-		double y = joystick.getY();
-		double rotation = joystick.getZ();
+		//makes joystick drive run with exponential acceleration, rather than linear
+		//this should smooth out the drive
+		double power = joystick.getThrottle();
+		double multiplier = (((10 * power) * (10 * power)) / 100);
+		
+		double x = joystick.getX() * multiplier;
+		double y = joystick.getY() * multiplier;
+		double rotation = joystick.getZ() * multiplier;
 		double angle = 0.0;
 		
 		this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, angle);
@@ -65,7 +70,6 @@ public class DriveSystem extends Subsystem {
 	}
 
 	public void fieldOrientedJoystick(Joystick joystick) {
-		
 		double x = joystick.getX();
 		double y = joystick.getY();
 		double rotation = joystick.getZ();
