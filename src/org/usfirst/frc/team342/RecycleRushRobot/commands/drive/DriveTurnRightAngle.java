@@ -10,6 +10,7 @@ public class DriveTurnRightAngle extends Command {
 	DriveSystem drive;
 	private double angle;
 	private double targetangle;
+	private double TURN_RIGHT_POWER = 0.5;
 
 	public DriveTurnRightAngle(int target) {
 		// TODO Auto-generated constructor stub
@@ -41,7 +42,7 @@ public class DriveTurnRightAngle extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		drive.turn(0.5);
+		drive.turn(TURN_RIGHT_POWER);
 		angle = drive.getAngle();
 	}
 

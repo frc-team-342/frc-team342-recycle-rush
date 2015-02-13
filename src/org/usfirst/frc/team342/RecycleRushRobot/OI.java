@@ -11,9 +11,11 @@ import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.ResetGyro;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftDown;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftStop;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftUp;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorDown;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorExtend;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorRetract;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorStop;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorUp;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripCloseContainer;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripCloseTote;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripOpen;
@@ -26,17 +28,20 @@ import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripStop;
 public class OI {
 
 	private Joystick driveController;
+	private Joystick assistJoystick;
 	private static final OI INSTANCE = new OI();
 
 	// Joy stick mappings
 	public static final int JOYSTICK_DRIVE_CONTROL = 0;
+	public static final int JOYSTICK_ASSIST = 1;
 	//public static final int JOYSTICK_CHANGE_CAMERA = 1;
 	public static final int JOYSTICK_GYRO_RESET = 1;
 	public static final int JOYSTICK_LIFT_DOWN = 2;
 	public static final int JOYSTICK_LIFT_UP = 3;
-	public static final int JOYSTICK_SCISSOR_RETRACT = 4;
-	
-	public static final int JOYSTICK_SCISSOR_EXTEND = 6;
+	public static final int JOYSTICK_SCISSOR_RETRACT = 1;
+	public static final int JOYSTICK_SCISSOR_RETRACT_TWO = 4;
+	public static final int JOYSTICK_SCISSOR_EXTEND_TWO = 6;
+	public static final int JOYSTICK_SCISSOR_EXTEND = 3;
 	public static final int JOYSTICK_CHANGE_MODE = 7;
 	public static final int JOYSTICK_GRIP_CLOSE_CONTAINER = 8;
 	public static final int JOYSTICK_GRIP_CLOSE_TOTE = 9;
@@ -50,6 +55,7 @@ public class OI {
 
 	private OI() {
 		this.driveController = new Joystick(JOYSTICK_DRIVE_CONTROL);
+		this.assistJoystick = new Joystick(JOYSTICK_ASSIST);
 		
 		//JoystickButton changeCamera = new JoystickButton(driveController,
 				//JOYSTICK_DRIVE_CONTROL);
@@ -57,10 +63,14 @@ public class OI {
 				JOYSTICK_LIFT_DOWN);
 		JoystickButton liftUp = new JoystickButton(driveController,
 				JOYSTICK_LIFT_UP);
-		JoystickButton scissorRetract = new JoystickButton(driveController,
+		JoystickButton scissorRetract = new JoystickButton(assistJoystick,
 				JOYSTICK_SCISSOR_RETRACT);
-		JoystickButton scissorExtend = new JoystickButton(driveController,
+		JoystickButton scissorRetractTwo = new JoystickButton(driveController,
+				JOYSTICK_SCISSOR_RETRACT_TWO);
+		JoystickButton scissorExtend = new JoystickButton(assistJoystick,
 				JOYSTICK_SCISSOR_EXTEND);
+		JoystickButton scissorExtendTwo = new JoystickButton(driveController,
+				JOYSTICK_SCISSOR_EXTEND_TWO);
 		JoystickButton changeMode = new JoystickButton(driveController,
 				JOYSTICK_CHANGE_MODE);
 		JoystickButton gripCloseContainer = new JoystickButton(driveController,
@@ -82,11 +92,17 @@ public class OI {
 		liftUp.whileHeld(new LiftUp());
 		liftUp.whenReleased(new LiftStop());
 
-		scissorExtend.whileHeld(new ScissorExtend());
+		scissorExtend.whileHeld(new ScissorUp());
 		scissorExtend.whenReleased(new ScissorStop());
+		
+		scissorExtendTwo.whileHeld(new ScissorUp());
+		scissorExtendTwo.whenReleased(new ScissorStop());
 
-		scissorRetract.whileHeld(new ScissorRetract());
+		scissorRetract.whileHeld(new ScissorDown());
 		scissorRetract.whenReleased(new ScissorStop());
+		
+		scissorRetractTwo.whileHeld(new ScissorDown());
+		scissorRetractTwo.whenReleased(new ScissorStop());
 		
 		//changeCamera.whenPressed(new ChangeCamera());
 

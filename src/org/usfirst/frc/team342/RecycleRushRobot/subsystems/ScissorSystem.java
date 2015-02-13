@@ -10,17 +10,21 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class ScissorSystem extends Subsystem {
 	private static final ScissorSystem INSTANCE = new ScissorSystem();
-	private final Talon talon;
+	private final Talon extendTalon;
+	private final Talon liftTalon;
 	private final DigitalInput scissorTiltOut;
 	private final DigitalInput scissorTiltIn;
 	private final DigitalInput scissorExtended;
 	private final DigitalInput scissorRetracted;
 	
-	private final double DEFAULT_SCISSOR_EXTEND_SPEED = 0.7;
+	private final double DEFAULT_SCISSOR_EXTEND_SPEED = 1.0;
+	private final double DEFAULT_SCISSOR_LIFT_SPEED = 1.0;
+	
 
 	public ScissorSystem() {
 		// TODO Auto-generated constructor stub
-		talon = new Talon(RobotMap.CAN_CHANNELL_SCISSOR_EXTENSION);
+		this.extendTalon = new Talon(RobotMap.CAN_CHANNELL_SCISSOR_EXTENSION);
+		this.liftTalon = new Talon(RobotMap.CAN_CHANNELL_SCISSOR_LIFT);
 		this.scissorExtended = new DigitalInput(RobotMap.DIGITAL_IO_SCISSOR_LIMIT_SWITCH_OUT);
 		this.scissorRetracted = new DigitalInput(RobotMap.DIGITAL_IO_SCISSOR_LIMIT_SWITCH_IN);
 		this.scissorTiltOut = new DigitalInput(RobotMap.DIGITAL_IO_SCISSOR_LIMIT_SWITCH_FORWARD_TILT);
@@ -38,31 +42,41 @@ public class ScissorSystem extends Subsystem {
 	}
 
 	public void extend() {
-		talon.set(DEFAULT_SCISSOR_EXTEND_SPEED);
+		extendTalon.set(DEFAULT_SCISSOR_EXTEND_SPEED);
 	}
 
 	public void retract() {
-		talon.set(-1 * DEFAULT_SCISSOR_EXTEND_SPEED);
+		extendTalon.set(-1 * DEFAULT_SCISSOR_EXTEND_SPEED);
+	}
+	
+	public void up() {
+		liftTalon.set(DEFAULT_SCISSOR_LIFT_SPEED);
+	}
+	
+	public void down() {
+
+		liftTalon.set(-1 * DEFAULT_SCISSOR_LIFT_SPEED);
 	}
 
 	public void stop() {
-		talon.set(0.0);
+		extendTalon.set(0.0);
+		liftTalon.set(0.0);
 	}
 
 	public boolean isUp() {
-		return scissorTiltOut.get();
+		return !scissorTiltOut.get();
 	}
 
 	public boolean isDown() {
-		return scissorTiltIn.get();
+		return !scissorTiltIn.get();
 	}
 
 	public boolean isExtended() {
-		return scissorExtended.get();
+		return !scissorExtended.get();
 	}
 
 	public boolean isRetracted() {
-		return scissorRetracted.get();
+		return !scissorRetracted.get();
 	}
 
 }

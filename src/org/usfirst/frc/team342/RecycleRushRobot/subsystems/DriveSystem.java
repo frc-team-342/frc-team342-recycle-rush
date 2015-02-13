@@ -105,11 +105,11 @@ public class DriveSystem extends Subsystem {
 	}
 
 	public void forward(double speed) {
-		this.robotDrive.mecanumDrive_Polar(speed, 1.0, 0.0);
+		this.robotDrive.mecanumDrive_Polar(speed, 0.0, 0.0);
 	}
 
 	public void reverse(double speed) {
-		this.robotDrive.mecanumDrive_Polar(speed, -1.0, 0.0);
+		this.robotDrive.mecanumDrive_Polar(speed, 0.0, 0.0);
 	}
 
 	public void stop() {

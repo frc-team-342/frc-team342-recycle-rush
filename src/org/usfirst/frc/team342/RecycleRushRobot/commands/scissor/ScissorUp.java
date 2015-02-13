@@ -7,10 +7,10 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class ScissorRetract extends Command {
+public class ScissorUp extends Command {
 	ScissorSystem scissor;
 
-	public ScissorRetract() {
+	public ScissorUp() {
 		scissor = ScissorSystem.getInstance();
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -23,12 +23,12 @@ public class ScissorRetract extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		scissor.retract();
+		scissor.up();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return scissor.isRetracted();
+		return scissor.isUp();
 	}
 
 	// Called once after isFinished returns true

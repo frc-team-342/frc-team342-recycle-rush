@@ -42,6 +42,6 @@ public class RobotMap {
 	public static final double AUTONOMOUS_SPEED = 1.0;
 	public static final double AUTONOMOUS_STOP = 0.0;
 	public static final double AUTONOMOUS_REVERSE = -1.0;
-	public static final double AUTONOMOUS_TURN_RIGHT = 0.5;
+	public static final double AUTONOMOUS_TURN_RIGHT = 0.5; 
 
 }
