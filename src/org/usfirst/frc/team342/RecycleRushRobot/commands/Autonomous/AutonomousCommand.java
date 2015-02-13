@@ -20,7 +20,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutonomousCommand extends CommandGroup {
 	DriveSystem drive;
 	private final int DRIVE_FORWARD_DISTANCE = 130;
-	private final long LIFT_UP_TIME = 1000;
+	private final long LIFT_UP_ENCODER_VALUE = 1000;
 
 	 // Go to center
 	public AutonomousCommand() {
@@ -39,7 +39,7 @@ public class AutonomousCommand extends CommandGroup {
 	
 		this.addSequential(new GripCloseTote());
 
-		this.addSequential(new LiftUpTime(LIFT_UP_TIME));
+		this.addSequential(new LiftUpTime(LIFT_UP_ENCODER_VALUE));
 		
 		//turn left 90 degrees
 		this.addSequential(new DriveTurnLeftAngle(90));
@@ -58,7 +58,7 @@ public class AutonomousCommand extends CommandGroup {
 	
 		this.addSequential(new GripCloseContainer());
 
-		this.addSequential(new LiftUpTime(LIFT_UP_TIME));
+		this.addSequential(new LiftUpTime(LIFT_UP_ENCODER_VALUE));
 		
 		// turn right 90 degrees
 		this.addSequential(new DriveTurnRightAngle(90));
@@ -79,7 +79,7 @@ public class AutonomousCommand extends CommandGroup {
 		this.addSequential(new ScissorUp());
 		this.addSequential(new ScissorExtend());
 
-		this.addSequential(new LiftUpTime(LIFT_UP_TIME));
+		this.addSequential(new LiftUpTime(LIFT_UP_ENCOER_VALUE));
 		
 		// turn right 90 degrees
 		this.addSequential(new DriveTurnRightAngle(90));

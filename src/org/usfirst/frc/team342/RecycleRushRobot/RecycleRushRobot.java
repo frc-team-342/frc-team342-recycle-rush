@@ -97,7 +97,7 @@ public class RecycleRushRobot extends IterativeRobot {
 	 */
 	public void testPeriodic() {
 		//LiveWindow.run();
-		grip.testPotentiometer();
+		System.out.println((int)lift.getEncoderValue());
 		
 	}
 }
