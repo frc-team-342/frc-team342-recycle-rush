@@ -6,12 +6,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
 import org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous.AutonomousCommand;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveTurnRightAngle;
-//import org.usfirst.frc.team342.RecycleRushRobot.commands.ExampleCommand;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveWithJoystick;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.ReadGyro;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripCloseContainer;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorExtend;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.CameraVisionRedux;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.ScissorSystem;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;

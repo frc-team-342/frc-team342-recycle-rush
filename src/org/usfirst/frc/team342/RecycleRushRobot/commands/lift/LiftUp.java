@@ -12,8 +12,6 @@ public class LiftUp extends Command {
 
 	public LiftUp() {
 		lift = LiftSystem.getInstance();
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
 		requires(lift);
 	}
 
@@ -28,16 +26,17 @@ public class LiftUp extends Command {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return lift.topLimit();
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
-		// lift.liftStop();
+		lift.liftStop();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		this.end();
 	}
 }

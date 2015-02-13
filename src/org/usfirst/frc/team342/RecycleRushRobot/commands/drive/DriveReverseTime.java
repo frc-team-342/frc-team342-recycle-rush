@@ -46,11 +46,7 @@ public class DriveReverseTime extends Command {
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		if (startTime + duration >= System.currentTimeMillis()) {
-			return false;
-		} else {
-			return true;
-		}
+		return startTime + duration <= System.currentTimeMillis();
 	}
 
 	@Override

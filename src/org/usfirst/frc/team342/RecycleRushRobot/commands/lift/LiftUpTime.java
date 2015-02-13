@@ -7,26 +7,31 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class LiftDown extends Command {
+public class LiftUpTime extends Command {
 	LiftSystem lift;
+	private long startTime;
+	private long duration;
 
-	public LiftDown() {
+	public LiftUpTime(long time) {
+		duration = time;
 		lift = LiftSystem.getInstance();
 		requires(lift);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		startTime = System.currentTimeMillis();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		lift.liftDown();
+		lift.liftUp();
+		duration = System.currentTimeMillis() - startTime;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return lift.bottomLimit();
+		return (lift.topLimit() || duration <= System.currentTimeMillis());
 	}
 
 	// Called once after isFinished returns true
