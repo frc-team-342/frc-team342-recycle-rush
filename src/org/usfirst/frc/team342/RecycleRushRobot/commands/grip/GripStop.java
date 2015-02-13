@@ -10,8 +10,8 @@ public class GripStop extends Command {
 	 * Grip stop stops the grip system motor
 	 */
 	public GripStop() {
-		requires(grip);
 		grip = GripSystem.getInstance();
+		requires(grip);
 	}
 
 	public GripStop(String name) {

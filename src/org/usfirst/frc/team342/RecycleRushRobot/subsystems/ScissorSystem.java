@@ -1,5 +1,7 @@
 package org.usfirst.frc.team342.RecycleRushRobot.subsystems;
 
+import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
+
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Solenoid;
@@ -8,11 +10,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class ScissorSystem extends Subsystem {
 	private static final ScissorSystem INSTANCE = new ScissorSystem();
-	private final Compressor compressor;
-	private final Solenoid solenoid;
 	private final Talon talon;
-	private final DigitalInput scissorOn;
-	private final DigitalInput scissorOff;
+	private final DigitalInput scissorTiltOut;
+	private final DigitalInput scissorTiltIn;
 	private final DigitalInput scissorExtended;
 	private final DigitalInput scissorRetracted;
 	
@@ -20,14 +20,11 @@ public class ScissorSystem extends Subsystem {
 
 	public ScissorSystem() {
 		// TODO Auto-generated constructor stub
-		compressor = new Compressor(0);
-		solenoid = new Solenoid(0);
-		talon = new Talon(2);
-		compressor.setClosedLoopControl(true);
-		this.scissorOff = new DigitalInput(3);
-		this.scissorOn = new DigitalInput(2);
-		this.scissorExtended = new DigitalInput(0);
-		this.scissorRetracted = new DigitalInput(1);
+		talon = new Talon(RobotMap.CAN_CHANNELL_SCISSOR_EXTENSION);
+		this.scissorExtended = new DigitalInput(RobotMap.DIGITAL_IO_SCISSOR_LIMIT_SWITCH_OUT);
+		this.scissorRetracted = new DigitalInput(RobotMap.DIGITAL_IO_SCISSOR_LIMIT_SWITCH_IN);
+		this.scissorTiltOut = new DigitalInput(RobotMap.DIGITAL_IO_SCISSOR_LIMIT_SWITCH_FORWARD_TILT);
+		this.scissorTiltIn = new DigitalInput(RobotMap.DIGITAL_IO_SCISSOR_LIMIT_SWITCH_BACK_TILT);
 	}
 
 	@Override
@@ -38,14 +35,6 @@ public class ScissorSystem extends Subsystem {
 
 	public static ScissorSystem getInstance() {
 		return INSTANCE;
-	}
-
-	public void on() {
-		solenoid.set(true);
-	}
-
-	public void off() {
-		solenoid.set(false);
 	}
 
 	public void extend() {
@@ -61,19 +50,19 @@ public class ScissorSystem extends Subsystem {
 	}
 
 	public boolean isUp() {
-		return !scissorOn.get();
+		return scissorTiltOut.get();
 	}
 
 	public boolean isDown() {
-		return !scissorOff.get();
+		return scissorTiltIn.get();
 	}
 
 	public boolean isExtended() {
-		return !scissorExtended.get();
+		return scissorExtended.get();
 	}
 
 	public boolean isRetracted() {
-		return !scissorExtended.get();
+		return scissorRetracted.get();
 	}
 
 }

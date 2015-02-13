@@ -18,7 +18,7 @@ import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
  * 
  *         This subsystem is the grip system used to grab totes and bins. The
  *         class will automatically set the gripper to full open so it can close
- *         around bins and totes. The GripperSystem and getInstance methods are
+ *         around conatiner and totes. The GripperSystem and getInstance methods are
  *         used to initialize the system. The gripClose method moves the gripper
  *         closer to two values, although it will open the gripper if the second
  *         value is set low enough. The gripOpen method opens the gripper to the
@@ -49,9 +49,9 @@ public class GripSystem extends Subsystem {
 	// gripper system instance
 	private GripSystem() {
 		this.talon = new Talon(RobotMap.CAN_CHANNEL_GRIP_OPEN_CLOSE);
-		this.ultrasonic = new AnalogInput(RobotMap.ANALOG_GRIP_ULTRASONIC);
+		this.ultrasonic = new AnalogInput(RobotMap.ANALOG_IO_GRIP_ULTRASONIC);
 		this.potentiometer = new AnalogPotentiometer(
-				RobotMap.ANALOG_GRIP_POTENTIOMETER_POSITION);
+				RobotMap.ANALOG_IO_GRIP_POTENTIOMETER_POSITION);
 		this.limitSwitchOut = new DigitalInput(
 				RobotMap.DIGITAL_IO_GRIP_LIMIT_SWITCH_OUTER_LIMIT);
 	}
@@ -120,5 +120,12 @@ public class GripSystem extends Subsystem {
 		// TODO Auto-generated method stub
 
 	}
-
+	
+	public void testUltrasonic() {
+		System.out.println(ultrasonic.getValue());
+	}
+	
+	public void testPotentiometer() {
+		System.out.println(potentiometer.get());
+	}
 }

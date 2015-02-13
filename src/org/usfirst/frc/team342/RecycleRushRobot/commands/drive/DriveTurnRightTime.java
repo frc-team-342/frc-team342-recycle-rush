@@ -26,6 +26,7 @@ public class DriveTurnRightTime extends Command {
 		// TODO Auto-generated method stub
 		drive = DriveSystem.getInstance();
 		startTime = System.currentTimeMillis();
+        requires(this.drive);
 	}
 
 	@Override
@@ -39,7 +40,8 @@ public class DriveTurnRightTime extends Command {
 		// TODO Auto-generated method stub
 		if (startTime + duration >= System.currentTimeMillis()) {
 			return false;
-		} else {
+		}
+		else {
 			return true;
 		}
 	}

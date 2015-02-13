@@ -11,11 +11,11 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
  */
 public class GripCloseTote extends Command {
 	GripSystem grip;
-	private final double GRIP_TOTE = 1;
+	private final double GRIP_TOTE = .25;
 
 	public GripCloseTote() {
-		requires(grip);
 		grip = GripSystem.getInstance();
+		requires(grip);
 	}
 
 	public GripCloseTote(String name) {
@@ -37,6 +37,7 @@ public class GripCloseTote extends Command {
 	protected void initialize() {
 		// TODO Auto-generated method stub
 
+		                           
 	}
 
 	@Override

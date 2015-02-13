@@ -7,31 +7,29 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
 
 
 /**
- * @author team347
- * 
- *         GripCloseBin() calls the grip system command to close the gripper on a
+ *         calls the grip system command to close the gripper on a
  *         bin. If interrupted it should exit cleanly.
  */
-public class GripCloseBin extends Command {
+public class GripCloseContainer extends Command {
 	GripSystem grip;
-	private final double GRIP_BIN = 2;
+	private final double GRIP_CONTAINER = .50;
 	
-	public GripCloseBin() {
-		requires(grip);
+	public GripCloseContainer() {
 		grip = GripSystem.getInstance();
+		requires(grip);
 	}
 
-	public GripCloseBin(String name) {
+	public GripCloseContainer(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
 
-	public GripCloseBin(double timeout) {
+	public GripCloseContainer(double timeout) {
 		super(timeout);
 		// TODO Auto-generated constructor stub
 	}
 
-	public GripCloseBin(String name, double timeout) {
+	public GripCloseContainer(String name, double timeout) {
 		super(name, timeout);
 		// TODO Auto-generated constructor stub
 	}
@@ -50,7 +48,7 @@ public class GripCloseBin extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return grip.close(GRIP_BIN);
+		return grip.close(GRIP_CONTAINER);
 	}
 
 	@Override

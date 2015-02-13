@@ -9,11 +9,13 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveFowardDistance extends Command {
 	DriveSystem drive;
 	private double distance;
-	private double targetdistance;
+	private double targetDistance;
+	private int rangeCounter ;
 
 	public DriveFowardDistance(int target) {
 		// TODO Auto-generated constructor stub
-		targetdistance = target;
+		drive = DriveSystem.getInstance();
+		targetDistance = target;
 	}
 
 	public DriveFowardDistance(String name) {
@@ -34,20 +36,24 @@ public class DriveFowardDistance extends Command {
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		distance = 0;
+		rangeCounter = 0;
 	}
 
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
 		drive.forward(RobotMap.AUTONOMOUS_SPEED);
+		distance = drive.getDistance();
+		if(distance > targetDistance)
+			rangeCounter ++;
+			
 		// get distance here
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return (distance > targetdistance);
+		return rangeCounter > 9;
 	}
 
 	@Override

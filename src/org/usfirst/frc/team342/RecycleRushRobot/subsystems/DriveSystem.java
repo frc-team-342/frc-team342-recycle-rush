@@ -1,3 +1,4 @@
+
 package org.usfirst.frc.team342.RecycleRushRobot.subsystems;
 
 import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
@@ -6,7 +7,9 @@ import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveWithJoystick
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
 import edu.wpi.first.wpilibj.can.CANMessageNotFoundException;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANJaguar;
+import edu.wpi.first.wpilibj.Gyro;
 import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
@@ -21,7 +24,11 @@ public class DriveSystem extends Subsystem {
 	private final CANJaguar frontRightjaguar;
 	private final CANJaguar rearRightjaguar;
 	private final RobotDrive robotDrive;
+	private final Gyro gyro;
+	private final AnalogInput ultrasonic;
+	
 	private boolean mode;
+	private double direction;
 
 	private DriveSystem() {
 		super();
@@ -45,7 +52,12 @@ public class DriveSystem extends Subsystem {
 		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
 		// invert's the left motors /\ & \/
 		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
+		
+		this.gyro = new Gyro(RobotMap.ANALOG_IO_DRIVE_GYRO);
+		this.ultrasonic = new AnalogInput(RobotMap.ANALOG_IO_DRIVE_ULTRASONIC);
+		
 		mode = true;
+		
 	}
 
 	public void initDefaultCommand() {
@@ -56,16 +68,13 @@ public class DriveSystem extends Subsystem {
 
 	public void driveWithJoystick(Joystick joystick) {
 		// makes joystick drive run with exponential acceleration, rather than
-		// linear
 		// this should smooth out the drive
-		double power = joystick.getThrottle();
-		double multiplier = (((10 * power) * (10 * power)) / 100);
-
-		double x = joystick.getX() * multiplier;
-		double y = joystick.getY() * multiplier;
+		double multiplier = (-joystick.getThrottle() + 1) / 2;
+		double x = (10 * joystick.getX() ) *(10 * joystick.getX() ) * (10 * joystick.getX() ) * multiplier / 1000;
+		double y = (10 * joystick.getY() ) *(10 * joystick.getY() ) * (10 * joystick.getY() ) * multiplier / 1000;
 		double rotation = joystick.getZ() * multiplier;
-		double angle = 0.0;
-
+		double angle = gyro.getAngle();
+		
 		this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, angle);
 		// CANJaguar.updateSyncGroup((byte) 0x80);
 	}
@@ -75,7 +84,8 @@ public class DriveSystem extends Subsystem {
 		double y = joystick.getY();
 		double rotation = joystick.getZ();
 		double angle = 0.0;
-		// To DO Get Gyro Angle From Sensors
+		
+		// TODO Get Gyro Angle From Sensors
 		if (mode) {
 			this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, angle);
 		} else {
@@ -107,6 +117,17 @@ public class DriveSystem extends Subsystem {
 	}
 
 	public void turn(double speed) {
-		this.robotDrive.mecanumDrive_Polar(0.0, 0.0, speed);
+		//this.robotDrive.mecanumDrive_Polar(0.0, 0.0, speed);
+		System.out.println("Turning Right");
+		this.robotDrive.mecanumDrive_Cartesian(0, 0, speed, 0);
+		
+	}
+	
+	public double getAngle() {
+		return gyro.getAngle();
+	}
+	
+	public double getDistance() {
+		return ultrasonic.getValue();
 	}
 }

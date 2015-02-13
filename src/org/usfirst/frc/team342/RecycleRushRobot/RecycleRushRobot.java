@@ -5,14 +5,19 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 
-import org.usfirst.frc.team342.RecycleRushRobot.commands.BasicAutonomous;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous.AutonomousCommand;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveTurnRightAngle;
 //import org.usfirst.frc.team342.RecycleRushRobot.commands.ExampleCommand;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveWithJoystick;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.ReadGyro;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripCloseContainer;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorExtend;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.CameraVisionRedux;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.ScissorSystem;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.LiftSystem;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous.AutonomousCommand;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -43,7 +48,7 @@ public class RecycleRushRobot extends IterativeRobot {
 		this.drive = DriveSystem.getInstance();
 		this.lift = LiftSystem.getInstance();
 		this.scissor = ScissorSystem.getInstance();
-		this.camera = CameraVisionRedux.getInstance();
+		//this.camera = CameraVisionRedux.getInstance();
 		this.grip = GripSystem.getInstance();
 	}
 
@@ -54,8 +59,9 @@ public class RecycleRushRobot extends IterativeRobot {
 	public void autonomousInit() {
 		// schedule the autonomous command (example)
 		// if (autonomousCommand != null) autonomousCommand.start();
-		autonomousCommand = new BasicAutonomous();
+		autonomousCommand = new AutonomousCommand();
 		autonomousCommand.start();
+		System.out.println();
 	}
 
 	/**
@@ -63,7 +69,7 @@ public class RecycleRushRobot extends IterativeRobot {
 	 */
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-
+		System.out.println(drive.getDistance());
 	}
 
 	public void teleopInit() {
@@ -89,12 +95,14 @@ public class RecycleRushRobot extends IterativeRobot {
 		DriveWithJoystick runnow = new DriveWithJoystick();
 		runnow.start();
 		Scheduler.getInstance().run();
-	}
+	} 
 
 	/**
 	 * This function is called periodically during test mode
 	 */
 	public void testPeriodic() {
-		LiveWindow.run();
+		//LiveWindow.run();
+		grip.testPotentiometer();
+		
 	}
 }

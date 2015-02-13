@@ -11,12 +11,12 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
  */
 public class GripOpen extends Command {
 	GripSystem grip;
-	private final double GRIP_FULL_OPEN = 3;
+	private final double GRIP_FULL_OPEN = .94;
 
 
 	public GripOpen() {
-		requires(grip);
 		grip = GripSystem.getInstance();
+		requires(grip);
 	}
 
 	public GripOpen(String name) {

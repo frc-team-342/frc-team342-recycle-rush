@@ -13,6 +13,9 @@ public class RobotMap {
 	public static final int CAN_CHANNEL_LEFT_FRONT_DRIVE_MOTOR = 4;
 	public static final int CAN_CHANNEL_LEFT_BACK_DRIVE_MOTOR = 3;
 	public static final int CAN_CHANNEL_RIGHT_BACK_DRIVE_MOTOR = 5;
+	public static final int ANALOG_IO_DRIVE_GYRO = 0;
+	public static final int ANALOG_IO_DRIVE_ULTRASONIC = 1;
+	
 
 	// Scissor System
 	public static final int CAN_CHANNELL_SCISSOR_EXTENSION = 0;
@@ -23,7 +26,7 @@ public class RobotMap {
 	public static final int DIGITAL_IO_SCISSOR_LIMIT_SWITCH_BACK_TILT = 3;
 
 	// Lift System
-	public static final int PWM_LIFT_VICTOR_SP = 2;
+	public static final int VICTOR_SP_LIFT = 2;
 	public static final int DIGITAL_IO_LIFT_LIMIT_SWITCH_UP = 4;
 	public static final int DIGITAL_IO_LIFT_LIMIT_SWITCH_DOWN = 5;
 	public static final int DIGITAL_IO_LIFT_QUADRATURE_ENCODER_A = 6;
@@ -31,8 +34,8 @@ public class RobotMap {
 
 	// Gripper System
 	public static final int CAN_CHANNEL_GRIP_OPEN_CLOSE = 3;
-	public static final int ANALOG_GRIP_POTENTIOMETER_POSITION = 2;
-	public static final int ANALOG_GRIP_ULTRASONIC = 3;
+	public static final int ANALOG_IO_GRIP_POTENTIOMETER_POSITION = 2;
+	public static final int ANALOG_IO_GRIP_ULTRASONIC = 3;
 	public static final int DIGITAL_IO_GRIP_LIMIT_SWITCH_OUTER_LIMIT = 8;
 
 	// Autonomous Speed
