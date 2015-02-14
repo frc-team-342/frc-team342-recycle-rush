@@ -15,7 +15,6 @@ public class RobotMap {
 	public static final int CAN_CHANNEL_RIGHT_BACK_DRIVE_MOTOR = 5;
 	public static final int ANALOG_IO_DRIVE_GYRO = 0;
 	public static final int ANALOG_IO_DRIVE_ULTRASONIC = 1;
-	
 
 	// Scissor System
 	public static final int CAN_CHANNELL_SCISSOR_EXTENSION = 0;
@@ -42,6 +41,6 @@ public class RobotMap {
 	public static final double AUTONOMOUS_SPEED = 1.0;
 	public static final double AUTONOMOUS_STOP = 0.0;
 	public static final double AUTONOMOUS_REVERSE = -1.0;
-	public static final double AUTONOMOUS_TURN_RIGHT = 0.5; 
+	public static final double AUTONOMOUS_TURN_RIGHT = 0.5;
 
 }

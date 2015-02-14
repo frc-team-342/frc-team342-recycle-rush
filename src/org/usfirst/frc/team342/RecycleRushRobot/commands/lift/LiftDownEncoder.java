@@ -10,10 +10,11 @@ import edu.wpi.first.wpilibj.command.Command;
 public class LiftDownEncoder extends Command {
 	LiftSystem lift;
 	private int stopValue;
-	
+
 	/**
 	 * 
-	 * @param stopValue	value from the encoder to stop at
+	 * @param stopValue
+	 *            value from the encoder to stop at
 	 */
 	public LiftDownEncoder(int stopValue) {
 		this.stopValue = stopValue;

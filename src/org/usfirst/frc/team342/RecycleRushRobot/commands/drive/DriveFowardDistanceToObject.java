@@ -4,7 +4,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveFowardDistanceToObject extends Command {
 
-	public DriveFowardDistanceToObject() {
+	public DriveFowardDistanceToObject(double speed, int distance) {
 		// TODO Auto-generated constructor stub
 	}
 

@@ -18,15 +18,15 @@ import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
  * 
  *         This subsystem is the grip system used to grab totes and bins. The
  *         class will automatically set the gripper to full open so it can close
- *         around conatiner and totes. The GripperSystem and getInstance methods are
- *         used to initialize the system. The gripClose method moves the gripper
- *         closer to two values, although it will open the gripper if the second
- *         value is set low enough. The gripOpen method opens the gripper to the
- *         specified value, and defaults to opening the gripper all the way. The
- *         stopGrip method can be called by any method to set the gripper motor
- *         to 0, although I can not see a use for it unless there is a
- *         programming error because every time the grip motor is start it
- *         should stop after reaching the value.
+ *         around conatiner and totes. The GripperSystem and getInstance methods
+ *         are used to initialize the system. The gripClose method moves the
+ *         gripper closer to two values, although it will open the gripper if
+ *         the second value is set low enough. The gripOpen method opens the
+ *         gripper to the specified value, and defaults to opening the gripper
+ *         all the way. The stopGrip method can be called by any method to set
+ *         the gripper motor to 0, although I can not see a use for it unless
+ *         there is a programming error because every time the grip motor is
+ *         start it should stop after reaching the value.
  * 
  *         The gripClose and gripOpen should be called in loops. They return
  *         true when they are completed.
@@ -74,12 +74,13 @@ public class GripSystem extends Subsystem {
 
 		if (potentiometer.get() >= closeTo) {
 			closed = false;
-			talon.set(-1 * GRIP_STRENGTH); // set the strength to open at, this could be made
-							// non-constant for better control
-		} else if (potentiometer.get() < closeTo
-				- GRIP_MINIMUM_STOP_OPEN) {
+			talon.set(-1 * GRIP_STRENGTH); // set the strength to open at, this
+											// could be made
+			// non-constant for better control
+		} else if (potentiometer.get() < closeTo - GRIP_MINIMUM_STOP_OPEN) {
 			closed = false;
-			talon.set(GRIP_STRENGTH); // sets the strength for the talon to open at
+			talon.set(GRIP_STRENGTH); // sets the strength for the talon to open
+										// at
 		}
 
 		if (closed)
@@ -92,14 +93,17 @@ public class GripSystem extends Subsystem {
 	 * should be called in a loop
 	 * 
 	 * @param stop
-	 *            potentiometer value for where to open or close the griper towards
-	 * @return true if potentiometer detects the gripper as more open or equal to the stop value
+	 *            potentiometer value for where to open or close the griper
+	 *            towards
+	 * @return true if potentiometer detects the gripper as more open or equal
+	 *         to the stop value
 	 */
 	public boolean open(double stop) {
 		boolean open = true; // set default state to open
 
 		if (potentiometer.get() < stop) {
-			talon.set(GRIP_STRENGTH); // sets the strength for the gripper to open at
+			talon.set(GRIP_STRENGTH); // sets the strength for the gripper to
+										// open at
 			open = false;
 		}
 
@@ -114,17 +118,17 @@ public class GripSystem extends Subsystem {
 	public void stop() {
 		talon.set(0); // stop the motor
 	}
-	
+
 	@Override
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
 
 	}
-	
+
 	public void testUltrasonic() {
 		System.out.println(ultrasonic.getValue());
 	}
-	
+
 	public void testPotentiometer() {
 		System.out.println(potentiometer.get());
 	}

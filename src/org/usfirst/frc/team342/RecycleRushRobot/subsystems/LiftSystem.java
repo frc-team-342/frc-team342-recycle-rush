@@ -21,7 +21,8 @@ public class LiftSystem extends Subsystem {
 	private final DigitalInput encoderB;
 	private final Encoder encoder;
 
-	private final double LIFT_SPEED = 1.0;
+	// lift speed needs to be modified to be
+	private double LIFT_SPEED = .4;
 
 	public LiftSystem() {
 		// TODO Auto-generated constructor stub
@@ -31,12 +32,12 @@ public class LiftSystem extends Subsystem {
 				RobotMap.DIGITAL_IO_LIFT_LIMIT_SWITCH_UP);
 		this.bottomSwitch = new DigitalInput(
 				RobotMap.DIGITAL_IO_LIFT_LIMIT_SWITCH_DOWN);
-
 		this.encoderA = new DigitalInput(
 				RobotMap.DIGITAL_IO_LIFT_QUADRATURE_ENCODER_A);
 		this.encoderB = new DigitalInput(
 				RobotMap.DIGITAL_IO_LIFT_QUADRATURE_ENCODER_B);
 		this.encoder = new Encoder(encoderA, encoderB, false, EncodingType.k4X);
+
 	}
 
 	@Override
@@ -49,9 +50,16 @@ public class LiftSystem extends Subsystem {
 		return INSTANCE;
 	}
 
-	// not used
+	/**
+	 * 
+	 * @param joystick
+	 *            specify the joy stick to use, we use assist joy stick in OI
+	 */
 	public void liftWithJoystick(Joystick joystick) {
-		
+		double up = joystick.getRawAxis(3);
+		double down = -1 * joystick.getRawAxis(2);
+
+		victorSP.set(up + down);
 	}
 
 	public void liftUp() {

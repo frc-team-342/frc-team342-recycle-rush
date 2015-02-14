@@ -6,8 +6,8 @@ import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
 
 /**
- *         GripCloseBin() calls the grip system command to close the gripper on
- *         a tote. If interrupted it should exit cleanly.
+ * GripCloseBin() calls the grip system command to close the gripper on a tote.
+ * If interrupted it should exit cleanly.
  */
 public class GripCloseTote extends Command {
 	GripSystem grip;
@@ -37,7 +37,6 @@ public class GripCloseTote extends Command {
 	protected void initialize() {
 		// TODO Auto-generated method stub
 
-		                           
 	}
 
 	@Override

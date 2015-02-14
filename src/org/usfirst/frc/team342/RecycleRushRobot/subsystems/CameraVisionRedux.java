@@ -44,7 +44,6 @@ public class CameraVisionRedux extends Subsystem {
 	public void SeeingIsBelieving() {
 		NIVision.IMAQdxGrab(currCam, frame, 0);
 		CameraServer.getInstance().setImage(frame);
-		System.out.println("Camera Loop Set");
 	}
 
 	public void ChangeCamera() {

@@ -17,77 +17,25 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.LiftSystem;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
-public class AutonomousCommand extends CommandGroup {
+public class PickUpTote extends CommandGroup {
 	DriveSystem drive;
-	private final int DRIVE_FORWARD_DISTANCE = 130;
+	private final int DISTANCE_TO_CENTER = 130;
+	private final int DISTANCE_TO_TOTE = 10;
 	private final long LIFT_UP_ENCODER_VALUE = 1000;
+	private final long LIFT_DOWN_ENCODER_VALUE = 100;
 
-	 // Go to center
-	public AutonomousCommand() {
+	// lift a tote then turn right and drive to center of field public
+	void AutonomousCommand2() {
 		drive = DriveSystem.getInstance();
 		requires(this.drive);
 
-		this.addSequential(new DriveFowardDistance(DRIVE_FORWARD_DISTANCE));
-	}
-	
-	/*
-	
-	// lift a tote then turn left and drive to center of field
-	public AutonomousCommand() {
-		drive = DriveSystem.getInstance();
-        requires(this.drive);
-	
 		this.addSequential(new GripCloseTote());
 
 		this.addSequential(new LiftUpTime(LIFT_UP_ENCODER_VALUE));
-		
-		//turn left 90 degrees
-		this.addSequential(new DriveTurnLeftAngle(90));
 
-		this.addSequential(new DriveFowardDistance(DRIVE_FORWARD_DISTANCE));
-	}
-	
-	*/
-	
-	/*
-	
-	// lift a container then turn right and drive to center of field
-	public void AutonomousCommand2() {
-		drive = DriveSystem.getInstance();
-        requires(this.drive);
-	
-		this.addSequential(new GripCloseContainer());
-
-		this.addSequential(new LiftUpTime(LIFT_UP_ENCODER_VALUE));
-		
-		// turn right 90 degrees
 		this.addSequential(new DriveTurnRightAngle(90));
 
-		this.addSequential(new DriveFowardDistance(DRIVE_FORWARD_DISTANCE));
+		this.addSequential(new DriveFowardDistance(DISTANCE_TO_CENTER));
 	}
-	
-	*/
-	
-	/*
-	
-	// lift a container and a tote then turn right and drive to center of field
-	public void AutonomousCommand2() {
-		drive = DriveSystem.getInstance();
-        requires(this.drive);
-	
-		this.addSequential(new GripCloseTote());
-		this.addSequential(new ScissorUp());
-		this.addSequential(new ScissorExtend());
 
-		this.addSequential(new LiftUpTime(LIFT_UP_ENCOER_VALUE));
-		
-		// turn right 90 degrees
-		this.addSequential(new DriveTurnRightAngle(90));
-
-		this.addSequential(new DriveFowardDistance(DRIVE_FORWARD_DISTANCE));
-	}
-	
-	*/
-	
-	
 }

@@ -5,15 +5,14 @@ import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
 
-
 /**
- *         calls the grip system command to close the gripper on a
- *         bin. If interrupted it should exit cleanly.
+ * calls the grip system command to close the gripper on a bin. If interrupted
+ * it should exit cleanly.
  */
 public class GripCloseContainer extends Command {
 	GripSystem grip;
 	private final double GRIP_CONTAINER = .50;
-	
+
 	public GripCloseContainer() {
 		grip = GripSystem.getInstance();
 		requires(grip);

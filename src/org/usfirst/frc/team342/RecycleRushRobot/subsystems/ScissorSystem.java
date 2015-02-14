@@ -4,6 +4,7 @@ import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -16,19 +17,22 @@ public class ScissorSystem extends Subsystem {
 	private final DigitalInput scissorTiltIn;
 	private final DigitalInput scissorExtended;
 	private final DigitalInput scissorRetracted;
-	
+
 	private final double DEFAULT_SCISSOR_EXTEND_SPEED = 1.0;
 	private final double DEFAULT_SCISSOR_LIFT_SPEED = 1.0;
-	
 
 	public ScissorSystem() {
 		// TODO Auto-generated constructor stub
 		this.extendTalon = new Talon(RobotMap.CAN_CHANNELL_SCISSOR_EXTENSION);
 		this.liftTalon = new Talon(RobotMap.CAN_CHANNELL_SCISSOR_LIFT);
-		this.scissorExtended = new DigitalInput(RobotMap.DIGITAL_IO_SCISSOR_LIMIT_SWITCH_OUT);
-		this.scissorRetracted = new DigitalInput(RobotMap.DIGITAL_IO_SCISSOR_LIMIT_SWITCH_IN);
-		this.scissorTiltOut = new DigitalInput(RobotMap.DIGITAL_IO_SCISSOR_LIMIT_SWITCH_FORWARD_TILT);
-		this.scissorTiltIn = new DigitalInput(RobotMap.DIGITAL_IO_SCISSOR_LIMIT_SWITCH_BACK_TILT);
+		this.scissorExtended = new DigitalInput(
+				RobotMap.DIGITAL_IO_SCISSOR_LIMIT_SWITCH_OUT);
+		this.scissorRetracted = new DigitalInput(
+				RobotMap.DIGITAL_IO_SCISSOR_LIMIT_SWITCH_IN);
+		this.scissorTiltOut = new DigitalInput(
+				RobotMap.DIGITAL_IO_SCISSOR_LIMIT_SWITCH_FORWARD_TILT);
+		this.scissorTiltIn = new DigitalInput(
+				RobotMap.DIGITAL_IO_SCISSOR_LIMIT_SWITCH_BACK_TILT);
 	}
 
 	@Override
@@ -41,6 +45,14 @@ public class ScissorSystem extends Subsystem {
 		return INSTANCE;
 	}
 
+	public void scissorWithJoystick(Joystick joystick) {
+		double right = joystick.getRawAxis(0);
+		double up = -1 * joystick.getRawAxis(1);
+
+		extendTalon.set(right);
+		liftTalon.set(up);
+	}
+
 	public void extend() {
 		extendTalon.set(DEFAULT_SCISSOR_EXTEND_SPEED);
 	}
@@ -48,11 +60,11 @@ public class ScissorSystem extends Subsystem {
 	public void retract() {
 		extendTalon.set(-1 * DEFAULT_SCISSOR_EXTEND_SPEED);
 	}
-	
+
 	public void up() {
 		liftTalon.set(DEFAULT_SCISSOR_LIFT_SPEED);
 	}
-	
+
 	public void down() {
 
 		liftTalon.set(-1 * DEFAULT_SCISSOR_LIFT_SPEED);

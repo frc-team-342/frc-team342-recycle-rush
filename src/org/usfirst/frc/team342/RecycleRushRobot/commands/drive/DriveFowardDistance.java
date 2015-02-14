@@ -10,7 +10,7 @@ public class DriveFowardDistance extends Command {
 	DriveSystem drive;
 	private double distance;
 	private double targetDistance;
-	private int rangeCounter ;
+	private int rangeCounter;
 
 	public DriveFowardDistance(int target) {
 		// TODO Auto-generated constructor stub
@@ -44,9 +44,9 @@ public class DriveFowardDistance extends Command {
 		// TODO Auto-generated method stub
 		drive.forward(RobotMap.AUTONOMOUS_SPEED);
 		distance = drive.getDistance();
-		if(distance > targetDistance)
-			rangeCounter ++;
-			
+		if (distance > targetDistance)
+			rangeCounter++;
+
 		// get distance here
 	}
 

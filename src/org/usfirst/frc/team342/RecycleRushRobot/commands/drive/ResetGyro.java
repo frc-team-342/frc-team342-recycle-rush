@@ -38,7 +38,7 @@ public class ResetGyro extends Command {
 
 	@Override
 	protected void execute() {
-		//drive.resetGyro();
+		// drive.resetGyro();
 		// TODO Auto-generated method stub
 	}
 

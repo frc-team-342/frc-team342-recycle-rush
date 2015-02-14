@@ -6,13 +6,12 @@ import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
 
 /**
- *         this function is not yet implemented. If called it should open the
- *         gripper all the way.
+ * this function is not yet implemented. If called it should open the gripper
+ * all the way.
  */
 public class GripOpen extends Command {
 	GripSystem grip;
 	private final double GRIP_FULL_OPEN = .94;
-
 
 	public GripOpen() {
 		grip = GripSystem.getInstance();
@@ -55,13 +54,13 @@ public class GripOpen extends Command {
 	@Override
 	protected void end() {
 		// TODO Auto-generated method stub
-
+		grip.stop();
 	}
 
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-
+		this.end();
 	}
 
 }
