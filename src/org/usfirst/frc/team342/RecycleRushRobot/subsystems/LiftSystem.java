@@ -62,6 +62,8 @@ public class LiftSystem extends Subsystem {
 		double speed = up + down;
 		if (Math.abs(speed) > DEFAULT_GAMEPAD_DEADZONE)
 			victorSP.set(up + down);
+		else 
+			victorSP.set(0);
 	}
 
 	public void liftUp() {

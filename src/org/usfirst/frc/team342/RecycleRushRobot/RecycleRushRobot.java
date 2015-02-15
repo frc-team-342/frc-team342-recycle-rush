@@ -35,8 +35,8 @@ public class RecycleRushRobot extends IterativeRobot {
 
 	private Command autonomousCommand;
 	private DriveWithJoystick runnow;
-	private int autonomousMode;
-
+	
+	private SendableChooser autoChooser;
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -48,10 +48,20 @@ public class RecycleRushRobot extends IterativeRobot {
 		this.scissor = ScissorSystem.getInstance();
 		this.camera = CameraVisionRedux.getInstance();
 		this.grip = GripSystem.getInstance();
-
-		SmartDashboard.putBoolean("DB/Button 0", true);
-		autonomousMode = 0;
+		this.autoChooser = new SendableChooser();
 		
+		// Create a selection for choosing autonomous modes
+		autoChooser.addDefault("Just drive to the center of the field",
+				new DriveToCenter());
+		autoChooser.addObject("Pick up container and drive to center",
+				new PickUpTote());
+		autoChooser.addObject("Pick up tote and drive to center",
+				new PickUpContainer());
+		autoChooser.addObject("Pick up both a tote and a container and drive to center",
+				new PickUpToteAndContainer());
+		SmartDashboard.putData("Autonomous mode chooser", autoChooser);
+		
+		SmartDashboard.putString("Test", "Test Value");
 	}
 
 	/**
@@ -60,39 +70,14 @@ public class RecycleRushRobot extends IterativeRobot {
 	 */
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
-		for (int i = 0; i < 4; i++) {
-			if (SmartDashboard.getBoolean("DB/Button " + i)) {
-				SmartDashboard.putBoolean("DB/Button " + autonomousMode, false);
-				autonomousMode = i;
-			}
-			SmartDashboard.putBoolean("DB/Button " + i, i == autonomousMode);
-		}
 	}
 
 	/**
 	 * sets the autonomous mode to the one selected in the button
 	 */
 	public void autonomousInit() {
-		// I hate that this uses a switch, but I could not find a way to convert
-		// from an integer to a command in java. In the final robot this will
-		// likely be fixed by using a drop down list instead of buttons from the
-		// dash board.
-		switch (autonomousMode) {
-		case 0:
-			autonomousCommand = new DriveToCenter();
-			break;
-		case 1:
-			autonomousCommand = new PickUpContainer();
-			break;
-		case 2:
-			autonomousCommand = new PickUpTote();
-			break;
-		case 3:
-			autonomousCommand = new PickUpToteAndContainer();
-			break;
-		default:
-			throw new Error();
-		}
+		// Fixed the case statement
+		autonomousCommand = (Command) autoChooser.getSelected();
 		autonomousCommand.start();
 	}
 

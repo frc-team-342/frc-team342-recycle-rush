@@ -128,4 +128,12 @@ public class DriveSystem extends Subsystem {
 	public double getDistance() {
 		return ultrasonic.getValue();
 	}
+	
+	public void resetGyro() {
+		gyro.reset();
+	}
+	
+	public void initializeGyro() {
+		gyro.initGyro();
+	}
 }

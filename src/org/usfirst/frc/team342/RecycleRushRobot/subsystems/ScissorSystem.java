@@ -20,7 +20,7 @@ public class ScissorSystem extends Subsystem {
 
 	private final double DEFAULT_SCISSOR_EXTEND_SPEED = 1.0;
 	private final double DEFAULT_SCISSOR_LIFT_SPEED = 1.0;
-	private final double DEFAULT_GAMEPAD_DEADZONE = 0.05;
+	private final double DEFAULT_GAMEPAD_DEADZONE = 0.01;
 
 	public ScissorSystem() {
 		// TODO Auto-generated constructor stub
@@ -52,8 +52,14 @@ public class ScissorSystem extends Subsystem {
 		
 		if (Math.abs(right) > DEFAULT_GAMEPAD_DEADZONE)
 			extendTalon.set(right);
+		else {
+			extendTalon.set(0.0);
+		}
 		if (Math.abs(up) > DEFAULT_GAMEPAD_DEADZONE)
 			liftTalon.set(up);
+		else {
+			liftTalon.set(0.0);
+		}
 	}
 
 	public void extend() {

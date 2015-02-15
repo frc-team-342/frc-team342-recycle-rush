@@ -35,14 +35,14 @@ public class DriveTurnLeftAngle extends Command {
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		angle = 0;
+		angle = drive.getAngle();
 	}
 
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
 		drive.turn(-1 * TURN_LEFT_MAGNITUDE);
-		// get angle here
+		angle = drive.getAngle();
 	}
 
 	@Override
@@ -60,7 +60,7 @@ public class DriveTurnLeftAngle extends Command {
 	@Override
 	protected void interrupted() {
 		// TODO Auto-generated method stub
-
+		this.end();
 	}
 
 }

@@ -41,6 +41,11 @@ public class RobotMap {
 	public static final int DIGITAL_IO_GRIP_LIMIT_SWITCH_OUTER_LIMIT = 8;
 
 	// Autonomous
+	public static final double AUTONOMOUS_SPEED = 1.0;
+	public static final double AUTONOMOUS_REVERSE = -1;
+	public static final double AUTONOMOUS_TURN_RIGHT = 1.0;
+	public static final double AUTONOMOUS_TURN_LEFT= 1.0;
+	
 	public static final int DISTANCE_TO_CENTER = 130;
 	public static final int DISTANCE_TO_TOTE = 10;
 	public static final int LIFT_UP_ENCODER_VALUE = 1000;
