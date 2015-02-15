@@ -20,6 +20,7 @@ public class ScissorSystem extends Subsystem {
 
 	private final double DEFAULT_SCISSOR_EXTEND_SPEED = 1.0;
 	private final double DEFAULT_SCISSOR_LIFT_SPEED = 1.0;
+	private final double DEFAULT_GAMEPAD_DEADZONE = 0.05;
 
 	public ScissorSystem() {
 		// TODO Auto-generated constructor stub
@@ -48,9 +49,11 @@ public class ScissorSystem extends Subsystem {
 	public void scissorWithJoystick(Joystick joystick) {
 		double right = joystick.getRawAxis(0);
 		double up = -1 * joystick.getRawAxis(1);
-
-		extendTalon.set(right);
-		liftTalon.set(up);
+		
+		if (Math.abs(right) > DEFAULT_GAMEPAD_DEADZONE)
+			extendTalon.set(right);
+		if (Math.abs(up) > DEFAULT_GAMEPAD_DEADZONE)
+			liftTalon.set(up);
 	}
 
 	public void extend() {

@@ -33,27 +33,28 @@ public class OI {
 	private Joystick assistJoystick;
 	private static final OI INSTANCE = new OI();
 
-	// Joy stick mappings
-	public static final int JOYSTICK_DRIVE_CONTROL = 0;
+	// Joy stick mapping
+	public static final int JOYSTICK_DRIVE = 0;
 	public static final int JOYSTICK_ASSIST = 1;
 
-	// Joystick Buttons, axes 1, 2, and 3 are for drive control;
-	// POV buttons unused
-	public static final int JOYSTICK_DRIVE_BUTTON_1 = 1;
-	public static final int JOYSTICK_DRIVE_BUTTON_2 = 2;
+	// Joy stick buttons, axes 1 and 2 are for drive control. Axis 3 is not
+	// used. POV buttons are unused.
+	public static final int JOYSTICK_DRIVE_CHANGE_CAMERA = 1;
+	public static final int JOYSTICK_DRIVE_RESET_GYRO = 2;
 	public static final int JOYSTICK_DRIVE_SCISSOR_DOWN = 3;
 	public static final int JOYSTICK_DRIVE_SCISSOR_RETRACT = 4;
 	public static final int JOYSTICK_DRIVE_SCISSOR_UP = 5;
 	public static final int JOYSTICK_DRIVE_SCISSOR_EXTEND = 6;
 	public static final int JOYSTICK_DRIVE_BUTTON_7 = 7;
-	public static final int JOYSTICK_DRIVE_RESET_GYRO = 8;
+	public static final int JOYSTICK_DRIVE_BUTTON_8 = 8;
 	public static final int JOYSTICK_DRIVE_BUTTON_9 = 9;
 	public static final int JOYSTICK_DRIVE_BUTTON_10 = 10;
-	public static final int JOYSTICK_DRIVE_CHANGE_CAMERA = 11;
+	public static final int JOYSTICK_DRIVE_BUTTON_11 = 11;
 	public static final int JOYSTICK_DRIVE_BUTTON_12 = 12;
 
-	// Game pad buttons. There are 4 unused axes on this controller. Right and
-	// left trigger control lift speed.
+	// Game pad buttons. Axes 5 and 6 are not used. Right and left trigger
+	// control lift speed. Left thumb stick axes control scissor. The POV
+	// buttons are unused.
 	public static final int JOYSTICK_ASSIST_GRIP_OPEN = 1; // While held
 	public static final int JOYSTICK_ASSIST_GRIP_CLOSE_CONTAINER = 2;
 	public static final int JOYSTICK_ASSIST_GRIP_CLOSE_TOTE = 3;
@@ -62,14 +63,14 @@ public class OI {
 	public static final int JOYSTICK_ASSIST_BUTTON_6 = 6;
 	public static final int JOYSTICK_ASSIST_BUTTON_7 = 7;
 	public static final int JOYSTICK_ASSIST_CHANGE_CAMERA = 8;
-	// Thumb stick buttons probably will not be used
+	// Thumb stick buttons will probably not be used
 	public static final int JOYSTICK_ASSIST_BUTTON_9 = 9;
 	public static final int JOYSTICK_ASSIST_BUTTON_10 = 10;
 
 	private OI() {
 
 		// declare controllers
-		this.driveController = new Joystick(JOYSTICK_DRIVE_CONTROL);
+		this.driveController = new Joystick(JOYSTICK_DRIVE);
 		this.assistJoystick = new Joystick(JOYSTICK_ASSIST);
 
 		// declare scissor controls for the drive controller

@@ -22,7 +22,8 @@ public class LiftSystem extends Subsystem {
 	private final Encoder encoder;
 
 	// lift speed needs to be modified to be
-	private double LIFT_SPEED = .4;
+	private final double LIFT_SPEED = 0.3;
+	private final double DEFAULT_GAMEPAD_DEADZONE = 0.01;
 
 	public LiftSystem() {
 		// TODO Auto-generated constructor stub
@@ -58,8 +59,9 @@ public class LiftSystem extends Subsystem {
 	public void liftWithJoystick(Joystick joystick) {
 		double up = joystick.getRawAxis(3);
 		double down = -1 * joystick.getRawAxis(2);
-
-		victorSP.set(up + down);
+		double speed = up + down;
+		if (Math.abs(speed) > DEFAULT_GAMEPAD_DEADZONE)
+			victorSP.set(up + down);
 	}
 
 	public void liftUp() {

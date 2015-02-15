@@ -47,8 +47,6 @@ public class GripClose extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		// called in the isFinished loop because it makes it easier to call in a
-		// loop, not sure if this will work
 		return grip.close(GRIP_CLOSED);
 	}
 

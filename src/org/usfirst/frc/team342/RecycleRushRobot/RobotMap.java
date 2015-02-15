@@ -30,6 +30,9 @@ public class RobotMap {
 	public static final int DIGITAL_IO_LIFT_LIMIT_SWITCH_DOWN = 5;
 	public static final int DIGITAL_IO_LIFT_QUADRATURE_ENCODER_A = 6;
 	public static final int DIGITAL_IO_LIFT_QUADRATURE_ENCODER_B = 7;
+	
+	// Distance from the ground to set the lift to not drag
+	public static final int LIFT_NOT_TOUCHING_GROUND = 10;
 
 	// Gripper System
 	public static final int CAN_CHANNEL_GRIP_OPEN_CLOSE = 3;
@@ -37,10 +40,11 @@ public class RobotMap {
 	public static final int ANALOG_IO_GRIP_ULTRASONIC = 3;
 	public static final int DIGITAL_IO_GRIP_LIMIT_SWITCH_OUTER_LIMIT = 8;
 
-	// Autonomous Speed
-	public static final double AUTONOMOUS_SPEED = 1.0;
-	public static final double AUTONOMOUS_STOP = 0.0;
-	public static final double AUTONOMOUS_REVERSE = -1.0;
-	public static final double AUTONOMOUS_TURN_RIGHT = 0.5;
-
+	// Autonomous
+	public static final int DISTANCE_TO_CENTER = 130;
+	public static final int DISTANCE_TO_TOTE = 10;
+	public static final int LIFT_UP_ENCODER_VALUE = 1000;
+	public static final int LIFT_DOWN_ENCODER_VALUE = 100;
+	public static final double GRIP_OPEN_POTENTIOMETER = 0.8;
+	
 }

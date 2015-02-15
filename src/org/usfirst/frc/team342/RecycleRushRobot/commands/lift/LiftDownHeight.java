@@ -7,15 +7,17 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class LiftUpEncoder extends Command {
+public class LiftDownHeight extends Command {
 	LiftSystem lift;
+	private int stopValue;
 
 	/**
 	 * 
 	 * @param stopValue
 	 *            value from the encoder to stop at
 	 */
-	public LiftUpEncoder() {
+	public LiftDownHeight(int stopValue) {
+		this.stopValue = stopValue;
 		this.lift = LiftSystem.getInstance();
 		requires(lift);
 	}
@@ -26,12 +28,12 @@ public class LiftUpEncoder extends Command {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		System.out.println(lift.getEncoderValue());
+		lift.liftDown();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return true;
+		return lift.bottomLimit() || lift.getEncoderValue() <= stopValue;
 	}
 
 	// Called once after isFinished returns true

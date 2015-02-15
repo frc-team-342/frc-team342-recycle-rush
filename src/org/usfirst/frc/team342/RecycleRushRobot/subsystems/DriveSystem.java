@@ -66,12 +66,10 @@ public class DriveSystem extends Subsystem {
 	}
 
 	public void driveWithJoystick(Joystick joystick) {
-		// makes joystick drive run with exponential acceleration
+		// makes joy stick drive run with exponential acceleration
 		// this should smooth out the drive
-		double x = (10 * joystick.getX()) * (10 * joystick.getX())
-				* (10 * joystick.getX()) / 1000;
-		double y = (10 * joystick.getY()) * (10 * joystick.getY())
-				* (10 * joystick.getY()) / 1000;
+		double x = joystick.getX() * Math.abs(joystick.getX());
+		double y = joystick.getY() * Math.abs(joystick.getY());
 		double rotation = joystick.getZ();
 		double angle = gyro.getAngle();
 

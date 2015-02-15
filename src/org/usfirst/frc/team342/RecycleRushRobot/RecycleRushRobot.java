@@ -29,13 +29,13 @@ public class RecycleRushRobot extends IterativeRobot {
 	private DriveSystem drive;
 	private LiftSystem lift;
 	private OI oi;
-	private Command autonomousCommand;
 	private ScissorSystem scissor;
 	private CameraVisionRedux camera;
 	private GripSystem grip;
-	private DriveWithJoystick runnow;
 
-	private int AutonomousMode;
+	private Command autonomousCommand;
+	private DriveWithJoystick runnow;
+	private int autonomousMode;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -43,8 +43,6 @@ public class RecycleRushRobot extends IterativeRobot {
 	 */
 	public void robotInit() {
 		this.oi = OI.getInstance();
-		// instantiate the command used for the autonomous period
-		// autonomousCommand = new ExampleCommand();
 		this.drive = DriveSystem.getInstance();
 		this.lift = LiftSystem.getInstance();
 		this.scissor = ScissorSystem.getInstance();
@@ -52,36 +50,50 @@ public class RecycleRushRobot extends IterativeRobot {
 		this.grip = GripSystem.getInstance();
 
 		SmartDashboard.putBoolean("DB/Button 0", true);
-		AutonomousMode = 0;
+		autonomousMode = 0;
+		
 	}
 
+	/**
+	 * only allow one button to be pressed in dash board while disabled. This is
+	 * used to get the autonomous mode when autonomous is initialized.
+	 */
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		for (int i = 0; i < 4; i++) {
-			
 			if (SmartDashboard.getBoolean("DB/Button " + i)) {
-
-				SmartDashboard.putBoolean("DB/Button " + AutonomousMode, false);
-				AutonomousMode = i;
+				SmartDashboard.putBoolean("DB/Button " + autonomousMode, false);
+				autonomousMode = i;
 			}
-
-			System.out.println("AutonomousMode " + AutonomousMode + "\n");
-			
+			SmartDashboard.putBoolean("DB/Button " + i, i == autonomousMode);
 		}
-		
-		for(int i = 0; i < 4; i++){
-			SmartDashboard.putBoolean("DB/Button " + i, i == AutonomousMode);
-		}
-		
-
 	}
 
+	/**
+	 * sets the autonomous mode to the one selected in the button
+	 */
 	public void autonomousInit() {
-		// schedule the autonomous command (example)
-		// if (autonomousCommand != null) autonomousCommand.start();
-		autonomousCommand = new DriveToCenter();
+		// I hate that this uses a switch, but I could not find a way to convert
+		// from an integer to a command in java. In the final robot this will
+		// likely be fixed by using a drop down list instead of buttons from the
+		// dash board.
+		switch (autonomousMode) {
+		case 0:
+			autonomousCommand = new DriveToCenter();
+			break;
+		case 1:
+			autonomousCommand = new PickUpContainer();
+			break;
+		case 2:
+			autonomousCommand = new PickUpTote();
+			break;
+		case 3:
+			autonomousCommand = new PickUpToteAndContainer();
+			break;
+		default:
+			throw new Error();
+		}
 		autonomousCommand.start();
-
 	}
 
 	/**
@@ -89,11 +101,10 @@ public class RecycleRushRobot extends IterativeRobot {
 	 */
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
-		System.out.println(drive.getDistance());
 	}
 
 	/**
-	 * initializes the joystick
+	 * initialize the joy stick
 	 */
 	public void teleopInit() {
 		runnow = new DriveWithJoystick();
@@ -111,15 +122,13 @@ public class RecycleRushRobot extends IterativeRobot {
 	 * This function is called periodically during operator control
 	 */
 	public void teleopPeriodic() {
-		runnow.start();
 		Scheduler.getInstance().run();
+		runnow.start();
 	}
 
 	/**
 	 * This function is called periodically during test mode
 	 */
 	public void testPeriodic() {
-		// LiveWindow.run();
-		// System.out.println((int)lift.getEncoderValue());
 	}
 }

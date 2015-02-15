@@ -27,7 +27,6 @@ public class ChangeCamera extends Command {
 	@Override
 	protected void execute() {
 		camera.ChangeCamera();
-		System.out.println("Did run");
 		// TODO Auto-generated method stub
 
 	}

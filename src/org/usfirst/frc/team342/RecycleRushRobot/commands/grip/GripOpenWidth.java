@@ -9,26 +9,22 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
  * this function is not yet implemented. If called it should open the gripper
  * all the way.
  */
-public class GripOpen extends Command {
+public class GripOpenWidth extends Command {
 	GripSystem grip;
 	private final double GRIP_FULL_OPEN = .94;
-
-	public GripOpen() {
+	private double potentiometerValue;
+	public GripOpenWidth(double potentiometerValue) {
+		this.potentiometerValue = potentiometerValue;
 		grip = GripSystem.getInstance();
 		requires(grip);
 	}
 
-	public GripOpen(String name) {
+	public GripOpenWidth(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
 
-	public GripOpen(double timeout) {
-		super(timeout);
-		// TODO Auto-generated constructor stub
-	}
-
-	public GripOpen(String name, double timeout) {
+	public GripOpenWidth(String name, double timeout) {
 		super(name, timeout);
 		// TODO Auto-generated constructor stub
 	}
@@ -46,7 +42,7 @@ public class GripOpen extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return grip.open(GRIP_FULL_OPEN);
+		return grip.open(GRIP_FULL_OPEN) || grip.getPotentiometer() >= potentiometerValue;
 	}
 
 	@Override
