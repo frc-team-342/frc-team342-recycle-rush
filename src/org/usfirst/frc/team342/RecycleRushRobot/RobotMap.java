@@ -9,10 +9,10 @@ package org.usfirst.frc.team342.RecycleRushRobot;
 public class RobotMap {
 
 	// Drive System
-	public static final int CAN_CHANNEL_RIGHT_FRONT_DRIVE_MOTOR = 6;
+	public static final int CAN_CHANNEL_RIGHT_FRONT_DRIVE_MOTOR = 5;
 	public static final int CAN_CHANNEL_LEFT_FRONT_DRIVE_MOTOR = 4;
 	public static final int CAN_CHANNEL_LEFT_BACK_DRIVE_MOTOR = 3;
-	public static final int CAN_CHANNEL_RIGHT_BACK_DRIVE_MOTOR = 5;
+	public static final int CAN_CHANNEL_RIGHT_BACK_DRIVE_MOTOR = 6;
 	public static final int ANALOG_IO_DRIVE_GYRO = 0;
 	public static final int ANALOG_IO_DRIVE_ULTRASONIC = 1;
 

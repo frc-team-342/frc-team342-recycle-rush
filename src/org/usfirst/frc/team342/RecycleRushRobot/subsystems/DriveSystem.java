@@ -48,9 +48,11 @@ public class DriveSystem extends Subsystem {
 		// }
 		robotDrive = new RobotDrive(frontLeftjaguar, rearLeftjaguar,
 				frontRightjaguar, rearRightjaguar);
-		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
+		//robotDrive.setInvertedMotor(MotorType.kRearRight, true);
 		// invert's the left motors /\ & \/
-		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
+		//robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
+		robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);
+		robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
 
 		this.gyro = new Gyro(RobotMap.ANALOG_IO_DRIVE_GYRO);
 		this.ultrasonic = new AnalogInput(RobotMap.ANALOG_IO_DRIVE_ULTRASONIC);
@@ -70,7 +72,7 @@ public class DriveSystem extends Subsystem {
 		// this should smooth out the drive
 		double x = joystick.getX() * Math.abs(joystick.getX());
 		double y = joystick.getY() * Math.abs(joystick.getY());
-		double rotation = joystick.getZ();
+		double rotation = joystick.getZ() * Math.abs(joystick.getZ());
 		double angle = gyro.getAngle();
 
 		this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, angle);
