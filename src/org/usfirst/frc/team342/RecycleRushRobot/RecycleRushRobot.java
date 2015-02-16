@@ -1,8 +1,11 @@
 package org.usfirst.frc.team342.RecycleRushRobot;
 
+import java.util.Arrays;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.Preferences;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
@@ -35,8 +38,12 @@ public class RecycleRushRobot extends IterativeRobot {
 
 	private Command autonomousCommand;
 	private DriveWithJoystick runnow;
-	
+
 	private SendableChooser autoChooser;
+
+	// Initialize old array of value from dashboard for autonomous selection
+	private boolean[] oldArray = { true, false, false, false };
+
 	/**
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
@@ -49,19 +56,9 @@ public class RecycleRushRobot extends IterativeRobot {
 		this.camera = CameraVisionRedux.getInstance();
 		this.grip = GripSystem.getInstance();
 		this.autoChooser = new SendableChooser();
-		
-		// Create a selection for choosing autonomous modes
-		autoChooser.addDefault("Just drive to the center of the field",
-				new DriveToCenter());
-		autoChooser.addObject("Pick up container and drive to center",
-				new PickUpTote());
-		autoChooser.addObject("Pick up tote and drive to center",
-				new PickUpContainer());
-		autoChooser.addObject("Pick up both a tote and a container and drive to center",
-				new PickUpToteAndContainer());
-		SmartDashboard.putData("Autonomous mode chooser", autoChooser);
-		
-		SmartDashboard.putString("Test", "Test Value");
+
+		SmartDashboard.putBoolean("DB/Button 0", true);
+		// autonomousMode ;
 	}
 
 	/**
@@ -70,14 +67,39 @@ public class RecycleRushRobot extends IterativeRobot {
 	 */
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		// declare array to hold new values from dash board
+		boolean[] newArray = new boolean[4];
+
+		// set the values to the array from the dash board
+		for (int i = 0; i < 4; i++) {
+			newArray[i] = SmartDashboard.getBoolean("DB/Button " + i);
+		}
+
+		// if the arrays are different xor the arrays and store the values
+		if (!Arrays.equals(oldArray, newArray)){
+			for (int i = 0; i < 4; i++) {
+				oldArray[i] = oldArray[i] ^ newArray[i];
+				
+				SmartDashboard.putBoolean("DB/Button " + i, oldArray[i]);
+			}
+		}
 	}
 
 	/**
 	 * sets the autonomous mode to the one selected in the button
 	 */
 	public void autonomousInit() {
-		// Fixed the case statement
-		autonomousCommand = (Command) autoChooser.getSelected();
+
+		// Un-fixed the case statement
+		if (oldArray[0])
+			autonomousCommand = new DriveToCenter();
+		if (oldArray[1])
+			autonomousCommand = new PickUpTote();
+		if (oldArray[2])
+			autonomousCommand = new PickUpContainer();
+		if (oldArray[3])
+			autonomousCommand = new PickUpToteAndContainer();
+
 		autonomousCommand.start();
 	}
 
@@ -115,5 +137,6 @@ public class RecycleRushRobot extends IterativeRobot {
 	 * This function is called periodically during test mode
 	 */
 	public void testPeriodic() {
+		System.out.println(scissor.isExtended());
 	}
 }

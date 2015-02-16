@@ -11,8 +11,9 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class DriveToCenter extends CommandGroup {
 	public DriveToCenter() {
-		
-		this.addSequential(new LiftUpHeight(RobotMap.LIFT_NOT_TOUCHING_GROUND));
+
+		this.addParallel(new LiftUpHeight(RobotMap.LIFT_NOT_TOUCHING_GROUND));
+
 		this.addSequential(new DriveFowardDistance(RobotMap.DISTANCE_TO_CENTER));
 	}
 

@@ -47,19 +47,38 @@ public class ScissorSystem extends Subsystem {
 	}
 
 	public void scissorWithJoystick(Joystick joystick) {
+
 		double right = joystick.getRawAxis(0);
+		// The joy stick is inverted on the y axis
 		double up = -1 * joystick.getRawAxis(1);
-		
-		if (Math.abs(right) > DEFAULT_GAMEPAD_DEADZONE)
+
+		// The limit switch is inverted
+		//
+		// The giant test condition tests many things. The first half is for
+		// moving the scissor up if the joy stick is positive, the second half
+		// is a symmetrical condition for moving the scissor down. For each it
+		// first tests if the joy stick is greater than the dead zone, then it
+		// tests if the scissor is already at its limit switches.
+		if (((right > DEFAULT_GAMEPAD_DEADZONE) && scissorExtended.get())
+				|| ((right < -1.0 * DEFAULT_GAMEPAD_DEADZONE) && scissorRetracted
+						.get()))
 			extendTalon.set(right);
-		else {
+		else
 			extendTalon.set(0.0);
-		}
-		if (Math.abs(up) > DEFAULT_GAMEPAD_DEADZONE)
+
+		// The limit switch is inverted
+		//
+		// The giant test condition tests many things. The first half is for
+		// extending the scissor if the joy stick is positive, the second half
+		// is a symmetrical condition for retracting the scissor. For each it
+		// first tests if the joy stick is greater than the dead zone, then it
+		// tests if the scissor is already at its limit switches.
+		if (((up > DEFAULT_GAMEPAD_DEADZONE) && scissorTiltOut.get())
+				|| ((up < -1.0 * DEFAULT_GAMEPAD_DEADZONE) && scissorTiltOut
+						.get()))
 			liftTalon.set(up);
-		else {
+		else
 			liftTalon.set(0.0);
-		}
 	}
 
 	public void extend() {
@@ -84,18 +103,22 @@ public class ScissorSystem extends Subsystem {
 		liftTalon.set(0.0);
 	}
 
+	// The limit switch is inverted
 	public boolean isUp() {
 		return !scissorTiltOut.get();
 	}
 
+	// The limit switch is inverted
 	public boolean isDown() {
 		return !scissorTiltIn.get();
 	}
 
+	// The limit switch is inverted
 	public boolean isExtended() {
 		return !scissorExtended.get();
 	}
 
+	// The limit switch is inverted
 	public boolean isRetracted() {
 		return !scissorRetracted.get();
 	}

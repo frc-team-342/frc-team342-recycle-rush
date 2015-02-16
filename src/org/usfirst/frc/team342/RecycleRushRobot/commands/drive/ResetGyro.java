@@ -39,6 +39,7 @@ public class ResetGyro extends Command {
 	@Override
 	protected void execute() {
 		drive.resetGyro();
+		System.out.println("Reseting the gyro...");
 		// TODO Auto-generated method stub
 	}
 
@@ -50,7 +51,7 @@ public class ResetGyro extends Command {
 
 	@Override
 	protected void end() {
-		// TODO Auto-generated method stub
+		System.out.println("Gyro succesfully reset");
 
 	}
 

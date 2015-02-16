@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 import org.usfirst.frc.team342.RecycleRushRobot.commands.camera.ChangeCamera;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.ChangeMode;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.ReadGyro;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.ReadDebug;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.ResetGyro;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftDown;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftGetEncoder;
@@ -50,7 +50,7 @@ public class OI {
 	public static final int JOYSTICK_DRIVE_BUTTON_9 = 9;
 	public static final int JOYSTICK_DRIVE_BUTTON_10 = 10;
 	public static final int JOYSTICK_DRIVE_BUTTON_11 = 11;
-	public static final int JOYSTICK_DRIVE_BUTTON_12 = 12;
+	public static final int JOYSTICK_DRIVE_DEGUB_NUMBERS = 12;
 
 	// Game pad buttons. Axes 5 and 6 are not used. Right and left trigger
 	// control lift speed. Left thumb stick axes control scissor. The POV
