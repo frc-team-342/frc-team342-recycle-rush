@@ -9,41 +9,41 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class SeeWithCamera extends Command {
 
-	private CameraVisionRedux camera;
+    private CameraVisionRedux camera;
 
-	public SeeWithCamera() {
-		camera = CameraVisionRedux.getInstance();
-		requires(camera);
-	}
+    public SeeWithCamera() {
+	camera = CameraVisionRedux.getInstance();
+	requires(camera);
+    }
 
-	@Override
-	protected void initialize() {
-		// TODO Auto-generated method stub
-	}
+    @Override
+    protected void initialize() {
+	// TODO Auto-generated method stub
+    }
 
-	@Override
-	protected void execute() {
-		camera.SeeingIsBelieving();
-		// TODO Auto-generated method stub
+    @Override
+    protected void execute() {
+	camera.SeeingIsBelieving();
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	protected boolean isFinished() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    protected boolean isFinished() {
+	// TODO Auto-generated method stub
+	return false;
+    }
 
-	@Override
-	protected void end() {
-		// camera.StopSeeingIsBelieving();
-		// TODO Auto-generated method stub
-	}
+    @Override
+    protected void end() {
+	// camera.StopSeeingIsBelieving();
+	// TODO Auto-generated method stub
+    }
 
-	@Override
-	protected void interrupted() {
-		// TODO Auto-generated method stub
+    @Override
+    protected void interrupted() {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
 }

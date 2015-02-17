@@ -5,7 +5,6 @@ import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveFowardDistan
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveReverseDistance;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveTurnLeftAngle;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveTurnRightAngle;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftUpHeight;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -13,10 +12,10 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  * drives to the center of the field.
  */
 public class DriveToCenter extends CommandGroup {
-	public DriveToCenter() {
-		this.addSequential(new DriveFowardDistance(RobotMap.DISTANCE_TO_CENTER));
-		
-		this.addSequential(new DriveTurnRightAngle(90));
-	}
+    public DriveToCenter() {
+	this.addSequential(new DriveFowardDistance(RobotMap.DISTANCE_TO_CENTER));
+
+	this.addSequential(new DriveTurnRightAngle(90));
+    }
 
 }

@@ -8,35 +8,35 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class LiftDown extends Command {
-	LiftSystem lift;
+    LiftSystem lift;
 
-	public LiftDown() {
-		lift = LiftSystem.getInstance();
-		requires(lift);
-	}
+    public LiftDown() {
+	lift = LiftSystem.getInstance();
+	requires(lift);
+    }
 
-	// Called just before this Command runs the first time
-	protected void initialize() {
-	}
+    // Called just before this Command runs the first time
+    protected void initialize() {
+    }
 
-	// Called repeatedly when this Command is scheduled to run
-	protected void execute() {
-		lift.liftDown();
-	}
+    // Called repeatedly when this Command is scheduled to run
+    protected void execute() {
+	lift.liftDown();
+    }
 
-	// Make this return true when this Command no longer needs to run execute()
-	protected boolean isFinished() {
-		return lift.bottomLimit();
-	}
+    // Make this return true when this Command no longer needs to run execute()
+    protected boolean isFinished() {
+	return lift.bottomLimit();
+    }
 
-	// Called once after isFinished returns true
-	protected void end() {
-		lift.liftStop();
-	}
+    // Called once after isFinished returns true
+    protected void end() {
+	lift.liftStop();
+    }
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
-	protected void interrupted() {
-		this.end();
-	}
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    protected void interrupted() {
+	this.end();
+    }
 }

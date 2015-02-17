@@ -1,165 +1,160 @@
 package org.usfirst.frc.team342.RecycleRushRobot.subsystems;
 
 import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveWithJoystick;
 
 import edu.wpi.first.wpilibj.RobotDrive.MotorType;
-import edu.wpi.first.wpilibj.can.CANMessageNotFoundException;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.CANJaguar;
 import edu.wpi.first.wpilibj.Gyro;
-import edu.wpi.first.wpilibj.Jaguar;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
 
 public class DriveSystem extends Subsystem {
 
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
-	private static final DriveSystem INSTANCE = new DriveSystem();
-	private final CANJaguar frontLeftjaguar;
-	private final CANJaguar rearLeftjaguar;
-	private final CANJaguar frontRightjaguar;
-	private final CANJaguar rearRightjaguar;
-	private final RobotDrive robotDrive;
-	private final Gyro gyro;
-	private final AnalogInput ultrasonic;
+    // Declare Drive System objects
+    private static final DriveSystem INSTANCE = new DriveSystem();
 
-	private boolean mode;
-	private double direction;
+    private final RobotDrive robotDrive;
+    private final CANJaguar frontLeftjaguar;
+    private final CANJaguar rearLeftjaguar;
+    private final CANJaguar frontRightjaguar;
+    private final CANJaguar rearRightjaguar;
+    private final Gyro gyro;
+    private final AnalogInput ultrasonic;
 
-	private DriveSystem() {
-		super();
-		System.out.println("Drive System Initialized!");
-		// try{
+    // Variable to store the drive mode (field oriented or robot oriented)
+    private boolean mode;
 
-		this.frontLeftjaguar = new CANJaguar(
-				RobotMap.CAN_CHANNEL_LEFT_FRONT_DRIVE_MOTOR);
-		this.rearLeftjaguar = new CANJaguar(
-				RobotMap.CAN_CHANNEL_LEFT_BACK_DRIVE_MOTOR);
-		this.frontRightjaguar = new CANJaguar(
-				RobotMap.CAN_CHANNEL_RIGHT_FRONT_DRIVE_MOTOR);
-		this.rearRightjaguar = new CANJaguar(
-				RobotMap.CAN_CHANNEL_RIGHT_BACK_DRIVE_MOTOR);
-		// }
-		// catch(CANMessageNotFoundException ex){
-		// System.out.println("ERROR"+ex.getMessage());
-		// }
-		robotDrive = new RobotDrive(frontLeftjaguar, rearLeftjaguar,
-				frontRightjaguar, rearRightjaguar);
-		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
-		// invert's the left motors /\ & \/
-		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
-		// robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);
-		// robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
+    // Variable to set the speed mode
+    private boolean slow;
 
-		this.gyro = new Gyro(RobotMap.ANALOG_IO_DRIVE_GYRO);
-		this.ultrasonic = new AnalogInput(RobotMap.ANALOG_IO_DRIVE_ULTRASONIC);
+    // Initialize the drive objects
+    private DriveSystem() {
+	super();
 
-		mode = true;
+	this.frontLeftjaguar = new CANJaguar(
+		RobotMap.CAN_CHANNEL_LEFT_FRONT_DRIVE_MOTOR);
+	this.rearLeftjaguar = new CANJaguar(
+		RobotMap.CAN_CHANNEL_LEFT_BACK_DRIVE_MOTOR);
+	this.frontRightjaguar = new CANJaguar(
+		RobotMap.CAN_CHANNEL_RIGHT_FRONT_DRIVE_MOTOR);
+	this.rearRightjaguar = new CANJaguar(
+		RobotMap.CAN_CHANNEL_RIGHT_BACK_DRIVE_MOTOR);
 
-		// lower sensitivity of the drive system, this is very necessary
-		this.robotDrive.setSensitivity(0.05);
-	}
+	this.robotDrive = new RobotDrive(frontLeftjaguar, rearLeftjaguar,
+		frontRightjaguar, rearRightjaguar);
 
-	public void initDefaultCommand() {
-		// this.setDefaultCommand(new DriveWithJoystick());
-		// Set the default command for a subsystem here.
-		// setDefaultCommand(new MySpecialCommand());
-	}
+	// inverts the motors, because they have to be inverted
+	this.robotDrive.setInvertedMotor(MotorType.kRearRight, true);
+	this.robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
 
-	public void driveWithJoystick(Joystick joystick) {
-		// makes joy stick drive run with exponential acceleration
-		// this should smooth out the drive. The throttle is inverted.
+	this.gyro = new Gyro(RobotMap.ANALOG_IO_DRIVE_GYRO);
+	this.ultrasonic = new AnalogInput(RobotMap.ANALOG_IO_DRIVE_ULTRASONIC);
 
-		// set the throttle from the 4th axis
-		double throttle = ((-1.0 * joystick.getThrottle()) + 2);
+	this.gyro.initGyro();
 
-		// set drive variables
-		double x = Math.pow(joystick.getX(), 3) * throttle;
-		double y = Math.pow(joystick.getY(), 3) * throttle;
-		double rotation = Math.pow(joystick.getZ(), 3) * throttle;
-		double angle = gyro.getAngle();
-		this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, angle);
-		// CANJaguar.updateSyncGroup((byte) 0x80);
-	}
+	this.mode = true;
+	this.slow = false;
 
-	public void driveWithJoystick(Joystick joystick, boolean extraArg) {
-		// makes joy stick drive run with exponential acceleration
-		// this should smooth out the drive. The throttle is inverted.
+	// lower sensitivity of the drive system turning, this is very necessary
+	this.robotDrive.setSensitivity(0.05);
+    }
 
-		// set the throttle from the 4th axis
+    public static DriveSystem getInstance() {
+	return INSTANCE;
+    }
 
-		// set drive variables
-		double x = joystick.getX();
-		double y = joystick.getY();
-		double rotation = joystick.getZ();
-		double angle = gyro.getAngle();
-		if (mode) {
-			this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, angle);
-		} else {
-			this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, 0);
-		}
-	}
+    public void initDefaultCommand() {
+	// TODO Can we remove this?
+    }
 
-	public void fieldOrientedJoystick(Joystick joystick) {
-		double x = joystick.getX();
-		double y = joystick.getY();
-		double rotation = joystick.getZ();
-		double angle = 0.0;
+    /**
+     * Drive using the joy stick axes
+     * 
+     * @param joystick
+     *            The drive joy stick from the OI
+     */
+    public void driveWithJoystick(Joystick joystick) {
+	// set drive variables
+	double x = joystick.getX();
+	double y = joystick.getY();
+	double rotation = joystick.getZ();
 
-		// TODO Get Gyro Angle From Sensors
-		if (mode) {
-			this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, angle);
-		} else {
-			this.robotDrive.mecanumDrive_Cartesian(0, 0, rotation, angle);
-		}
-		// CANJaguar.updateSyncGroup((byte) 0x80);
-		System.out.println("Field Oriented Joystick Enabled!");
-	}
+	if (mode) {
+	    double angle = gyro.getAngle();
+	    this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, angle);
+	} else
+	    this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, 0);
+    }
 
-	public void changeMode() {
-		// inverts the drive mode
-		mode = !mode;
-	}
+    /**
+     * inverts the drive mode, used for switching between field oriented and
+     * robot oriented
+     */
+    public void changeMode() {
+	mode = !mode;
+    }
 
-	public static DriveSystem getInstance() {
-		return INSTANCE;
-	}
+    /**
+     * Drive forward at the given speed. To drive backward use a negative speed.
+     * 
+     * @param speed
+     *            The speed to drive forward at, this can be negative to go
+     *            backwards
+     */
+    public void forward(double speed) {
+	this.robotDrive
+		.mecanumDrive_Cartesian(0.0, speed, 0.0, gyro.getAngle());
+    }
 
-	public void forward(double speed) {
-		this.robotDrive.mecanumDrive_Cartesian(0, speed, 0, gyro.getAngle());
-	}
+    /**
+     * set the robot speed to 0
+     */
+    public void stop() {
+	this.robotDrive.mecanumDrive_Polar(0.0, 0.0, 0.0);
+    }
 
-	public void reverse(double speed) {
-		this.robotDrive.mecanumDrive_Cartesian(0.0, -0.3 , 0.0, gyro.getAngle());
-	}
+    /**
+     * turn the robot at the given speed
+     * 
+     * @param speed
+     *            a value from -1.0 to 1.0 for speed of the robot turn
+     */
+    public void turn(double speed) {
+	this.robotDrive.mecanumDrive_Cartesian(0, 0, speed, 0);
 
-	public void stop() {
-		this.robotDrive.mecanumDrive_Polar(0.0, 0.0, 0.0);
-	}
+    }
 
-	public void turn(double speed) {
-		// this.robotDrive.mecanumDrive_Polar(0.0, 0.0, speed);
-		System.out.println("Turning Right");
-		this.robotDrive.mecanumDrive_Cartesian(0, 0, speed, gyro.getAngle());
+    /**
+     * @return the gyro output
+     */
+    public double getAngle() {
+	return gyro.getAngle();
+    }
 
-	}
+    /**
+     * @return the ultra sonic value
+     */
+    public int getDistance() {
+	return ultrasonic.getValue();
+    }
 
-	public double getAngle() {
-		return gyro.getAngle();
-	}
-
-	public double getDistance() {
-		return ultrasonic.getValue();
-	}
-
-	public void resetGyro() {
-		gyro.reset();
-	}
-
-	public void initializeGyro() {
-		gyro.initGyro();
-	}
+    /**
+     * set the current gyro heading to 0
+     */
+    public void resetGyro() {
+	gyro.reset();
+    }
+    
+    /**
+     * change the drive speed for better control
+     */
+    public void toggleSpeed() {
+	slow = !slow;
+	if (slow)
+	    robotDrive.setMaxOutput(0.3);
+	else
+	    robotDrive.setMaxOutput(1.0);
+    }
 }

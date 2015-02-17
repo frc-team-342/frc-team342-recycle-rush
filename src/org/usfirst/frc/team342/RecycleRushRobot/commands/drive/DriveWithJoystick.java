@@ -10,65 +10,65 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveWithJoystick extends Command {
 
-	private Joystick joystick;
-	private Joystick controller;
+    private Joystick joystick;
+    private Joystick controller;
 
-	private DriveSystem drive = DriveSystem.getInstance();
-	private LiftSystem lift = LiftSystem.getInstance();
-	private ScissorSystem scissor = ScissorSystem.getInstance();
+    private DriveSystem drive = DriveSystem.getInstance();
+    private LiftSystem lift = LiftSystem.getInstance();
+    private ScissorSystem scissor = ScissorSystem.getInstance();
 
-	public DriveWithJoystick() {
-		// TODO Auto-generated constructor stub
-	}
+    public DriveWithJoystick() {
+	// TODO Auto-generated constructor stub
+    }
 
-	public DriveWithJoystick(String name) {
-		super(name);
-		// TODO Auto-generated constructor stub
-	}
+    public DriveWithJoystick(String name) {
+	super(name);
+	// TODO Auto-generated constructor stub
+    }
 
-	public DriveWithJoystick(double timeout) {
-		super(timeout);
-		// TODO Auto-generated constructor stub
-	}
+    public DriveWithJoystick(double timeout) {
+	super(timeout);
+	// TODO Auto-generated constructor stub
+    }
 
-	public DriveWithJoystick(String name, double timeout) {
-		super(name, timeout);
-		// TODO Auto-generated constructor stub
-	}
+    public DriveWithJoystick(String name, double timeout) {
+	super(name, timeout);
+	// TODO Auto-generated constructor stub
+    }
 
-	@Override
-	protected void initialize() {
-		OI oi = OI.getInstance();
-		this.joystick = oi.getJoystick();
-		this.controller = oi.getController();
-		// TODO Auto-generated method stub
+    @Override
+    protected void initialize() {
+	OI oi = OI.getInstance();
+	this.joystick = oi.getJoystick();
+	this.controller = oi.getController();
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	protected void execute() {
-		drive.driveWithJoystick(joystick, true);
-		lift.liftWithJoystick(controller);
-		scissor.scissorWithJoystick(controller);
-		// TODO Auto-generated method stub
-	}
+    @Override
+    protected void execute() {
+	drive.driveWithJoystick(joystick);
+	lift.liftWithJoystick(controller);
+	scissor.scissorWithJoystick(controller);
+	// TODO Auto-generated method stub
+    }
 
-	@Override
-	protected boolean isFinished() {
-		// TODO Auto-generated method stub
-		return false;
-	}
+    @Override
+    protected boolean isFinished() {
+	// TODO Auto-generated method stub
+	return false;
+    }
 
-	@Override
-	protected void end() {
-		// TODO Auto-generated method stub
+    @Override
+    protected void end() {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	protected void interrupted() {
-		// TODO Auto-generated method stub
+    @Override
+    protected void interrupted() {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
 }

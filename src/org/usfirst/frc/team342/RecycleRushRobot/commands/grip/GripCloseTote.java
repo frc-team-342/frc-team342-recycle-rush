@@ -10,52 +10,52 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
  * If interrupted it should exit cleanly.
  */
 public class GripCloseTote extends Command {
-	GripSystem grip;
-	private final double GRIP_TOTE = .25;
+    GripSystem grip;
+    private final double GRIP_TOTE = .25;
 
-	public GripCloseTote() {
-		grip = GripSystem.getInstance();
-		requires(grip);
-	}
+    public GripCloseTote() {
+	grip = GripSystem.getInstance();
+	requires(grip);
+    }
 
-	public GripCloseTote(String name) {
-		super(name);
-		// TODO Auto-generated constructor stub
-	}
+    public GripCloseTote(String name) {
+	super(name);
+	// TODO Auto-generated constructor stub
+    }
 
-	public GripCloseTote(double timeout) {
-		super(timeout);
-		// TODO Auto-generated constructor stub
-	}
+    public GripCloseTote(double timeout) {
+	super(timeout);
+	// TODO Auto-generated constructor stub
+    }
 
-	public GripCloseTote(String name, double timeout) {
-		super(name, timeout);
-		// TODO Auto-generated constructor stub
-	}
+    public GripCloseTote(String name, double timeout) {
+	super(name, timeout);
+	// TODO Auto-generated constructor stub
+    }
 
-	@Override
-	protected void initialize() {
-		// TODO Auto-generated method stub
+    @Override
+    protected void initialize() {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	protected void execute() {
-	}
+    @Override
+    protected void execute() {
+    }
 
-	@Override
-	protected boolean isFinished() {
-		return grip.close(GRIP_TOTE);
-	}
+    @Override
+    protected boolean isFinished() {
+	return grip.close(GRIP_TOTE);
+    }
 
-	@Override
-	protected void end() {
-		grip.stop();
-	}
+    @Override
+    protected void end() {
+	grip.stop();
+    }
 
-	@Override
-	protected void interrupted() {
-		this.end();
-	}
+    @Override
+    protected void interrupted() {
+	this.end();
+    }
 
 }

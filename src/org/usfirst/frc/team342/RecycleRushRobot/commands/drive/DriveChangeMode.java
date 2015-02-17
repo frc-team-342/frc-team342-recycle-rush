@@ -1,34 +1,28 @@
-package org.usfirst.frc.team342.RecycleRushRobot.commands.grip;
+package org.usfirst.frc.team342.RecycleRushRobot.commands.drive;
+
+import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
-import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
+public class DriveChangeMode extends Command {
 
-/**
- * this function is not yet implemented. If called it should open the gripper
- * all the way.
- */
-public class GripOpen extends Command {
-    GripSystem grip;
-    private final double GRIP_FULL_OPEN = .94;
+    private DriveSystem drive;
 
-    public GripOpen() {
-	grip = GripSystem.getInstance();
-	requires(grip);
+    public DriveChangeMode() {
+	drive = DriveSystem.getInstance();
     }
 
-    public GripOpen(String name) {
+    public DriveChangeMode(String name) {
 	super(name);
 	// TODO Auto-generated constructor stub
     }
 
-    public GripOpen(double timeout) {
+    public DriveChangeMode(double timeout) {
 	super(timeout);
 	// TODO Auto-generated constructor stub
     }
 
-    public GripOpen(String name, double timeout) {
+    public DriveChangeMode(String name, double timeout) {
 	super(name, timeout);
 	// TODO Auto-generated constructor stub
     }
@@ -41,24 +35,26 @@ public class GripOpen extends Command {
 
     @Override
     protected void execute() {
+	drive.changeMode();
 	// TODO Auto-generated method stub
     }
 
     @Override
     protected boolean isFinished() {
-	return grip.open(GRIP_FULL_OPEN);
+	// TODO Auto-generated method stub
+	return true;
     }
 
     @Override
     protected void end() {
 	// TODO Auto-generated method stub
-	grip.stop();
+
     }
 
     @Override
     protected void interrupted() {
 	// TODO Auto-generated method stub
-	this.end();
+
     }
 
 }

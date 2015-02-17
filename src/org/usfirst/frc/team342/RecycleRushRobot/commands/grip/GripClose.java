@@ -10,56 +10,56 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
  * all the way.
  */
 public class GripClose extends Command {
-	GripSystem grip;
-	private final double GRIP_CLOSED = .1;
+    GripSystem grip;
+    private final double GRIP_CLOSED = .1;
 
-	public GripClose() {
-		grip = GripSystem.getInstance();
-		requires(grip);
-	}
+    public GripClose() {
+	grip = GripSystem.getInstance();
+	requires(grip);
+    }
 
-	public GripClose(String name) {
-		super(name);
-		// TODO Auto-generated constructor stub
-	}
+    public GripClose(String name) {
+	super(name);
+	// TODO Auto-generated constructor stub
+    }
 
-	public GripClose(double timeout) {
-		super(timeout);
-		// TODO Auto-generated constructor stub
-	}
+    public GripClose(double timeout) {
+	super(timeout);
+	// TODO Auto-generated constructor stub
+    }
 
-	public GripClose(String name, double timeout) {
-		super(name, timeout);
-		// TODO Auto-generated constructor stub
-	}
+    public GripClose(String name, double timeout) {
+	super(name, timeout);
+	// TODO Auto-generated constructor stub
+    }
 
-	@Override
-	protected void initialize() {
-		// TODO Auto-generated method stub
+    @Override
+    protected void initialize() {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	protected void execute() {
-		// TODO Auto-generated method stub
+    @Override
+    protected void execute() {
+	// TODO Auto-generated method stub
 
-	}
+    }
 
-	@Override
-	protected boolean isFinished() {
-		return grip.close(GRIP_CLOSED);
-	}
+    @Override
+    protected boolean isFinished() {
+	return grip.close(GRIP_CLOSED);
+    }
 
-	@Override
-	protected void end() {
-		// TODO Auto-generated method stub
-		grip.stop();
-	}
+    @Override
+    protected void end() {
+	// TODO Auto-generated method stub
+	grip.stop();
+    }
 
-	@Override
-	protected void interrupted() {
-		// TODO Auto-generated method stub
-		this.end();
-	}
+    @Override
+    protected void interrupted() {
+	// TODO Auto-generated method stub
+	this.end();
+    }
 
 }
