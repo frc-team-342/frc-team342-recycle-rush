@@ -16,7 +16,7 @@ public class PickUpContainer extends CommandGroup {
 
 		this.addSequential(new GripCloseContainer());
 
-		this.addSequential(new LiftUpHeight(RobotMap.LIFT_NOT_TOUCHING_GROUND));
+		//this.addSequential(new LiftUpHeight(RobotMap.LIFT_NOT_TOUCHING_GROUND));
 
 		this.addSequential(new DriveTurnLeftAngle(90));
 

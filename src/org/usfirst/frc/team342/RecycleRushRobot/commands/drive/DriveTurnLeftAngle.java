@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveTurnLeftAngle extends Command {
 	DriveSystem drive;
+	private double startAngle;
 	private double angle;
 	private double targetangle;
 	private double TURN_LEFT_MAGNITUDE = 0.5;
@@ -35,14 +36,15 @@ public class DriveTurnLeftAngle extends Command {
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub
-		angle = drive.getAngle();
+		startAngle = drive.getAngle();
+		angle = 0;
 	}
 
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
 		drive.turn(-1 * TURN_LEFT_MAGNITUDE);
-		angle = drive.getAngle();
+		angle = drive.getAngle() - startAngle;
 	}
 
 	@Override

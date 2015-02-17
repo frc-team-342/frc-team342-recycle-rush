@@ -47,7 +47,7 @@ public class DriveWithJoystick extends Command {
 
 	@Override
 	protected void execute() {
-		drive.driveWithJoystick(joystick);
+		drive.driveWithJoystick(joystick, true);
 		lift.liftWithJoystick(controller);
 		scissor.scissorWithJoystick(controller);
 		// TODO Auto-generated method stub

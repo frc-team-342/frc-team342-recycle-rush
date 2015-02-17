@@ -24,22 +24,21 @@ public class GripSystem extends Subsystem {
 
 	// declare motors and sensors
 	private final Talon talon;
-	private final AnalogPotentiometer potentiometer;
 	private final AnalogInput ultrasonic;
 	private final DigitalInput limitSwitchOut;
-
+	private final DigitalInput limitSwitchIn;
 	// the gripper calls these as a guide for where to stop the gripper
-	private final double GRIP_STRENGTH = 0.3;
+	private final double GRIP_STRENGTH = 0.5;
 	private final double GRIP_MINIMUM_STOP_OPEN = 0.2;
 
 	// gripper system constructor
 	private GripSystem() {
 		this.talon = new Talon(RobotMap.CAN_CHANNEL_GRIP_OPEN_CLOSE);
 		this.ultrasonic = new AnalogInput(RobotMap.ANALOG_IO_GRIP_ULTRASONIC);
-		this.potentiometer = new AnalogPotentiometer(
-				RobotMap.ANALOG_IO_GRIP_POTENTIOMETER_POSITION);
 		this.limitSwitchOut = new DigitalInput(
 				RobotMap.DIGITAL_IO_GRIP_LIMIT_SWITCH_OUTER_LIMIT);
+		this.limitSwitchIn = new DigitalInput(
+				RobotMap.DIGITAL_IO_GRIP_LIMIT_SWITCH_INNER_LIMIT);
 	}
 
 	/**
@@ -58,21 +57,23 @@ public class GripSystem extends Subsystem {
 	 * @return true if gripper is between the given values
 	 */
 	public boolean close(double closeTo) {
-		boolean closed = true; // set default state to closed
+		// set the default state to closed
+		boolean closed = true;
 
-		if (potentiometer.get() >= closeTo) {
+		// close if not closed
+		if (limitSwitchIn.get()) {
 			closed = false;
-			talon.set(-1 * GRIP_STRENGTH); // set the strength to open at, this
-											// could be made
-			// non-constant for better control
-		} else if (potentiometer.get() < closeTo - GRIP_MINIMUM_STOP_OPEN) {
-			closed = false;
-			talon.set(GRIP_STRENGTH); // sets the strength for the talon to open
-										// at
+			talon.set(-1 * GRIP_STRENGTH);
 		}
 
-		if (closed)
-			talon.set(0); // stop the motor if the close function is complete
+		// redundantly close if limit switch is true
+		if (!limitSwitchIn.get()) {
+			closed = true;
+			talon.set(0);
+		}
+
+		// retrun whether or not the gripper is already closed for loop
+		// statements
 		return closed;
 	}
 
@@ -88,18 +89,22 @@ public class GripSystem extends Subsystem {
 	 */
 	public boolean open(double stop) {
 		// set default state to open
-		boolean open = true; 
-		
-		// set the motor to the default strength and
-		if (potentiometer.get() < stop) {
+		boolean open = true;
+
+		// set the motor to the default strength and open if not already fully
+		// open
+		if (limitSwitchOut.get()) {
 			talon.set(GRIP_STRENGTH);
 			open = false;
 		}
-		
-		// stops the motor if the open function is complete
-		if (open)
-			talon.set(0); 
-		
+
+		// stops the motor if the open function is complete, redundantly set
+		// open to true
+		if (!limitSwitchOut.get()) {
+			talon.set(0);
+			open = true;
+		}
+
 		return open;
 	}
 
@@ -114,20 +119,20 @@ public class GripSystem extends Subsystem {
 	protected void initDefaultCommand() {
 		// TODO Auto-generated method stub
 	}
-	
+
 	/**
 	 * 
-	 * @return the value of the ultrasonic sensor in the front o the robot
+	 * @return the value of the ultra sonic sensor in the front o the robot
 	 */
 	public int getUltrasonic() {
 		return ultrasonic.getValue();
 	}
-	
+
 	/**
 	 * 
 	 * @return the potentiometer value for detecting the gr
 	 */
-	public double getPotentiometer() {
-		return potentiometer.get();
-	}
+	// public double getPotentiometer() {
+	// return potentiometer.get();
+	// }
 }

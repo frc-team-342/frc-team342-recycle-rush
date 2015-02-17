@@ -40,14 +40,15 @@ public class DriveReverseDistance extends Command {
 	@Override
 	protected void execute() {
 		// TODO Auto-generated method stub
-		drive.reverse(RobotMap.AUTONOMOUS_SPEED);
+		drive.forward(-0.3);
+		distance = drive.getDistance();
 		// get distance here
 	}
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
-		return (distance > targetdistance);
+		// Stop the robot when it gets to the target distance
+		return (distance <= targetdistance);
 	}
 
 	@Override

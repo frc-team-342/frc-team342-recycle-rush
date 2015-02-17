@@ -48,17 +48,19 @@ public class DriveSystem extends Subsystem {
 		// }
 		robotDrive = new RobotDrive(frontLeftjaguar, rearLeftjaguar,
 				frontRightjaguar, rearRightjaguar);
-		//robotDrive.setInvertedMotor(MotorType.kRearRight, true);
+		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
 		// invert's the left motors /\ & \/
-		//robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
-		robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);
-		robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
+		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
+		// robotDrive.setInvertedMotor(MotorType.kFrontLeft, true);
+		// robotDrive.setInvertedMotor(MotorType.kRearLeft, true);
 
 		this.gyro = new Gyro(RobotMap.ANALOG_IO_DRIVE_GYRO);
 		this.ultrasonic = new AnalogInput(RobotMap.ANALOG_IO_DRIVE_ULTRASONIC);
 
 		mode = true;
 
+		// lower sensitivity of the drive system, this is very necessary
+		this.robotDrive.setSensitivity(0.05);
 	}
 
 	public void initDefaultCommand() {
@@ -69,14 +71,36 @@ public class DriveSystem extends Subsystem {
 
 	public void driveWithJoystick(Joystick joystick) {
 		// makes joy stick drive run with exponential acceleration
-		// this should smooth out the drive
-		double x = joystick.getX() * Math.abs(joystick.getX());
-		double y = joystick.getY() * Math.abs(joystick.getY());
-		double rotation = joystick.getZ() * Math.abs(joystick.getZ());
-		double angle = gyro.getAngle();
+		// this should smooth out the drive. The throttle is inverted.
 
+		// set the throttle from the 4th axis
+		double throttle = ((-1.0 * joystick.getThrottle()) + 2);
+
+		// set drive variables
+		double x = Math.pow(joystick.getX(), 3) * throttle;
+		double y = Math.pow(joystick.getY(), 3) * throttle;
+		double rotation = Math.pow(joystick.getZ(), 3) * throttle;
+		double angle = gyro.getAngle();
 		this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, angle);
 		// CANJaguar.updateSyncGroup((byte) 0x80);
+	}
+
+	public void driveWithJoystick(Joystick joystick, boolean extraArg) {
+		// makes joy stick drive run with exponential acceleration
+		// this should smooth out the drive. The throttle is inverted.
+
+		// set the throttle from the 4th axis
+
+		// set drive variables
+		double x = joystick.getX();
+		double y = joystick.getY();
+		double rotation = joystick.getZ();
+		double angle = gyro.getAngle();
+		if (mode) {
+			this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, angle);
+		} else {
+			this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, 0);
+		}
 	}
 
 	public void fieldOrientedJoystick(Joystick joystick) {
@@ -105,11 +129,11 @@ public class DriveSystem extends Subsystem {
 	}
 
 	public void forward(double speed) {
-		this.robotDrive.mecanumDrive_Polar(speed, 0.0, 0.0);
+		this.robotDrive.mecanumDrive_Cartesian(0, speed, 0, gyro.getAngle());
 	}
 
 	public void reverse(double speed) {
-		this.robotDrive.mecanumDrive_Polar(speed, 0.0, 0.0);
+		this.robotDrive.mecanumDrive_Cartesian(0.0, -0.3 , 0.0, gyro.getAngle());
 	}
 
 	public void stop() {
@@ -119,7 +143,7 @@ public class DriveSystem extends Subsystem {
 	public void turn(double speed) {
 		// this.robotDrive.mecanumDrive_Polar(0.0, 0.0, speed);
 		System.out.println("Turning Right");
-		this.robotDrive.mecanumDrive_Cartesian(0, 0, speed, 0);
+		this.robotDrive.mecanumDrive_Cartesian(0, 0, speed, gyro.getAngle());
 
 	}
 
@@ -130,11 +154,11 @@ public class DriveSystem extends Subsystem {
 	public double getDistance() {
 		return ultrasonic.getValue();
 	}
-	
+
 	public void resetGyro() {
 		gyro.reset();
 	}
-	
+
 	public void initializeGyro() {
 		gyro.initGyro();
 	}

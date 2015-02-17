@@ -2,65 +2,61 @@ package org.usfirst.frc.team342.RecycleRushRobot.commands.drive;
 
 import org.usfirst.frc.team342.RecycleRushRobot.OI;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
-import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.LiftSystem;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.ScissorSystem;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ReadDebug extends Command {
+public class DriveFasterWithJoystick extends Command {
 
-	private DriveSystem drive;
-	private LiftSystem lift;
-	private GripSystem grip;
-	private ScissorSystem scissor;
+	private Joystick joystick;
+	private Joystick controller;
 
-	public ReadDebug() {
-		drive = DriveSystem.getInstance();
-		lift = LiftSystem.getInstance();
-		grip = GripSystem.getInstance();
-		scissor = ScissorSystem.getInstance();
+	private DriveSystem drive = DriveSystem.getInstance();
+	private LiftSystem lift = LiftSystem.getInstance();
+	private ScissorSystem scissor = ScissorSystem.getInstance();
+
+	public DriveFasterWithJoystick() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReadDebug(String name) {
+	public DriveFasterWithJoystick(String name) {
 		super(name);
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReadDebug(double timeout) {
+	public DriveFasterWithJoystick(double timeout) {
 		super(timeout);
 		// TODO Auto-generated constructor stub
 	}
 
-	public ReadDebug(String name, double timeout) {
+	public DriveFasterWithJoystick(String name, double timeout) {
 		super(name, timeout);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected void initialize() {
+		OI oi = OI.getInstance();
+		this.joystick = oi.getJoystick();
+		this.controller = oi.getController();
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	protected void execute() {
-		// drive.testGyro();
+		drive.driveWithJoystick(joystick);
+		lift.liftWithJoystick(controller);
+		scissor.scissorWithJoystick(controller);
 		// TODO Auto-generated method stub
-		System.out.println("Drive System " + "\t" + "Ultrasonic: "
-				+ drive.getDistance() + "\t" + "Gyro: " + drive.getAngle());
-
-		System.out.println("GripSystem " + "\t" + "Ultrasonic: "
-				+ grip.getUltrasonic());
-
 	}
 
 	@Override
 	protected boolean isFinished() {
 		// TODO Auto-generated method stub
-		return true;
+		return false;
 	}
 
 	@Override

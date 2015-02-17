@@ -61,7 +61,7 @@ public class LiftSystem extends Subsystem {
 		double down = -1 * joystick.getRawAxis(2);
 		// combine the two value for greater control
 		double speed = up + down;
-		
+
 		if (((speed >= DEFAULT_GAMEPAD_DEADZONE) && topSwitch.get())
 				|| ((speed <= (-1.0 * DEFAULT_GAMEPAD_DEADZONE)) && bottomSwitch
 						.get()))
@@ -71,19 +71,18 @@ public class LiftSystem extends Subsystem {
 	}
 
 	public void liftUp() {
-		if (!topLimit()) {
+		if (!topLimit())
 			this.victorSP.set(LIFT_SPEED);
-		} else {
+		else
 			this.victorSP.set(0.0);
-		}
+
 	}
 
 	public void liftDown() {
-		if (!bottomLimit()) {
+		if (!bottomLimit())
 			this.victorSP.set(-1 * LIFT_SPEED);
-		} else {
+		else
 			this.victorSP.set(0.0);
-		}
 	}
 
 	/**

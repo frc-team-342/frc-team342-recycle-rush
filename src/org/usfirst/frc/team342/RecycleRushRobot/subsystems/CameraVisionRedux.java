@@ -29,7 +29,7 @@ public class CameraVisionRedux extends Subsystem {
 		currCam = frontCam;
 		NIVision.IMAQdxConfigureGrab(frontCam);
 		NIVision.IMAQdxStartAcquisition(frontCam);
-		
+
 		// Default camera is Front Camera
 	}
 

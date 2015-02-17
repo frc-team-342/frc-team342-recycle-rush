@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.tables.ITable;
 
 import org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous.*;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveFasterWithJoystick;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveWithJoystick;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.CameraVisionRedux;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.ScissorSystem;
@@ -37,7 +38,9 @@ public class RecycleRushRobot extends IterativeRobot {
 	private GripSystem grip;
 
 	private Command autonomousCommand;
-	private DriveWithJoystick runnow;
+	
+	// this hopefully will not break anything...
+	private DriveFasterWithJoystick runnow;
 
 	private SendableChooser autoChooser;
 
@@ -76,10 +79,10 @@ public class RecycleRushRobot extends IterativeRobot {
 		}
 
 		// if the arrays are different xor the arrays and store the values
-		if (!Arrays.equals(oldArray, newArray)){
+		if (!Arrays.equals(oldArray, newArray)) {
 			for (int i = 0; i < 4; i++) {
 				oldArray[i] = oldArray[i] ^ newArray[i];
-				
+
 				SmartDashboard.putBoolean("DB/Button " + i, oldArray[i]);
 			}
 		}
@@ -97,8 +100,8 @@ public class RecycleRushRobot extends IterativeRobot {
 			autonomousCommand = new PickUpTote();
 		if (oldArray[2])
 			autonomousCommand = new PickUpContainer();
-		if (oldArray[3])
-			autonomousCommand = new PickUpToteAndContainer();
+		// if (oldArray[3])
+		// autonomousCommand = new PickUpToteAndContainer();
 
 		autonomousCommand.start();
 	}
@@ -114,7 +117,7 @@ public class RecycleRushRobot extends IterativeRobot {
 	 * initialize the joy stick
 	 */
 	public void teleopInit() {
-		runnow = new DriveWithJoystick();
+		runnow = new DriveFasterWithJoystick();
 	}
 
 	/**
