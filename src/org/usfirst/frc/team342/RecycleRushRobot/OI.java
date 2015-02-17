@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.camera.ChangeCamera;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveChangeMode;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveToggleSpeed;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.ReadDebug;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveReadDebug;
 //import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.ReadDebug;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.ResetGyro;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveResetGyro;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftDown;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftGetEncoder;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftStop;
@@ -35,38 +35,38 @@ public class OI {
     private static final OI INSTANCE = new OI();
 
     // Joy stick mapping
-    public static final int JOYSTICK_DRIVE = 0;
-    public static final int JOYSTICK_ASSIST = 1;
+    private static final int JOYSTICK_DRIVE = 0;
+    private static final int JOYSTICK_ASSIST = 1;
 
     // Joy stick buttons, axes 1 and 2 are for drive control. Axis 3 is not
     // used. POV buttons are unused.
-    public static final int JOYSTICK_DRIVE_CHANGE_CAMERA = 1;
-    public static final int JOYSTICK_DRIVE_RESET_GYRO = 2;
-    public static final int JOYSTICK_DRIVE_SCISSOR_DOWN = 3;
-    public static final int JOYSTICK_DRIVE_SCISSOR_RETRACT = 4;
-    public static final int JOYSTICK_DRIVE_SCISSOR_UP = 5;
-    public static final int JOYSTICK_DRIVE_SCISSOR_EXTEND = 6;
-    public static final int JOYSTICK_DRIVE_BUTTON_7 = 7;
-    public static final int JOYSTICK_DRIVE_CHANGE_MODE = 8;
-    public static final int JOYSTICK_DRIVE_BUTTON_9 = 9;
-    public static final int JOYSTICK_DRIVE_BUTTON_10 = 10;
-    public static final int JOYSTICK_DRIVE_SLOW_DOWN = 11;
-    public static final int JOYSTICK_DRIVE_DEBUG_NUMBERS = 12;
+    private final int JOYSTICK_DRIVE_CHANGE_CAMERA = 1;
+    private final int JOYSTICK_DRIVE_RESET_GYRO = 2;
+    private final int JOYSTICK_DRIVE_SCISSOR_DOWN = 3;
+    private final int JOYSTICK_DRIVE_SCISSOR_RETRACT = 4;
+    private final int JOYSTICK_DRIVE_SCISSOR_UP = 5;
+    private final int JOYSTICK_DRIVE_SCISSOR_EXTEND = 6;
+    private final int JOYSTICK_DRIVE_BUTTON_7 = 7;
+    private final int JOYSTICK_DRIVE_CHANGE_MODE = 8;
+    private final int JOYSTICK_DRIVE_BUTTON_9 = 9;
+    private final int JOYSTICK_DRIVE_BUTTON_10 = 10;
+    private final int JOYSTICK_DRIVE_SLOW_DOWN = 11;
+    private final int JOYSTICK_DRIVE_DEBUG_NUMBERS = 12;
 
     // Game pad buttons. Axes 5 and 6 are not used. Right and left trigger
     // control lift speed. Left thumb stick axes control scissor. The POV
     // buttons are unused.
-    public static final int JOYSTICK_ASSIST_GRIP_OPEN = 1; // While held
-    public static final int JOYSTICK_ASSIST_BUTTON_2 = 2;
-    public static final int JOYSTICK_ASSIST_BUTTON_3 = 3;
-    public static final int JOYSTICK_ASSIST_GRIP_CLOSE = 4; // While held
-    public static final int JOYSTICK_ASSIST_BUTTON_5 = 5;
-    public static final int JOYSTICK_ASSIST_BUTTON_6 = 6;
-    public static final int JOYSTICK_ASSIST_BUTTON_7 = 7;
-    public static final int JOYSTICK_ASSIST_CHANGE_CAMERA = 8;
+    private final int JOYSTICK_ASSIST_GRIP_OPEN = 1; // While held
+    private final int JOYSTICK_ASSIST_BUTTON_2 = 2;
+    private final int JOYSTICK_ASSIST_BUTTON_3 = 3;
+    private final int JOYSTICK_ASSIST_GRIP_CLOSE = 4; // While held
+    private final int JOYSTICK_ASSIST_BUTTON_5 = 5;
+    private final int JOYSTICK_ASSIST_BUTTON_6 = 6;
+    private final int JOYSTICK_ASSIST_BUTTON_7 = 7;
+    private final int JOYSTICK_ASSIST_CHANGE_CAMERA = 8;
     // Thumb stick buttons will probably not be used
-    public static final int JOYSTICK_ASSIST_BUTTON_9 = 9;
-    public static final int JOYSTICK_ASSIST_BUTTON_10 = 10;
+    private final int JOYSTICK_ASSIST_BUTTON_9 = 9;
+    private final int JOYSTICK_ASSIST_BUTTON_10 = 10;
 
     private OI() {
 	// declare controllers
@@ -82,6 +82,8 @@ public class OI {
 		JOYSTICK_DRIVE_SCISSOR_EXTEND);
 	JoystickButton driveScissorRetract = new JoystickButton(
 		driveController, JOYSTICK_DRIVE_SCISSOR_RETRACT);
+
+	// declare joystick buttons
 
 	// declare the reset gyro button for the drive controller
 	JoystickButton driveResetGyro = new JoystickButton(driveController,
@@ -113,6 +115,8 @@ public class OI {
 	JoystickButton assistChangeCamera = new JoystickButton(assistJoystick,
 		JOYSTICK_ASSIST_CHANGE_CAMERA);
 
+	// map controls to commands
+
 	// map drive controller scissor controls to scissor commands
 	driveScissorUp.whileHeld(new ScissorUp());
 	driveScissorDown.whileHeld(new ScissorDown());
@@ -120,7 +124,7 @@ public class OI {
 	driveScissorRetract.whileHeld(new ScissorRetract());
 
 	// map drive controller reset gyro button to reset gyro command
-	driveResetGyro.whenPressed(new ResetGyro());
+	driveResetGyro.whenPressed(new DriveResetGyro());
 
 	// map drive controller change camera button to change camera command
 	driveChangeCamera.whenPressed(new ChangeCamera());
@@ -133,7 +137,7 @@ public class OI {
 	driveSlowDown.whenReleased(new DriveToggleSpeed());
 
 	// map a button to print debugging information
-	driveDebugNumbers.whileHeld(new ReadDebug());
+	driveDebugNumbers.whileHeld(new DriveReadDebug());
 
 	// map assist joy stick grip buttons to grip commands
 	assistGripOpen.whileHeld(new GripOpen());
@@ -148,7 +152,6 @@ public class OI {
     }
 
     /**
-     * 
      * @return the main joy stick drive controller
      */
     public Joystick getJoystick() {
@@ -156,7 +159,6 @@ public class OI {
     }
 
     /**
-     * 
      * @return the secondary controller for the lift and scissor
      */
     public Joystick getController() {

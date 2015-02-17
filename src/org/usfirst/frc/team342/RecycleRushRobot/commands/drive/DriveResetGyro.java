@@ -1,33 +1,31 @@
 package org.usfirst.frc.team342.RecycleRushRobot.commands.drive;
 
-import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
+import org.usfirst.frc.team342.RecycleRushRobot.OI;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 
-import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveReverseDistance extends Command {
-    DriveSystem drive;
-    private double distance;
-    private double targetDistance;
+public class DriveResetGyro extends Command {
 
-    public DriveReverseDistance(int target) {
+    private DriveSystem drive;
+
+    public DriveResetGyro() {
+	drive = DriveSystem.getInstance();
 	// TODO Auto-generated constructor stub
-	targetDistance = target;
-	requires(this.drive);
     }
 
-    public DriveReverseDistance(String name) {
+    public DriveResetGyro(String name) {
 	super(name);
 	// TODO Auto-generated constructor stub
     }
 
-    public DriveReverseDistance(double timeout) {
+    public DriveResetGyro(double timeout) {
 	super(timeout);
 	// TODO Auto-generated constructor stub
     }
 
-    public DriveReverseDistance(String name, double timeout) {
+    public DriveResetGyro(String name, double timeout) {
 	super(name, timeout);
 	// TODO Auto-generated constructor stub
     }
@@ -35,27 +33,26 @@ public class DriveReverseDistance extends Command {
     @Override
     protected void initialize() {
 	// TODO Auto-generated method stub
-	distance = 0;
+
     }
 
     @Override
     protected void execute() {
+	drive.resetGyro();
+	System.out.println("Reseting the gyro...");
 	// TODO Auto-generated method stub
-	drive.forward(RobotMap.AUTONOMOUS_REVERSE);
-	distance = drive.getDistance();
-	// get distance here
     }
 
     @Override
     protected boolean isFinished() {
-	// Stop the robot when it gets to the target distance
-	return (distance <= targetDistance);
+	// TODO Auto-generated method stub
+	return true;
     }
 
     @Override
     protected void end() {
-	// TODO Auto-generated method stub
-	drive.stop();
+	System.out.println("Gyro succesfully reset");
+
     }
 
     @Override

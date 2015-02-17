@@ -89,7 +89,7 @@ public class DriveSystem extends Subsystem {
     }
 
     /**
-     * inverts the drive mode, used for switching between field oriented and
+     * Inverts the drive mode, used for switching between field oriented and
      * robot oriented
      */
     public void changeMode() {
@@ -134,7 +134,7 @@ public class DriveSystem extends Subsystem {
     }
 
     /**
-     * @return the ultra sonic value
+     * @return the ultrasonic value
      */
     public int getDistance() {
 	return ultrasonic.getValue();
@@ -146,15 +146,18 @@ public class DriveSystem extends Subsystem {
     public void resetGyro() {
 	gyro.reset();
     }
-    
+
     /**
      * change the drive speed for better control
      */
     public void toggleSpeed() {
+	// toggle the slow setting
 	slow = !slow;
 	if (slow)
+	    // if the new value is slow set the max output slow
 	    robotDrive.setMaxOutput(0.3);
 	else
+	    // if the new value is not slow set the max output to not slow
 	    robotDrive.setMaxOutput(1.0);
     }
 }

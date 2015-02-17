@@ -29,7 +29,6 @@ public class GripSystem extends Subsystem {
     private final DigitalInput limitSwitchIn;
     // the gripper calls these as a guide for where to stop the gripper
     private final double GRIP_STRENGTH = 0.5;
-    private final double GRIP_MINIMUM_STOP_OPEN = 0.2;
 
     // gripper system constructor
     private GripSystem() {
@@ -56,7 +55,7 @@ public class GripSystem extends Subsystem {
      *            close the gripper towards the specified value
      * @return true if gripper is between the given values
      */
-    public boolean close(double closeTo) {
+    public boolean close() {
 	// set the default state to closed
 	boolean closed = true;
 
@@ -87,7 +86,7 @@ public class GripSystem extends Subsystem {
      * @return true if potentiometer detects the gripper as more open or equal
      *         to the stop value
      */
-    public boolean open(double stop) {
+    public boolean open() {
 	// set default state to open
 	boolean open = true;
 

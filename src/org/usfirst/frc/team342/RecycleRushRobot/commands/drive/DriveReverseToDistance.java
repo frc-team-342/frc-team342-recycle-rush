@@ -1,31 +1,33 @@
 package org.usfirst.frc.team342.RecycleRushRobot.commands.drive;
 
-import org.usfirst.frc.team342.RecycleRushRobot.OI;
+import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 
-import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ResetGyro extends Command {
+public class DriveReverseToDistance extends Command {
+    DriveSystem drive;
+    private int distance;
+    private int targetDistance;
 
-    private DriveSystem drive;
-
-    public ResetGyro() {
+    public DriveReverseToDistance(int target) {
 	drive = DriveSystem.getInstance();
-	// TODO Auto-generated constructor stub
+	requires(this.drive);
+	targetDistance = target;
     }
 
-    public ResetGyro(String name) {
+    public DriveReverseToDistance(String name) {
 	super(name);
 	// TODO Auto-generated constructor stub
     }
 
-    public ResetGyro(double timeout) {
+    public DriveReverseToDistance(double timeout) {
 	super(timeout);
 	// TODO Auto-generated constructor stub
     }
 
-    public ResetGyro(String name, double timeout) {
+    public DriveReverseToDistance(String name, double timeout) {
 	super(name, timeout);
 	// TODO Auto-generated constructor stub
     }
@@ -33,32 +35,28 @@ public class ResetGyro extends Command {
     @Override
     protected void initialize() {
 	// TODO Auto-generated method stub
-
     }
 
     @Override
     protected void execute() {
-	drive.resetGyro();
-	System.out.println("Reseting the gyro...");
-	// TODO Auto-generated method stub
+	drive.forward(RobotMap.AUTONOMOUS_REVERSE);
+	distance = drive.getDistance();
     }
 
     @Override
     protected boolean isFinished() {
-	// TODO Auto-generated method stub
-	return true;
+	// Stop the robot when it gets to the target distance
+	return (distance <= targetDistance);
     }
 
     @Override
     protected void end() {
-	System.out.println("Gyro succesfully reset");
-
+	drive.stop();
     }
 
     @Override
     protected void interrupted() {
-	// TODO Auto-generated method stub
-
+	end();
     }
 
 }

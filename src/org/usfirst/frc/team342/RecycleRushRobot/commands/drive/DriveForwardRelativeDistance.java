@@ -1,55 +1,61 @@
 package org.usfirst.frc.team342.RecycleRushRobot.commands.drive;
 
+import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveToggleSpeed extends Command {
+public class DriveForwardRelativeDistance extends Command {
     DriveSystem drive;
+    private int distance;
+    private int targetDistance;
 
-    public DriveToggleSpeed() {
+    public DriveForwardRelativeDistance(int target) {
 	drive = DriveSystem.getInstance();
+	requires(this.drive);
+	targetDistance = target + drive.getDistance();
     }
 
-    public DriveToggleSpeed(String name) {
+    public DriveForwardRelativeDistance(String name) {
 	super(name);
 	// TODO Auto-generated constructor stub
     }
 
-    public DriveToggleSpeed(double timeout) {
+    public DriveForwardRelativeDistance(double timeout) {
 	super(timeout);
 	// TODO Auto-generated constructor stub
     }
 
-    public DriveToggleSpeed(String name, double timeout) {
+    public DriveForwardRelativeDistance(String name, double timeout) {
 	super(name, timeout);
 	// TODO Auto-generated constructor stub
     }
 
     @Override
     protected void initialize() {
-	// TODO Auto-generated method stub
+	distance = drive.getDistance();
     }
 
     @Override
     protected void execute() {
-	drive.toggleSpeed();
+	drive.forward(RobotMap.AUTONOMOUS_SPEED);
+	distance = drive.getDistance();
     }
 
     @Override
     protected boolean isFinished() {
-	// TODO Auto-generated method stub
-	return true;
+	return distance >= targetDistance;
     }
 
     @Override
     protected void end() {
-	// TODO Auto-generated method stub
+	drive.stop();
     }
 
     @Override
     protected void interrupted() {
-	// TODO Auto-generated method stub
+	this.end();
     }
 
 }

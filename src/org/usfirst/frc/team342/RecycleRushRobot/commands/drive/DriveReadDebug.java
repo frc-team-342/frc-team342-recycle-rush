@@ -9,14 +9,14 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.ScissorSystem;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class ReadDebug extends Command {
+public class DriveReadDebug extends Command {
 
     private DriveSystem drive;
     private LiftSystem lift;
     private GripSystem grip;
     private ScissorSystem scissor;
 
-    public ReadDebug() {
+    public DriveReadDebug() {
 	drive = DriveSystem.getInstance();
 	lift = LiftSystem.getInstance();
 	grip = GripSystem.getInstance();
@@ -24,17 +24,17 @@ public class ReadDebug extends Command {
 	// TODO Auto-generated constructor stub
     }
 
-    public ReadDebug(String name) {
+    public DriveReadDebug(String name) {
 	super(name);
 	// TODO Auto-generated constructor stub
     }
 
-    public ReadDebug(double timeout) {
+    public DriveReadDebug(double timeout) {
 	super(timeout);
 	// TODO Auto-generated constructor stub
     }
 
-    public ReadDebug(String name, double timeout) {
+    public DriveReadDebug(String name, double timeout) {
 	super(name, timeout);
 	// TODO Auto-generated constructor stub
     }

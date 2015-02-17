@@ -21,7 +21,6 @@ public class LiftSystem extends Subsystem {
     private final DigitalInput encoderB;
     private final Encoder encoder;
 
-    // lift speed needs to be modified to be
     private final double LIFT_SPEED = 0.3;
     private final double GAMEPAD_DEADZONE = 0.01;
 
@@ -33,6 +32,7 @@ public class LiftSystem extends Subsystem {
 		RobotMap.DIGITAL_IO_LIFT_LIMIT_SWITCH_UP);
 	this.bottomSwitch = new DigitalInput(
 		RobotMap.DIGITAL_IO_LIFT_LIMIT_SWITCH_DOWN);
+	
 	this.encoderA = new DigitalInput(
 		RobotMap.DIGITAL_IO_LIFT_QUADRATURE_ENCODER_A);
 	this.encoderB = new DigitalInput(
@@ -52,9 +52,8 @@ public class LiftSystem extends Subsystem {
     }
 
     /**
-     * 
      * @param joystick
-     *            specify the joy stick to use, we use assist joy stick in OI
+     *            specify the joy stick to use, we use controller from OI
      */
     public void liftWithJoystick(Joystick joystick) {
 	double up = joystick.getRawAxis(3);
@@ -63,14 +62,13 @@ public class LiftSystem extends Subsystem {
 	double speed = up + down;
 
 	if (((speed >= GAMEPAD_DEADZONE) && topSwitch.get())
-		|| ((speed <= (-1.0 * GAMEPAD_DEADZONE)) && bottomSwitch
-			.get()))
+		|| ((speed <= (-1.0 * GAMEPAD_DEADZONE)) && bottomSwitch.get()))
 	    victorSP.set(speed);
 	else
 	    victorSP.set(0);
     }
 
-    public void liftUp() {
+    public void up() {
 	if (!topLimit())
 	    this.victorSP.set(LIFT_SPEED);
 	else
@@ -78,7 +76,7 @@ public class LiftSystem extends Subsystem {
 
     }
 
-    public void liftDown() {
+    public void down() {
 	if (!bottomLimit())
 	    this.victorSP.set(-1 * LIFT_SPEED);
 	else
@@ -88,7 +86,7 @@ public class LiftSystem extends Subsystem {
     /**
      * sets the lift speed to 0.0
      */
-    public void liftStop() {
+    public void stop() {
 	this.victorSP.set(0.0);
     }
 
@@ -101,8 +99,7 @@ public class LiftSystem extends Subsystem {
     }
 
     /**
-     * 
-     * @return the value of the bottom limit switch (maybe inverted?)
+     * @return the value of the bottom limit switch
      */
     public boolean bottomLimit() {
 	return !bottomSwitch.get();
@@ -112,7 +109,7 @@ public class LiftSystem extends Subsystem {
      * 
      * @return the value of the encoder
      */
-    public double getEncoderValue() {
+    public int getEncoderValue() {
 	return encoder.get();
     }
 }

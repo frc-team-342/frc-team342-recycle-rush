@@ -6,35 +6,35 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveFowardDistance extends Command {
+public class DriveForwardToDistance extends Command {
     DriveSystem drive;
     private int distance;
     private int targetDistance;
 
-    public DriveFowardDistance(int target) {
-	targetDistance = target;
+    public DriveForwardToDistance(int target) {
 	drive = DriveSystem.getInstance();
 	requires(this.drive);
+	targetDistance = target;
     }
 
-    public DriveFowardDistance(String name) {
+    public DriveForwardToDistance(String name) {
 	super(name);
 	// TODO Auto-generated constructor stub
     }
 
-    public DriveFowardDistance(double timeout) {
+    public DriveForwardToDistance(double timeout) {
 	super(timeout);
 	// TODO Auto-generated constructor stub
     }
 
-    public DriveFowardDistance(String name, double timeout) {
+    public DriveForwardToDistance(String name, double timeout) {
 	super(name, timeout);
 	// TODO Auto-generated constructor stub
     }
 
     @Override
     protected void initialize() {
-	distance = drive.getDistance();
+	// TODO Auto-generated method stub
     }
 
     @Override
@@ -45,7 +45,7 @@ public class DriveFowardDistance extends Command {
 
     @Override
     protected boolean isFinished() {
-	return distance > targetDistance;
+	return distance >= targetDistance;
     }
 
     @Override
@@ -55,7 +55,7 @@ public class DriveFowardDistance extends Command {
 
     @Override
     protected void interrupted() {
-	this.end();
+	end();
     }
 
 }
