@@ -8,40 +8,40 @@ import edu.wpi.first.wpilibj.command.Command;
  *
  */
 public class LiftUpTime extends Command {
-    LiftSystem lift;
-    private long startTime;
-    private long duration;
+	LiftSystem lift;
+	private long startTime;
+	private long duration;
 
-    public LiftUpTime(long time) {
-	duration = time;
-	lift = LiftSystem.getInstance();
-	requires(lift);
-    }
+	public LiftUpTime(long time) {
+		duration = time;
+		lift = LiftSystem.getInstance();
+		requires(lift);
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-	startTime = System.currentTimeMillis();
-    }
+	// Called just before this Command runs the first time
+	protected void initialize() {
+		startTime = System.currentTimeMillis();
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-	lift.up();
-	duration = System.currentTimeMillis() - startTime;
-    }
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+		lift.up();
+		duration = System.currentTimeMillis() - startTime;
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-	return (lift.topLimit() || duration <= System.currentTimeMillis());
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return (lift.topLimit() || duration <= System.currentTimeMillis());
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-	lift.stop();
-    }
+	// Called once after isFinished returns true
+	protected void end() {
+		lift.stop();
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-	this.end();
-    }
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+		this.end();
+	}
 }

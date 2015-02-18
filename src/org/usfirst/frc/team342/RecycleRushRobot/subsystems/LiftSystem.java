@@ -11,105 +11,105 @@ import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class LiftSystem extends Subsystem {
-    private static final LiftSystem INSTANCE = new LiftSystem();
-    private final VictorSP victorSP;
+	private static final LiftSystem INSTANCE = new LiftSystem();
+	private final VictorSP victorSP;
 
-    private final DigitalInput topSwitch;
-    private final DigitalInput bottomSwitch;
+	private final DigitalInput topSwitch;
+	private final DigitalInput bottomSwitch;
 
-    private final DigitalInput encoderA;
-    private final DigitalInput encoderB;
-    private final Encoder encoder;
+	private final DigitalInput encoderA;
+	private final DigitalInput encoderB;
+	private final Encoder encoder;
 
-    private final double LIFT_SPEED = 0.3;
-    private final double GAMEPAD_DEADZONE = 0.01;
+	private final double LIFT_SPEED = 0.3;
+	private final double GAMEPAD_DEADZONE = 0.2;
 
-    public LiftSystem() {
-	// TODO Auto-generated constructor stub
-	this.victorSP = new VictorSP(RobotMap.VICTOR_SP_LIFT);
+	public LiftSystem() {
+		// TODO Auto-generated constructor stub
+		this.victorSP = new VictorSP(RobotMap.VICTOR_SP_LIFT);
 
-	this.topSwitch = new DigitalInput(
-		RobotMap.DIGITAL_IO_LIFT_LIMIT_SWITCH_UP);
-	this.bottomSwitch = new DigitalInput(
-		RobotMap.DIGITAL_IO_LIFT_LIMIT_SWITCH_DOWN);
-	
-	this.encoderA = new DigitalInput(
-		RobotMap.DIGITAL_IO_LIFT_QUADRATURE_ENCODER_A);
-	this.encoderB = new DigitalInput(
-		RobotMap.DIGITAL_IO_LIFT_QUADRATURE_ENCODER_B);
-	this.encoder = new Encoder(encoderA, encoderB, false, EncodingType.k4X);
+		this.topSwitch = new DigitalInput(
+				RobotMap.DIGITAL_IO_LIFT_LIMIT_SWITCH_UP);
+		this.bottomSwitch = new DigitalInput(
+				RobotMap.DIGITAL_IO_LIFT_LIMIT_SWITCH_DOWN);
 
-    }
+		this.encoderA = new DigitalInput(
+				RobotMap.DIGITAL_IO_LIFT_QUADRATURE_ENCODER_A);
+		this.encoderB = new DigitalInput(
+				RobotMap.DIGITAL_IO_LIFT_QUADRATURE_ENCODER_B);
+		this.encoder = new Encoder(encoderA, encoderB, false, EncodingType.k4X);
 
-    @Override
-    protected void initDefaultCommand() {
-	// TODO Auto-generated method stub
+	}
 
-    }
+	@Override
+	protected void initDefaultCommand() {
+		// TODO Auto-generated method stub
 
-    public static LiftSystem getInstance() {
-	return INSTANCE;
-    }
+	}
 
-    /**
-     * @param joystick
-     *            specify the joy stick to use, we use controller from OI
-     */
-    public void liftWithJoystick(Joystick joystick) {
-	double up = joystick.getRawAxis(3);
-	double down = -1 * joystick.getRawAxis(2);
-	// combine the two value for greater control
-	double speed = up + down;
+	public static LiftSystem getInstance() {
+		return INSTANCE;
+	}
 
-	if (((speed >= GAMEPAD_DEADZONE) && topSwitch.get())
-		|| ((speed <= (-1.0 * GAMEPAD_DEADZONE)) && bottomSwitch.get()))
-	    victorSP.set(speed);
-	else
-	    victorSP.set(0);
-    }
+	/**
+	 * @param joystick
+	 *            specify the joy stick to use, we use controller from OI
+	 */
+	public void liftWithJoystick(Joystick joystick) {
+		double up = joystick.getRawAxis(3);
+		double down = -1 * joystick.getRawAxis(2);
+		// combine the two value for greater control
+		double speed = up + down;
 
-    public void up() {
-	if (!topLimit())
-	    this.victorSP.set(LIFT_SPEED);
-	else
-	    this.victorSP.set(0.0);
+		if (((speed >= GAMEPAD_DEADZONE) && topSwitch.get())
+				|| ((speed <= (-1.0 * GAMEPAD_DEADZONE)) && bottomSwitch.get()))
+			victorSP.set(speed);
+		else
+			victorSP.set(0);
+	}
 
-    }
+	public void up() {
+		if (!topLimit())
+			this.victorSP.set(LIFT_SPEED);
+		else
+			this.victorSP.set(0.0);
 
-    public void down() {
-	if (!bottomLimit())
-	    this.victorSP.set(-1 * LIFT_SPEED);
-	else
-	    this.victorSP.set(0.0);
-    }
+	}
 
-    /**
-     * sets the lift speed to 0.0
-     */
-    public void stop() {
-	this.victorSP.set(0.0);
-    }
+	public void down() {
+		if (!bottomLimit())
+			this.victorSP.set(-1 * LIFT_SPEED);
+		else
+			this.victorSP.set(0.0);
+	}
 
-    /**
-     * 
-     * @return the value of the top limit switch
-     */
-    public boolean topLimit() {
-	return !topSwitch.get();
-    }
+	/**
+	 * sets the lift speed to 0.0
+	 */
+	public void stop() {
+		this.victorSP.set(0.0);
+	}
 
-    /**
-     * @return the value of the bottom limit switch
-     */
-    public boolean bottomLimit() {
-	return !bottomSwitch.get();
-    }
+	/**
+	 * 
+	 * @return the value of the top limit switch
+	 */
+	public boolean topLimit() {
+		return !topSwitch.get();
+	}
 
-    /**
-     * 
-     * @return the value of the encoder
-     */
-    public int getEncoderValue() {
-	return encoder.get();
-    }
+	/**
+	 * @return the value of the bottom limit switch
+	 */
+	public boolean bottomLimit() {
+		return !bottomSwitch.get();
+	}
+
+	/**
+	 * 
+	 * @return the value of the encoder
+	 */
+	public int getEncoderValue() {
+		return encoder.get();
+	}
 }

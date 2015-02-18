@@ -11,68 +11,68 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveReadDebug extends Command {
 
-    private DriveSystem drive;
-    private LiftSystem lift;
-    private GripSystem grip;
-    private ScissorSystem scissor;
+	private DriveSystem drive;
+	private LiftSystem lift;
+	private GripSystem grip;
+	private ScissorSystem scissor;
 
-    public DriveReadDebug() {
-	drive = DriveSystem.getInstance();
-	lift = LiftSystem.getInstance();
-	grip = GripSystem.getInstance();
-	scissor = ScissorSystem.getInstance();
-	// TODO Auto-generated constructor stub
-    }
+	public DriveReadDebug() {
+		drive = DriveSystem.getInstance();
+		lift = LiftSystem.getInstance();
+		grip = GripSystem.getInstance();
+		scissor = ScissorSystem.getInstance();
+		// TODO Auto-generated constructor stub
+	}
 
-    public DriveReadDebug(String name) {
-	super(name);
-	// TODO Auto-generated constructor stub
-    }
+	public DriveReadDebug(String name) {
+		super(name);
+		// TODO Auto-generated constructor stub
+	}
 
-    public DriveReadDebug(double timeout) {
-	super(timeout);
-	// TODO Auto-generated constructor stub
-    }
+	public DriveReadDebug(double timeout) {
+		super(timeout);
+		// TODO Auto-generated constructor stub
+	}
 
-    public DriveReadDebug(String name, double timeout) {
-	super(name, timeout);
-	// TODO Auto-generated constructor stub
-    }
+	public DriveReadDebug(String name, double timeout) {
+		super(name, timeout);
+		// TODO Auto-generated constructor stub
+	}
 
-    @Override
-    protected void initialize() {
-	// TODO Auto-generated method stub
+	@Override
+	protected void initialize() {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    @Override
-    protected void execute() {
-	// drive.testGyro();
-	// TODO Auto-generated method stub
-	System.out.println("Drive System " + "\t" + "Ultrasonic: "
-		+ drive.getDistance() + "\t" + "Gyro: " + drive.getAngle());
+	@Override
+	protected void execute() {
+		// drive.testGyro();
+		// TODO Auto-generated method stub
+		System.out.println("Drive System " + "\t" + "Ultrasonic: "
+				+ drive.getDistance() + "\t" + "Gyro: " + drive.getAngle());
 
-	System.out.println("GripSystem " + "\t" + "Ultrasonic: "
-		+ grip.getUltrasonic());
+		System.out.println("GripSystem " + "\t" + "Ultrasonic: "
+				+ grip.getUltrasonic());
 
-    }
+	}
 
-    @Override
-    protected boolean isFinished() {
-	// TODO Auto-generated method stub
-	return true;
-    }
+	@Override
+	protected boolean isFinished() {
+		// TODO Auto-generated method stub
+		return true;
+	}
 
-    @Override
-    protected void end() {
-	// TODO Auto-generated method stub
+	@Override
+	protected void end() {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    @Override
-    protected void interrupted() {
-	// TODO Auto-generated method stub
+	@Override
+	protected void interrupted() {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
 }

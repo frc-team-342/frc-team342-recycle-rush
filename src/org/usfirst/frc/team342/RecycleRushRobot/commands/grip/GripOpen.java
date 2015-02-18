@@ -10,54 +10,54 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
  * all the way.
  */
 public class GripOpen extends Command {
-    GripSystem grip;
+	GripSystem grip;
 
-    public GripOpen() {
-	grip = GripSystem.getInstance();
-	requires(grip);
-    }
+	public GripOpen() {
+		grip = GripSystem.getInstance();
+		requires(grip);
+	}
 
-    public GripOpen(String name) {
-	super(name);
-	// TODO Auto-generated constructor stub
-    }
+	public GripOpen(String name) {
+		super(name);
+		// TODO Auto-generated constructor stub
+	}
 
-    public GripOpen(double timeout) {
-	super(timeout);
-	// TODO Auto-generated constructor stub
-    }
+	public GripOpen(double timeout) {
+		super(timeout);
+		// TODO Auto-generated constructor stub
+	}
 
-    public GripOpen(String name, double timeout) {
-	super(name, timeout);
-	// TODO Auto-generated constructor stub
-    }
+	public GripOpen(String name, double timeout) {
+		super(name, timeout);
+		// TODO Auto-generated constructor stub
+	}
 
-    @Override
-    protected void initialize() {
-	// TODO Auto-generated method stub
+	@Override
+	protected void initialize() {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    @Override
-    protected void execute() {
-	// TODO Auto-generated method stub
-    }
+	@Override
+	protected void execute() {
+		// TODO Auto-generated method stub
+	}
 
-    @Override
-    protected boolean isFinished() {
-	return grip.open();
-    }
+	@Override
+	protected boolean isFinished() {
+		return grip.open();
+	}
 
-    @Override
-    protected void end() {
-	// TODO Auto-generated method stub
-	grip.stop();
-    }
+	@Override
+	protected void end() {
+		// TODO Auto-generated method stub
+		grip.stop();
+	}
 
-    @Override
-    protected void interrupted() {
-	// TODO Auto-generated method stub
-	this.end();
-    }
+	@Override
+	protected void interrupted() {
+		// TODO Auto-generated method stub
+		this.end();
+	}
 
 }

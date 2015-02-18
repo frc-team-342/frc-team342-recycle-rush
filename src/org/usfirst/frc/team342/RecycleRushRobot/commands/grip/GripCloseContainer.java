@@ -10,54 +10,54 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
  * it should exit cleanly.
  */
 public class GripCloseContainer extends Command {
-    GripSystem grip;
+	GripSystem grip;
 
-    public GripCloseContainer() {
-	grip = GripSystem.getInstance();
-	requires(grip);
-    }
+	public GripCloseContainer() {
+		grip = GripSystem.getInstance();
+		requires(grip);
+	}
 
-    public GripCloseContainer(String name) {
-	super(name);
-	// TODO Auto-generated constructor stub
-    }
+	public GripCloseContainer(String name) {
+		super(name);
+		// TODO Auto-generated constructor stub
+	}
 
-    public GripCloseContainer(double timeout) {
-	super(timeout);
-	// TODO Auto-generated constructor stub
-    }
+	public GripCloseContainer(double timeout) {
+		super(timeout);
+		// TODO Auto-generated constructor stub
+	}
 
-    public GripCloseContainer(String name, double timeout) {
-	super(name, timeout);
-	// TODO Auto-generated constructor stub
-    }
+	public GripCloseContainer(String name, double timeout) {
+		super(name, timeout);
+		// TODO Auto-generated constructor stub
+	}
 
-    @Override
-    protected void initialize() {
-	// TODO Auto-generated method stub
+	@Override
+	protected void initialize() {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    @Override
-    protected void execute() {
-	// TODO Auto-generated method stub
+	@Override
+	protected void execute() {
+		// TODO Auto-generated method stub
 
-    }
+	}
 
-    @Override
-    protected boolean isFinished() {
-	return grip.close();
-    }
+	@Override
+	protected boolean isFinished() {
+		return grip.close();
+	}
 
-    @Override
-    protected void end() {
-	grip.stop();
+	@Override
+	protected void end() {
+		grip.stop();
 
-    }
+	}
 
-    @Override
-    protected void interrupted() {
-	this.end();
-    }
+	@Override
+	protected void interrupted() {
+		this.end();
+	}
 
 }
