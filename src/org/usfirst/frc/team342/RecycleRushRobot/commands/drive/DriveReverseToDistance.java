@@ -3,7 +3,6 @@ package org.usfirst.frc.team342.RecycleRushRobot.commands.drive;
 import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveReverseToDistance extends Command {

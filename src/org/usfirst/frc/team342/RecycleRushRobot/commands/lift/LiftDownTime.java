@@ -19,29 +19,34 @@ public class LiftDownTime extends Command {
 	}
 
 	// Called just before this Command runs the first time
+	@Override
 	protected void initialize() {
 		startTime = System.currentTimeMillis();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
+	@Override
 	protected void execute() {
 		lift.down();
 		duration = System.currentTimeMillis() - startTime;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
+	@Override
 	protected boolean isFinished() {
 		return (lift.bottomLimit() || duration <= System.currentTimeMillis());
 	}
 
 	// Called once after isFinished returns true
+	@Override
 	protected void end() {
 		lift.stop();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
+	@Override
 	protected void interrupted() {
-		this.end();
+		end();
 	}
 }

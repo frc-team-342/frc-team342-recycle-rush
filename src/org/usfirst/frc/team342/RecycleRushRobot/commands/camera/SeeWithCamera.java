@@ -2,9 +2,6 @@ package org.usfirst.frc.team342.RecycleRushRobot.commands.camera;
 
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.CameraVisionRedux;
 
-import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.Image;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 public class SeeWithCamera extends Command {

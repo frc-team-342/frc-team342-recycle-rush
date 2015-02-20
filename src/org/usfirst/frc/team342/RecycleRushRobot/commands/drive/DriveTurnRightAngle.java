@@ -3,7 +3,6 @@ package org.usfirst.frc.team342.RecycleRushRobot.commands.drive;
 import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveTurnRightAngle extends Command {
@@ -13,22 +12,8 @@ public class DriveTurnRightAngle extends Command {
 
 	public DriveTurnRightAngle(int target) {
 		drive = DriveSystem.getInstance();
+		requires(drive);
 		targetangle = target + drive.getAngle();
-	}
-
-	public DriveTurnRightAngle(String name) {
-		super(name);
-		// TODO Auto-generated constructor stub
-	}
-
-	public DriveTurnRightAngle(double timeout) {
-		super(timeout);
-		// TODO Auto-generated constructor stub
-	}
-
-	public DriveTurnRightAngle(String name, double timeout) {
-		super(name, timeout);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

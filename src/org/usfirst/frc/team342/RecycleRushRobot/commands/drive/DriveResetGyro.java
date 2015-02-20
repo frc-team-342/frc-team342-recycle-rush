@@ -1,9 +1,7 @@
 package org.usfirst.frc.team342.RecycleRushRobot.commands.drive;
 
-import org.usfirst.frc.team342.RecycleRushRobot.OI;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 
-import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveResetGyro extends Command {

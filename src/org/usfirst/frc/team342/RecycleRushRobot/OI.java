@@ -1,29 +1,20 @@
 package org.usfirst.frc.team342.RecycleRushRobot;
 
-import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.buttons.Button;
-import edu.wpi.first.wpilibj.buttons.JoystickButton;
-
 import org.usfirst.frc.team342.RecycleRushRobot.commands.camera.ChangeCamera;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveChangeMode;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveToggleSpeed;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveReadDebug;
 //import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.ReadDebug;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveResetGyro;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftDown;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftGetEncoder;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftStop;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftUp;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveToggleSpeed;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripClose;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripOpen;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorDown;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorExtend;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorRetract;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorStop;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorUp;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripClose;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripCloseContainer;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripCloseTote;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripOpen;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripStop;
+
+import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator

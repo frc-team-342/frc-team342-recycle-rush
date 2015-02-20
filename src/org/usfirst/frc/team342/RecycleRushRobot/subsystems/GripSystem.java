@@ -1,12 +1,11 @@
 package org.usfirst.frc.team342.RecycleRushRobot.subsystems;
 
-import edu.wpi.first.wpilibj.AnalogPotentiometer;
-import edu.wpi.first.wpilibj.DigitalInput;
+import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
+
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
-
-import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 
 /**
  * Gripper System class
@@ -66,12 +65,10 @@ public class GripSystem extends Subsystem {
 		}
 
 		// redundantly close if limit switch is true
-		if (!limitSwitchIn.get()) {
-			closed = true;
+		if (closed)
 			talon.set(0);
-		}
 
-		// retrun whether or not the gripper is already closed for loop
+		// return whether or not the gripper is already closed for loop
 		// statements
 		return closed;
 	}
@@ -97,12 +94,9 @@ public class GripSystem extends Subsystem {
 			open = false;
 		}
 
-		// stops the motor if the open function is complete, redundantly set
-		// open to true
-		if (!limitSwitchOut.get()) {
-			talon.set(0);
+		// stops the motor if the open function is complete
+		if (open)
 			open = true;
-		}
 
 		return open;
 	}

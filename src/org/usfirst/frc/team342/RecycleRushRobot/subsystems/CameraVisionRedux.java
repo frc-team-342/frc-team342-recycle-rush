@@ -3,15 +3,10 @@ package org.usfirst.frc.team342.RecycleRushRobot.subsystems;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.camera.SeeWithCamera;
 
 import com.ni.vision.NIVision;
-import com.ni.vision.NIVision.DrawMode;
 import com.ni.vision.NIVision.Image;
-import com.ni.vision.NIVision.ShapeMode;
 
 import edu.wpi.first.wpilibj.CameraServer;
-import edu.wpi.first.wpilibj.SampleRobot;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
-import edu.wpi.first.wpilibj.vision.USBCamera;
 
 public class CameraVisionRedux extends Subsystem {
 	private static final CameraVisionRedux INSTANCE = new CameraVisionRedux();

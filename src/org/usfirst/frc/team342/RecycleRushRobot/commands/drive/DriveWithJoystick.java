@@ -21,21 +21,6 @@ public class DriveWithJoystick extends Command {
 		// TODO Auto-generated constructor stub
 	}
 
-	public DriveWithJoystick(String name) {
-		super(name);
-		// TODO Auto-generated constructor stub
-	}
-
-	public DriveWithJoystick(double timeout) {
-		super(timeout);
-		// TODO Auto-generated constructor stub
-	}
-
-	public DriveWithJoystick(String name, double timeout) {
-		super(name, timeout);
-		// TODO Auto-generated constructor stub
-	}
-
 	@Override
 	protected void initialize() {
 		OI oi = OI.getInstance();
@@ -55,20 +40,23 @@ public class DriveWithJoystick extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
+	/**
+	 * This stops all of the systems attached to the joy stick. This will only be
+	 * called if the drive with joy stick is interrupted
+	 */
 	@Override
 	protected void end() {
-		// TODO Auto-generated method stub
-
+		drive.stop();
+		lift.stop();
+		scissor.stop();
 	}
 
 	@Override
 	protected void interrupted() {
-		// TODO Auto-generated method stub
-
+		end();
 	}
 
 }

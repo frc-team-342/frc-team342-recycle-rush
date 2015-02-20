@@ -2,24 +2,20 @@ package org.usfirst.frc.team342.RecycleRushRobot;
 
 import java.util.Arrays;
 
-import edu.wpi.first.wpilibj.DriverStation;
-import edu.wpi.first.wpilibj.IterativeRobot;
-import edu.wpi.first.wpilibj.Preferences;
-import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.livewindow.LiveWindow;
-import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.tables.ITable;
-
-import org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous.*;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous.DriveToCenter;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous.PickUpObject;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous.PickUpToteAndContainer;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveWithJoystick;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.CameraVisionRedux;
-import org.usfirst.frc.team342.RecycleRushRobot.subsystems.ScissorSystem;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
-import org.usfirst.frc.team342.RecycleRushRobot.subsystems.LiftSystem;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
+import org.usfirst.frc.team342.RecycleRushRobot.subsystems.LiftSystem;
+import org.usfirst.frc.team342.RecycleRushRobot.subsystems.ScissorSystem;
+
+import edu.wpi.first.wpilibj.IterativeRobot;
+import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * The VM is configured to automatically run this class, and to call the
@@ -47,6 +43,7 @@ public class RecycleRushRobot extends IterativeRobot {
 	 * This function is run when the robot is first started up and should be
 	 * used for any initialization code.
 	 */
+	@Override
 	public void robotInit() {
 		this.oi = OI.getInstance();
 		this.drive = DriveSystem.getInstance();
@@ -62,6 +59,7 @@ public class RecycleRushRobot extends IterativeRobot {
 	 * only allow one button to be pressed in dash board while disabled. This is
 	 * used to get the autonomous mode when autonomous is initialized.
 	 */
+	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		// declare array to hold new values from dash board
@@ -84,13 +82,14 @@ public class RecycleRushRobot extends IterativeRobot {
 	/**
 	 * sets the autonomous mode to the one selected in the button
 	 */
+	@Override
 	public void autonomousInit() {
 		if (oldArray[0])
-			autonomousCommand = new DriveToCenter();
+			autonomousCommand = new DriveToCenter(90);
 		else if (oldArray[1])
-			autonomousCommand = new PickUpTote();
+			autonomousCommand = new PickUpObject();
 		else if (oldArray[2])
-			autonomousCommand = new PickUpContainer();
+			autonomousCommand = new PickUpObject();
 		else if (oldArray[3])
 			autonomousCommand = new PickUpToteAndContainer();
 
@@ -100,6 +99,7 @@ public class RecycleRushRobot extends IterativeRobot {
 	/**
 	 * This function is called periodically during autonomous
 	 */
+	@Override
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 	}
@@ -107,6 +107,7 @@ public class RecycleRushRobot extends IterativeRobot {
 	/**
 	 * initialize the joy stick
 	 */
+	@Override
 	public void teleopInit() {
 		runnow = new DriveWithJoystick();
 	}
@@ -115,6 +116,7 @@ public class RecycleRushRobot extends IterativeRobot {
 	 * This function is called when the disabled button is hit. You can use it
 	 * to reset subsystems before shutting down.
 	 */
+	@Override
 	public void disabledInit() {
 		// TODO Auto-generated constructor stub
 	}
@@ -122,6 +124,7 @@ public class RecycleRushRobot extends IterativeRobot {
 	/**
 	 * This function is called periodically during operator control
 	 */
+	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		runnow.start();
@@ -130,6 +133,7 @@ public class RecycleRushRobot extends IterativeRobot {
 	/**
 	 * This function is called periodically during test mode
 	 */
+	@Override
 	public void testPeriodic() {
 
 	}

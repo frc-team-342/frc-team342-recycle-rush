@@ -2,10 +2,8 @@ package org.usfirst.frc.team342.RecycleRushRobot.subsystems;
 
 import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 
-import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Joystick;
-import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -73,7 +71,7 @@ public class ScissorSystem extends Subsystem {
 		// is a symmetrical condition for retracting the scissor. For each it
 		// first tests if the joy stick is greater than the dead zone, then it
 		// tests if the scissor is already at its limit switches.
-		if (((up > DEFAULT_GAMEPAD_DEADZONE) && scissorTiltOut.get())
+		if (((up > DEFAULT_GAMEPAD_DEADZONE) && scissorTiltIn.get())
 				|| ((up < -1.0 * DEFAULT_GAMEPAD_DEADZONE) && scissorTiltOut
 						.get()))
 			liftTalon.set(up);

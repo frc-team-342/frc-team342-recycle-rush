@@ -15,16 +15,6 @@ public class LiftUpToEncoder extends Command {
 		targetHeight = target;
 	}
 
-	public LiftUpToEncoder(String name) {
-		super(name);
-		// TODO Auto-generated constructor stub
-	}
-
-	public LiftUpToEncoder(String name, double timeout) {
-		super(name, timeout);
-		// TODO Auto-generated constructor stub
-	}
-
 	@Override
 	protected void initialize() {
 		// TODO Auto-generated method stub

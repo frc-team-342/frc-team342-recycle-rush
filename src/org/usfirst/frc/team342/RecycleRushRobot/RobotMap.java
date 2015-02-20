@@ -39,15 +39,17 @@ public class RobotMap {
 
 	// Autonomous speeds
 	public static final double AUTONOMOUS_SPEED = 0.3;
-	public static final double AUTONOMOUS_REVERSE = 0.3;
+	public static final double AUTONOMOUS_REVERSE = -0.3;
 	public static final double AUTONOMOUS_TURN_RIGHT = 0.3;
 	public static final double AUTONOMOUS_TURN_LEFT = -0.3;
 
 	public static final double AUTONOMOUS_LIFT_SPEED_UP = 0.2;
 	public static final double AUTONOMOUS_LIFT_SPEED_DOWN = -0.2;
-
+	
 	// Autonomous distances to drive using ultrasonic
-	public static final int AUTONOMOUS_DISTANCE_TO_CENTER = 2900;
+	public static final int AUTONOMOUS_FORWARD_DISTANCE_TO_CENTER = 2900;
+	public static final int AUTONOMOUS_BACKWARD_DISTANCE_TO_CENTER = 2500;
+	
 	// Autonomous distance from tote to close
 	public static final int AUTONOMOUS_DISTANCE_TO_TOTE = 10;
 

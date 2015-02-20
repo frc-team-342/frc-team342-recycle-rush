@@ -1,8 +1,8 @@
 package org.usfirst.frc.team342.RecycleRushRobot.commands.grip;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 public class GripStop extends Command {
 	GripSystem grip;
@@ -15,25 +15,9 @@ public class GripStop extends Command {
 		requires(grip);
 	}
 
-	public GripStop(String name) {
-		super(name);
-		// TODO Auto-generated constructor stub
-	}
-
-	public GripStop(double timeout) {
-		super(timeout);
-		// TODO Auto-generated constructor stub
-	}
-
-	public GripStop(String name, double timeout) {
-		super(name, timeout);
-		// TODO Auto-generated constructor stub
-	}
-
 	@Override
 	protected void initialize() {
-		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
@@ -50,13 +34,11 @@ public class GripStop extends Command {
 
 	@Override
 	protected void end() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	protected void interrupted() {
-		// TODO Auto-generated method stub
 
 	}
 

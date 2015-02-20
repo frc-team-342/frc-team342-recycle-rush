@@ -2,7 +2,6 @@ package org.usfirst.frc.team342.RecycleRushRobot.subsystems;
 
 import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 
-import edu.wpi.first.wpilibj.CounterBase;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;

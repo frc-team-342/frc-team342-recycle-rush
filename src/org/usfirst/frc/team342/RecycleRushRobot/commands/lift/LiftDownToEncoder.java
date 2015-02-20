@@ -15,16 +15,6 @@ public class LiftDownToEncoder extends Command {
 		targetHeight = target;
 	}
 
-	public LiftDownToEncoder(String name) {
-		super(name);
-		// TODO Auto-generated constructor stub
-	}
-
-	public LiftDownToEncoder(String name, double timeout) {
-		super(name, timeout);
-		// TODO Auto-generated constructor stub
-	}
-
 	@Override
 	protected void initialize() {
 		height = lift.getEncoderValue();
@@ -37,7 +27,6 @@ public class LiftDownToEncoder extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return targetHeight >= lift.getEncoderValue();
 	}
 

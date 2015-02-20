@@ -3,7 +3,6 @@ package org.usfirst.frc.team342.RecycleRushRobot.commands.drive;
 import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveReverseReleativeDistance extends Command {
@@ -13,23 +12,8 @@ public class DriveReverseReleativeDistance extends Command {
 
 	public DriveReverseReleativeDistance(int target) {
 		drive = DriveSystem.getInstance();
-		requires(this.drive);
+		requires(drive);
 		targetDistance = drive.getDistance() - target;
-	}
-
-	public DriveReverseReleativeDistance(String name) {
-		super(name);
-		// TODO Auto-generated constructor stub
-	}
-
-	public DriveReverseReleativeDistance(double timeout) {
-		super(timeout);
-		// TODO Auto-generated constructor stub
-	}
-
-	public DriveReverseReleativeDistance(String name, double timeout) {
-		super(name, timeout);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
