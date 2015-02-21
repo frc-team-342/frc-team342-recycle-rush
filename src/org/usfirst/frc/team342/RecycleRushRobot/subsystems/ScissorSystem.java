@@ -21,22 +21,20 @@ public class ScissorSystem extends Subsystem {
 	private final double DEFAULT_GAMEPAD_DEADZONE = 0.01;
 
 	public ScissorSystem() {
-		// TODO Auto-generated constructor stub
-		this.extendTalon = new Talon(RobotMap.CAN_CHANNELL_SCISSOR_EXTENSION);
-		this.liftTalon = new Talon(RobotMap.CAN_CHANNELL_SCISSOR_LIFT);
-		this.scissorExtended = new DigitalInput(
+		extendTalon = new Talon(RobotMap.CAN_CHANNELL_SCISSOR_EXTENSION);
+		liftTalon = new Talon(RobotMap.CAN_CHANNELL_SCISSOR_LIFT);
+		scissorExtended = new DigitalInput(
 				RobotMap.DIGITAL_IO_SCISSOR_LIMIT_SWITCH_OUT);
-		this.scissorRetracted = new DigitalInput(
+		scissorRetracted = new DigitalInput(
 				RobotMap.DIGITAL_IO_SCISSOR_LIMIT_SWITCH_IN);
-		this.scissorTiltOut = new DigitalInput(
+		scissorTiltOut = new DigitalInput(
 				RobotMap.DIGITAL_IO_SCISSOR_LIMIT_SWITCH_FORWARD_TILT);
-		this.scissorTiltIn = new DigitalInput(
+		scissorTiltIn = new DigitalInput(
 				RobotMap.DIGITAL_IO_SCISSOR_LIMIT_SWITCH_BACK_TILT);
 	}
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -101,22 +99,18 @@ public class ScissorSystem extends Subsystem {
 		liftTalon.set(0.0);
 	}
 
-	// The limit switch is inverted
 	public boolean isUp() {
 		return !scissorTiltOut.get();
 	}
 
-	// The limit switch is inverted
 	public boolean isDown() {
 		return !scissorTiltIn.get();
 	}
 
-	// The limit switch is inverted
 	public boolean isExtended() {
 		return !scissorExtended.get();
 	}
 
-	// The limit switch is inverted
 	public boolean isRetracted() {
 		return !scissorRetracted.get();
 	}

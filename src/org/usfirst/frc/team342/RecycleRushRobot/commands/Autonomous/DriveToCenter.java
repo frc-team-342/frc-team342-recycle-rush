@@ -15,12 +15,12 @@ public class DriveToCenter extends CommandGroup {
 		DriveSystem drive = DriveSystem.getInstance();
 		
 		// Drive to the center of the field
-		if(drive.getDistance() > RobotMap.AUTONOMOUS_FORWARD_DISTANCE_TO_CENTER)
+		if(drive.getDistance() > RobotMap.AUTONOMOUS_DRIVE_FORWARD_DISTANCE_TO_CENTER)
 			addSequential(new DriveForwardToDistance(
-				RobotMap.AUTONOMOUS_BACKWARD_DISTANCE_TO_CENTER));
+				RobotMap.AUTONOMOUS_DRIVE_BACKWARD_DISTANCE_TO_CENTER));
 		else
 			addSequential(new DriveForwardToDistance(
-					RobotMap.AUTONOMOUS_FORWARD_DISTANCE_TO_CENTER));
+					RobotMap.AUTONOMOUS_DRIVE_FORWARD_DISTANCE_TO_CENTER));
 		
 		// Turn right to move the lift inside the center field boundaries
 		if(turn > 0)

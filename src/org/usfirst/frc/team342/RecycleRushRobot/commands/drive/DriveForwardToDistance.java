@@ -23,7 +23,7 @@ public class DriveForwardToDistance extends Command {
 
 	@Override
 	protected void execute() {
-		drive.forward(RobotMap.AUTONOMOUS_SPEED);
+		drive.forward(RobotMap.AUTONOMOUS_DRIVE_FORWARD_SPEED);
 		distance = drive.getDistance();
 	}
 

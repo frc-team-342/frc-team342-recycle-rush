@@ -18,16 +18,14 @@ public class DriveWithJoystick extends Command {
 	private ScissorSystem scissor = ScissorSystem.getInstance();
 
 	public DriveWithJoystick() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	@Override
 	protected void initialize() {
 		OI oi = OI.getInstance();
-		this.joystick = oi.getJoystick();
-		this.controller = oi.getController();
-		// TODO Auto-generated method stub
-
+		joystick = oi.getJoystick();
+		controller = oi.getController();
 	}
 
 	@Override
@@ -35,7 +33,6 @@ public class DriveWithJoystick extends Command {
 		drive.driveWithJoystick(joystick);
 		lift.liftWithJoystick(controller);
 		scissor.scissorWithJoystick(controller);
-		// TODO Auto-generated method stub
 	}
 
 	@Override
@@ -45,7 +42,7 @@ public class DriveWithJoystick extends Command {
 	
 	/**
 	 * This stops all of the systems attached to the joy stick. This will only be
-	 * called if the drive with joy stick is interrupted
+	 * called if the drive with joy stick is interrupted.
 	 */
 	@Override
 	protected void end() {

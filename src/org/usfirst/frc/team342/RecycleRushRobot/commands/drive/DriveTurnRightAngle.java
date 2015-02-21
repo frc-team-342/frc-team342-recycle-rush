@@ -23,7 +23,7 @@ public class DriveTurnRightAngle extends Command {
 
 	@Override
 	protected void execute() {
-		drive.turn(RobotMap.AUTONOMOUS_TURN_RIGHT);
+		drive.turn(RobotMap.AUTONOMOUS_DRIVE_TURN_RIGHT_SPEED);
 		angle = drive.getAngle();
 	}
 

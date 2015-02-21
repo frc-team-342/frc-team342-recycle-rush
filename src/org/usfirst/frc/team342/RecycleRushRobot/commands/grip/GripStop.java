@@ -23,12 +23,10 @@ public class GripStop extends Command {
 	@Override
 	protected void execute() {
 		grip.stop();
-
 	}
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
 		return true;
 	}
 

@@ -24,7 +24,7 @@ public class DriveTurnLeftAngle extends Command {
 
 	@Override
 	protected void execute() {
-		drive.turn(RobotMap.AUTONOMOUS_TURN_LEFT);
+		drive.turn(RobotMap.AUTONOMOUS_DRIVE_TURN_LEFT_SPEED);
 		angle = drive.getAngle() - startAngle;
 	}
 

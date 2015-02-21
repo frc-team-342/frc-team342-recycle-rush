@@ -41,8 +41,8 @@ public class OI {
 	private final int JOYSTICK_DRIVE_CHANGE_MODE = 8;
 	private final int JOYSTICK_DRIVE_BUTTON_9 = 9;
 	private final int JOYSTICK_DRIVE_BUTTON_10 = 10;
-	private final int JOYSTICK_DRIVE_SLOW_DOWN = 11;
-	private final int JOYSTICK_DRIVE_DEBUG_NUMBERS = 12;
+	private final int JOYSTICK_DRIVE_SLOW_DOWN = 11;	// while held
+	private final int JOYSTICK_DRIVE_DEBUG_NUMBERS = 12;	// while held
 
 	// Game pad buttons. Axes 5 and 6 are not used. Right and left trigger
 	// control lift speed. Left thumb stick axes control scissor. The POV
@@ -74,7 +74,7 @@ public class OI {
 		JoystickButton driveScissorRetract = new JoystickButton(
 				driveController, JOYSTICK_DRIVE_SCISSOR_RETRACT);
 
-		// declare joystick buttons
+		// declare joy stick buttons
 
 		// declare the reset gyro button for the drive controller
 		JoystickButton driveResetGyro = new JoystickButton(driveController,

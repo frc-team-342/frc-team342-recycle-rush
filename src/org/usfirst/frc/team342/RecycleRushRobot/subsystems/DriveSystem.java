@@ -102,9 +102,9 @@ public class DriveSystem extends Subsystem {
 	 * @param speed
 	 *            The speed to drive forward at
 	 */
-	// TODO GYRO
+	// TODO Should this use the gyro?
 	public void forward(double speed) {
-		this.robotDrive.mecanumDrive_Cartesian(0.0, -1 * 0.3, 0.0, 0.0);
+		this.robotDrive.mecanumDrive_Cartesian(0.0, -1 * speed, 0.0, 0.0);
 	}
 
 	/**
@@ -172,7 +172,6 @@ public class DriveSystem extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
 
 	}
 }

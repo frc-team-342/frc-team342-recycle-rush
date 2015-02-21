@@ -64,7 +64,6 @@ public class GripSystem extends Subsystem {
 			talon.set(-1 * GRIP_STRENGTH);
 		}
 
-		// redundantly close if limit switch is true
 		if (closed)
 			talon.set(0);
 
@@ -108,24 +107,17 @@ public class GripSystem extends Subsystem {
 		talon.set(0);
 	}
 
-	@Override
-	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
-	}
 
 	/**
-	 * 
 	 * @return the value of the ultra sonic sensor in the front o the robot
 	 */
 	public int getUltrasonic() {
 		return ultrasonic.getValue();
 	}
 
-	/**
-	 * 
-	 * @return the potentiometer value for detecting the gr
-	 */
-	// public double getPotentiometer() {
-	// return potentiometer.get();
-	// }
+	@Override
+	protected void initDefaultCommand() {
+		
+	}
+	
 }

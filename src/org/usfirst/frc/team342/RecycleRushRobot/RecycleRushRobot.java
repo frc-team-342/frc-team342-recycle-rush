@@ -87,9 +87,9 @@ public class RecycleRushRobot extends IterativeRobot {
 		if (oldArray[0])
 			autonomousCommand = new DriveToCenter(90);
 		else if (oldArray[1])
-			autonomousCommand = new PickUpObject();
+			autonomousCommand = new PickUpObject(true);
 		else if (oldArray[2])
-			autonomousCommand = new PickUpObject();
+			autonomousCommand = new PickUpObject(false);
 		else if (oldArray[3])
 			autonomousCommand = new PickUpToteAndContainer();
 
@@ -118,7 +118,7 @@ public class RecycleRushRobot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		// TODO Auto-generated constructor stub
+
 	}
 
 	/**

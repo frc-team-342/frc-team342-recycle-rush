@@ -18,12 +18,12 @@ public class DriveReverseReleativeDistance extends Command {
 
 	@Override
 	protected void initialize() {
-		// TODO Auto-generated method stub
+		
 	}
 
 	@Override
 	protected void execute() {
-		drive.forward(RobotMap.AUTONOMOUS_REVERSE);
+		drive.reverse(RobotMap.AUTONOMOUS_DRIVE_REVERSE_SPEED);
 		distance = drive.getDistance();
 	}
 

@@ -5,31 +5,32 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveForwardRelativeDistance extends Command {
+public class DriveReverseRelativeDistance extends Command {
 	DriveSystem drive;
 	private int distance;
 	private int targetDistance;
-	
-	public DriveForwardRelativeDistance(int target) {
+
+	public DriveReverseRelativeDistance(int target) {
 		drive = DriveSystem.getInstance();
-		requires(this.drive);
-		targetDistance = target + drive.getDistance();
+		requires(drive);
+		targetDistance = drive.getDistance() - target;
 	}
 
 	@Override
 	protected void initialize() {
-		distance = drive.getDistance();
+
 	}
 
 	@Override
 	protected void execute() {
-		drive.forward(RobotMap.AUTONOMOUS_DRIVE_FORWARD_SPEED);
+		drive.reverse(RobotMap.AUTONOMOUS_DRIVE_REVERSE_SPEED);
 		distance = drive.getDistance();
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return distance >= targetDistance;
+		// Stop the robot when it gets to the target distance
+		return (distance <= targetDistance);
 	}
 
 	@Override

@@ -20,29 +20,22 @@ public class LiftSystem extends Subsystem {
 	private final DigitalInput encoderB;
 	private final Encoder encoder;
 
-	private final double LIFT_SPEED = 0.3;
-	private final double GAMEPAD_DEADZONE = 0.2;
-
 	public LiftSystem() {
-		// TODO Auto-generated constructor stub
-		this.victorSP = new VictorSP(RobotMap.VICTOR_SP_LIFT);
+		victorSP = new VictorSP(RobotMap.VICTOR_SP_LIFT);
 
-		this.topSwitch = new DigitalInput(
-				RobotMap.DIGITAL_IO_LIFT_LIMIT_SWITCH_UP);
-		this.bottomSwitch = new DigitalInput(
+		topSwitch = new DigitalInput(RobotMap.DIGITAL_IO_LIFT_LIMIT_SWITCH_UP);
+		bottomSwitch = new DigitalInput(
 				RobotMap.DIGITAL_IO_LIFT_LIMIT_SWITCH_DOWN);
 
-		this.encoderA = new DigitalInput(
+		encoderA = new DigitalInput(
 				RobotMap.DIGITAL_IO_LIFT_QUADRATURE_ENCODER_A);
-		this.encoderB = new DigitalInput(
+		encoderB = new DigitalInput(
 				RobotMap.DIGITAL_IO_LIFT_QUADRATURE_ENCODER_B);
-		this.encoder = new Encoder(encoderA, encoderB, false, EncodingType.k4X);
-
+		encoder = new Encoder(encoderA, encoderB, false, EncodingType.k4X);
 	}
 
 	@Override
 	protected void initDefaultCommand() {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -52,16 +45,18 @@ public class LiftSystem extends Subsystem {
 
 	/**
 	 * @param joystick
-	 *            specify the joy stick to use, we use controller from OI
+	 *            specify the joy stick to use, we use the controller from OI.
 	 */
 	public void liftWithJoystick(Joystick joystick) {
 		double up = joystick.getRawAxis(3);
 		double down = -1 * joystick.getRawAxis(2);
-		// combine the two value for greater control
+		
+		// combine the two value for greater control, this will not allow the
+		// motor to move at values less than 20 percent of the motors capacity.
 		double speed = up + down;
 
-		if (((speed >= GAMEPAD_DEADZONE) && topSwitch.get())
-				|| ((speed <= (-1.0 * GAMEPAD_DEADZONE)) && bottomSwitch.get()))
+		if (((speed >= RobotMap.GAMEPAD_DEADZONE) && topSwitch.get())
+				|| ((speed <= (-1.0 * RobotMap.GAMEPAD_DEADZONE)) && bottomSwitch.get()))
 			victorSP.set(speed);
 		else
 			victorSP.set(0);
@@ -69,28 +64,27 @@ public class LiftSystem extends Subsystem {
 
 	public void up() {
 		if (!topLimit())
-			this.victorSP.set(LIFT_SPEED);
+			victorSP.set(RobotMap.AUTONOMOUS_LIFT_UP_SPEED);
 		else
-			this.victorSP.set(0.0);
+			victorSP.set(0.0);
 
 	}
 
 	public void down() {
 		if (!bottomLimit())
-			this.victorSP.set(-1 * LIFT_SPEED);
+			victorSP.set(-1 * RobotMap.AUTONOMOUS_LIFT_DOWN_SPEED);
 		else
-			this.victorSP.set(0.0);
+			victorSP.set(0.0);
 	}
 
 	/**
 	 * sets the lift speed to 0.0
 	 */
 	public void stop() {
-		this.victorSP.set(0.0);
+		victorSP.set(0.0);
 	}
 
 	/**
-	 * 
 	 * @return the value of the top limit switch
 	 */
 	public boolean topLimit() {
@@ -105,7 +99,6 @@ public class LiftSystem extends Subsystem {
 	}
 
 	/**
-	 * 
 	 * @return the value of the encoder
 	 */
 	public int getEncoderValue() {

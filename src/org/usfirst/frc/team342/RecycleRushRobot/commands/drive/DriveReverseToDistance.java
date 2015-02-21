@@ -12,33 +12,18 @@ public class DriveReverseToDistance extends Command {
 
 	public DriveReverseToDistance(int target) {
 		drive = DriveSystem.getInstance();
-		requires(this.drive);
+		requires(drive);
 		targetDistance = target;
-	}
-
-	public DriveReverseToDistance(String name) {
-		super(name);
-		// TODO Auto-generated constructor stub
-	}
-
-	public DriveReverseToDistance(double timeout) {
-		super(timeout);
-		// TODO Auto-generated constructor stub
-	}
-
-	public DriveReverseToDistance(String name, double timeout) {
-		super(name, timeout);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	protected void initialize() {
-		// TODO Auto-generated method stub
+
 	}
 
 	@Override
 	protected void execute() {
-		drive.reverse(RobotMap.AUTONOMOUS_REVERSE);
+		drive.reverse(RobotMap.AUTONOMOUS_DRIVE_REVERSE_SPEED);
 		distance = drive.getDistance();
 	}
 
