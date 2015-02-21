@@ -1,8 +1,10 @@
 package org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous;
 
+import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveTurnLeftAngle;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveTurnRightAngle;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripClose;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftUpTime;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -18,9 +20,10 @@ public class PickUpObject extends CommandGroup {
 	 *            direction the robot will turn, so if you need the robot to
 	 *            turn the opposite direction just invert this value.
 	 */
-	public PickUpObject(boolean tote) {
+	public PickUpObject(boolean tote, int angle) {
 		// Close the grip, this will close the same for containers and totes.
 		addSequential(new GripClose());
+		addSequential(new LiftUpTime(RobotMap.AUTONOMOUS_LIFT_UP_TIME_VALUE));
 
 		// If the boolean is true turn right to face the center of the field,
 		// else turn left to face the center of the field.
@@ -30,6 +33,6 @@ public class PickUpObject extends CommandGroup {
 			addSequential(new DriveTurnLeftAngle(90));
 
 		// Dive to the center of the field.
-		addSequential(new DriveToCenter(90));
+		addSequential(new DriveToCenter(angle));
 	}
 }

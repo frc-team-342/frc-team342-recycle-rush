@@ -23,7 +23,7 @@ public class GripCloseTote extends Command {
 
 	@Override
 	protected void execute() {
-		
+
 	}
 
 	@Override

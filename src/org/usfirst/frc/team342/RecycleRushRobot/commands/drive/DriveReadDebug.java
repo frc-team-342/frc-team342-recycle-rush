@@ -5,6 +5,7 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.LiftSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.communication.FRCNetworkCommunicationsLibrary;
 
 public class DriveReadDebug extends Command {
 
@@ -30,6 +31,12 @@ public class DriveReadDebug extends Command {
 				+ "\n" + "GripSystem " + "\t" + "Ultrasonic: "
 				+ grip.getUltrasonic() + "\n" + "Lift " + "\t" + "Encoder: "
 				+ lift.getEncoderValue());
+
+		FRCNetworkCommunicationsLibrary.HALSetErrorData("Drive System " + "\t" + "Ultrasonic: "
+				+ drive.getDistance() + "\t" + "Gyro: " + drive.getAngle()
+				+ "\n" + "GripSystem " + "\t" + "Ultrasonic: "
+				+ grip.getUltrasonic() + "\n" + "Lift " + "\t" + "Encoder: "
+				+ lift.getEncoderValue() + "\n");
 	}
 
 	@Override

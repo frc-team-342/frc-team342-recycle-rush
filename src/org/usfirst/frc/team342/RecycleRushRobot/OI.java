@@ -41,8 +41,8 @@ public class OI {
 	private final int JOYSTICK_DRIVE_CHANGE_MODE = 8;
 	private final int JOYSTICK_DRIVE_BUTTON_9 = 9;
 	private final int JOYSTICK_DRIVE_BUTTON_10 = 10;
-	private final int JOYSTICK_DRIVE_SLOW_DOWN = 11;	// while held
-	private final int JOYSTICK_DRIVE_DEBUG_NUMBERS = 12;	// while held
+	private final int JOYSTICK_DRIVE_SLOW_DOWN = 11; // while held
+	private final int JOYSTICK_DRIVE_DEBUG_NUMBERS = 12; // while held
 
 	// Game pad buttons. Axes 5 and 6 are not used. Right and left trigger
 	// control lift speed. Left thumb stick axes control scissor. The POV

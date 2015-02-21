@@ -18,7 +18,7 @@ public class DriveForwardToDistance extends Command {
 
 	@Override
 	protected void initialize() {
-		
+
 	}
 
 	@Override

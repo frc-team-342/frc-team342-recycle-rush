@@ -18,7 +18,7 @@ public class GripCloseContainer extends Command {
 
 	@Override
 	protected void initialize() {
-		
+
 	}
 
 	@Override

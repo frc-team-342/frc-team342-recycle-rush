@@ -50,13 +50,14 @@ public class LiftSystem extends Subsystem {
 	public void liftWithJoystick(Joystick joystick) {
 		double up = joystick.getRawAxis(3);
 		double down = -1 * joystick.getRawAxis(2);
-		
+
 		// combine the two value for greater control, this will not allow the
 		// motor to move at values less than 20 percent of the motors capacity.
 		double speed = up + down;
 
 		if (((speed >= RobotMap.GAMEPAD_DEADZONE) && topSwitch.get())
-				|| ((speed <= (-1.0 * RobotMap.GAMEPAD_DEADZONE)) && bottomSwitch.get()))
+				|| ((speed <= (-1.0 * RobotMap.GAMEPAD_DEADZONE)) && bottomSwitch
+						.get()))
 			victorSP.set(speed);
 		else
 			victorSP.set(0);

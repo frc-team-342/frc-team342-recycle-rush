@@ -10,10 +10,10 @@ import edu.wpi.first.wpilibj.command.Command;
 public class LiftUpTime extends Command {
 	LiftSystem lift;
 	private long startTime;
-	private long duration;
+	private long target;
 
-	public LiftUpTime(long time) {
-		duration = time;
+	public LiftUpTime(long duration) {
+		target = System.currentTimeMillis() + duration;
 		lift = LiftSystem.getInstance();
 		requires(lift);
 	}
@@ -28,13 +28,12 @@ public class LiftUpTime extends Command {
 	@Override
 	protected void execute() {
 		lift.up();
-		duration = System.currentTimeMillis() - startTime;
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return (lift.topLimit() || duration <= System.currentTimeMillis());
+		return (lift.topLimit() || target <= System.currentTimeMillis());
 	}
 
 	// Called once after isFinished returns true

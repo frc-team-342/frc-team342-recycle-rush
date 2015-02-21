@@ -10,6 +10,9 @@ import edu.wpi.first.wpilibj.command.Command;
 public class LiftGetEncoder extends Command {
 	LiftSystem lift;
 
+	/**
+	 * get the height of the lift using the encoder
+	 */
 	public LiftGetEncoder() {
 		lift = LiftSystem.getInstance();
 		requires(lift);
@@ -36,13 +39,13 @@ public class LiftGetEncoder extends Command {
 	// Called once after isFinished returns true
 	@Override
 	protected void end() {
-		
+
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	@Override
 	protected void interrupted() {
-		
+
 	}
 }

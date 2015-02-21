@@ -107,7 +107,6 @@ public class GripSystem extends Subsystem {
 		talon.set(0);
 	}
 
-
 	/**
 	 * @return the value of the ultra sonic sensor in the front o the robot
 	 */
@@ -117,7 +116,7 @@ public class GripSystem extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		
+
 	}
-	
+
 }

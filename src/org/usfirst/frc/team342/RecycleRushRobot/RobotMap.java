@@ -9,10 +9,10 @@ package org.usfirst.frc.team342.RecycleRushRobot;
 public class RobotMap {
 
 	// Drive System Components
-	public static final int CAN_CHANNEL_LEFT_BACK_DRIVE_MOTOR = 3;
-	public static final int CAN_CHANNEL_LEFT_FRONT_DRIVE_MOTOR = 4;
-	public static final int CAN_CHANNEL_RIGHT_BACK_DRIVE_MOTOR = 5;
-	public static final int CAN_CHANNEL_RIGHT_FRONT_DRIVE_MOTOR = 6;
+	public static final int PWM_FRONT_RIGHT_DRIVE_MOTOR = 6;
+	public static final int PWM_REAR_RIGHT_DRIVE_MOTOR = 7;
+	public static final int PWM_FRONT_LEFT_DRIVE_MOTOR = 8;
+	public static final int PWM_REAR_LEFT_DRIVE_MOTOR = 9;
 	public static final int ANALOG_IO_DRIVE_GYRO = 0;
 	public static final int ANALOG_IO_DRIVE_ULTRASONIC = 1;
 
@@ -46,16 +46,20 @@ public class RobotMap {
 	public static final int AUTONOMOUS_DRIVE_FORWARD_DISTANCE_TO_CENTER = 2900;
 	public static final int AUTONOMOUS_DRIVE_BACKWARD_DISTANCE_TO_CENTER = 2500;
 	// Autonomous distance from tote to bin
-	public static final int AUTONOMOUS_DRIVE_FORWARD_DISTANCE_TO_TOTE_FROM_CONTAINER = 10;
-	
+	public static final int AUTONOMOUS_DRIVE_FORWARD_DISTANCE_TO_TOTE_FROM_CONTAINER = 80;
+
 	// Autonomous lift speeds
 	public static final double AUTONOMOUS_LIFT_UP_SPEED = 0.3;
 	public static final double AUTONOMOUS_LIFT_DOWN_SPEED = 0.3;
-	
+
 	// Autonomous lift encoder values
 	// TODO test the encoder
 	public static final int AUTONOMOUS_LIFT_UP_ENCODER_VALUE = 1000;
 	public static final int AUTONOMOUS_LIFT_DOWN_ENCODER_VALUE = 100;
+
+	// Autonomous lift up time when encoder is not on robot
+	public static final int AUTONOMOUS_LIFT_UP_TIME_VALUE = 1200;
+	public static final int AUTONOMOUS_LIFT_DOWN_TIME_VALUE = 1000;
 
 	// set the value for the dead zone for the controller's
 	public static final double GAMEPAD_DEADZONE = 0.2;

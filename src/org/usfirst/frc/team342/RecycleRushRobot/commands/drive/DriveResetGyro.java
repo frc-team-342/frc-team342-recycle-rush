@@ -3,6 +3,7 @@ package org.usfirst.frc.team342.RecycleRushRobot.commands.drive;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.communication.FRCNetworkCommunicationsLibrary;
 
 public class DriveResetGyro extends Command {
 
@@ -14,14 +15,15 @@ public class DriveResetGyro extends Command {
 
 	@Override
 	protected void initialize() {
-		
+		// Display message reflecting gyro-resetation
+		FRCNetworkCommunicationsLibrary.HALSetErrorData("Reseting the gyro..."
+				+ "\n");
 	}
 
 	@Override
 	protected void execute() {
-		// TODO make this print to dashboard
+		// reset the gyro
 		drive.resetGyro();
-		System.out.println("Reseting the gyro...");
 	}
 
 	@Override
@@ -31,13 +33,15 @@ public class DriveResetGyro extends Command {
 
 	@Override
 	protected void end() {
-		// TODO Make this print to dashboard
-		System.out.println("Gyro succesfully reset");
+		FRCNetworkCommunicationsLibrary
+				.HALSetErrorData("Gyro succesfully reset" + "\n");
 	}
 
 	@Override
 	protected void interrupted() {
-		
+		FRCNetworkCommunicationsLibrary.HALSetErrorData("ERROR RESETING GYRO"
+				+ "\n" + "THIS SHOULD NOT EVEN BE POSSIBLE!!!!!!!!!!" + "\n");
+		end();
 	}
 
 }

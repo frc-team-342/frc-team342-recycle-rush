@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class GripClose extends Command {
 	GripSystem grip;
-	
+
 	public GripClose() {
 		grip = GripSystem.getInstance();
 		requires(grip);

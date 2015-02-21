@@ -7,25 +7,24 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class DriveTurnLeftAngle extends Command {
 	DriveSystem drive;
-	private double startAngle;
 	private double angle;
 	private double targetangle;
 
 	public DriveTurnLeftAngle(int target) {
-		targetangle = target;
+		drive = DriveSystem.getInstance();
+		requires(drive);
+		targetangle = drive.getAngle() - target;
 	}
 
 	@Override
 	protected void initialize() {
-		drive = DriveSystem.getInstance();
-		startAngle = drive.getAngle();
 		angle = drive.getAngle();
 	}
 
 	@Override
 	protected void execute() {
-		drive.turn(RobotMap.AUTONOMOUS_DRIVE_TURN_LEFT_SPEED);
-		angle = drive.getAngle() - startAngle;
+		drive.turn(-1 * RobotMap.AUTONOMOUS_DRIVE_TURN_LEFT_SPEED);
+		angle = drive.getAngle();
 	}
 
 	@Override
@@ -40,7 +39,7 @@ public class DriveTurnLeftAngle extends Command {
 
 	@Override
 	protected void interrupted() {
-		this.end();
+		end();
 	}
 
 }

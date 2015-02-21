@@ -9,7 +9,7 @@ public class DriveForwardRelativeDistance extends Command {
 	DriveSystem drive;
 	private int distance;
 	private int targetDistance;
-	
+
 	public DriveForwardRelativeDistance(int target) {
 		drive = DriveSystem.getInstance();
 		requires(this.drive);

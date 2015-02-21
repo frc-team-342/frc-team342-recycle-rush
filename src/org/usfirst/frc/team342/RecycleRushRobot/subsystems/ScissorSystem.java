@@ -18,7 +18,6 @@ public class ScissorSystem extends Subsystem {
 
 	private final double DEFAULT_SCISSOR_EXTEND_SPEED = 1.0;
 	private final double DEFAULT_SCISSOR_LIFT_SPEED = 1.0;
-	private final double DEFAULT_GAMEPAD_DEADZONE = 0.01;
 
 	public ScissorSystem() {
 		extendTalon = new Talon(RobotMap.CAN_CHANNELL_SCISSOR_EXTENSION);
@@ -46,17 +45,17 @@ public class ScissorSystem extends Subsystem {
 
 		double right = joystick.getRawAxis(0);
 		// The joy stick is inverted on the y axis
-		double up = -1 * joystick.getRawAxis(1);
+		double up = -1.0 * joystick.getRawAxis(1);
 
 		// The limit switch is inverted
 		//
 		// The giant test condition tests many things. The first half is for
 		// moving the scissor up if the joy stick is positive, the second half
-		// is a symmetrical condition for moving the scissor down. For each it
+		// is a symmetrical condition for moving the scissor down. For each, it
 		// first tests if the joy stick is greater than the dead zone, then it
 		// tests if the scissor is already at its limit switches.
-		if (((right > DEFAULT_GAMEPAD_DEADZONE) && scissorExtended.get())
-				|| ((right < -1.0 * DEFAULT_GAMEPAD_DEADZONE) && scissorRetracted
+		if (((right > RobotMap.GAMEPAD_DEADZONE) && scissorExtended.get())
+				|| ((right < -1.0 * RobotMap.GAMEPAD_DEADZONE) && scissorRetracted
 						.get()))
 			extendTalon.set(right);
 		else
@@ -69,8 +68,8 @@ public class ScissorSystem extends Subsystem {
 		// is a symmetrical condition for retracting the scissor. For each it
 		// first tests if the joy stick is greater than the dead zone, then it
 		// tests if the scissor is already at its limit switches.
-		if (((up > DEFAULT_GAMEPAD_DEADZONE) && scissorTiltIn.get())
-				|| ((up < -1.0 * DEFAULT_GAMEPAD_DEADZONE) && scissorTiltOut
+		if (((up > RobotMap.GAMEPAD_DEADZONE) && scissorTiltOut.get())
+				|| ((up < -1.0 * RobotMap.GAMEPAD_DEADZONE) && scissorTiltIn
 						.get()))
 			liftTalon.set(up);
 		else
