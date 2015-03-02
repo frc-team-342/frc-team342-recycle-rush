@@ -62,8 +62,12 @@ public class RecycleRushRobot extends IterativeRobot {
 		scissor = ScissorSystem.getInstance();
 		camera = CameraVisionRedux.getInstance();
 		grip = GripSystem.getInstance();
+		
 
 		SmartDashboard.putBoolean("DB/Button 0", true);
+		SmartDashboard.putBoolean("DB/Button 1", false);
+		SmartDashboard.putBoolean("DB/Button 2", false);
+		SmartDashboard.putBoolean("DB/Button 3", false);
 		// Set the default to turn right.
 		SmartDashboard.putString("DB/String 0", "right");
 		FRCNetworkCommunicationsLibrary.HALSetErrorData("Smart Dashboard set to default 'turn right'.");
@@ -185,7 +189,6 @@ public class RecycleRushRobot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
-		
 	}
 
 	/**

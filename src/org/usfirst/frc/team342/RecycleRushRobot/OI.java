@@ -2,6 +2,8 @@ package org.usfirst.frc.team342.RecycleRushRobot;
 
 import org.usfirst.frc.team342.RecycleRushRobot.commands.camera.ChangeCamera;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveChangeMode;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveInverter;
+//import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveInvertControl;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveReadDebug;
 //import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.ReadDebug;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveResetGyro;
@@ -39,7 +41,7 @@ public class OI {
 	private final int JOYSTICK_DRIVE_SCISSOR_EXTEND = 6;
 	private final int JOYSTICK_DRIVE_BUTTON_7 = 7;
 	private final int JOYSTICK_DRIVE_CHANGE_MODE = 8;
-	private final int JOYSTICK_DRIVE_BUTTON_9 = 9;
+	private final int JOYSTICK_DRIVE_INVERTER = 9;
 	private final int JOYSTICK_DRIVE_BUTTON_10 = 10;
 	private final int JOYSTICK_DRIVE_SLOW_DOWN = 11; // while held
 	private final int JOYSTICK_DRIVE_DEBUG_NUMBERS = 12; // while held
@@ -91,6 +93,10 @@ public class OI {
 		// declare slow down button for better control over driving
 		JoystickButton driveSlowDown = new JoystickButton(driveController,
 				JOYSTICK_DRIVE_SLOW_DOWN);
+		
+		// declare drive invert button for joy stick
+		JoystickButton driveInvert = new JoystickButton(driveController,
+				JOYSTICK_DRIVE_INVERTER);
 
 		// declare button for getting debugging output for sensors
 		JoystickButton driveDebugNumbers = new JoystickButton(driveController,
@@ -123,9 +129,12 @@ public class OI {
 		// map the function to switch between field oriented drive
 		driveChangeMode.whenPressed(new DriveChangeMode());
 
-		// map the button to hold to slow down the drive fort better control
+		// map the button to hold to slow down the drive for better control
 		driveSlowDown.whenPressed(new DriveToggleSpeed());
 		driveSlowDown.whenReleased(new DriveToggleSpeed());
+		
+		// map the button to hold to invert the drive
+		driveInvert.whenPressed(new DriveInverter());
 
 		// map a button to print debugging information
 		driveDebugNumbers.whileHeld(new DriveReadDebug());

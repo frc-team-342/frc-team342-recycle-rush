@@ -2,6 +2,7 @@ package org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous;
 
 import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveForwardToDistance;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveResetGyro;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveTurnLeftAngle;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveTurnRightAngle;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
@@ -14,7 +15,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class DriveToCenter extends CommandGroup {
 	public DriveToCenter(int turn) {
 		DriveSystem drive = DriveSystem.getInstance();
-
 		// Drive to the center of the field
 		if (drive.getDistance() <= RobotMap.AUTONOMOUS_DRIVE_FORWARD_DISTANCE_TO_CENTER)
 			addSequential(new DriveForwardToDistance(

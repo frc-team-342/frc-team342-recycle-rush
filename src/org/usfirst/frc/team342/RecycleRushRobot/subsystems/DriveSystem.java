@@ -25,6 +25,7 @@ public class DriveSystem extends Subsystem {
 	private final Jaguar rearRightjaguar;
 	private final Gyro gyro;
 	private final AnalogInput ultrasonic;
+	private double InverseDrive;
 
 	// slows down the drive for better control
 	private final double driveHandicap = 0.45;
@@ -63,12 +64,13 @@ public class DriveSystem extends Subsystem {
 		// Set the safety to not print line annoying print lines
 		robotDrive.setSafetyEnabled(false);
 
-		// inverts the motors, because they have to be inverted
+		// inverts the motors, because they have to be inverted 
 		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
 		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
 
 		mode = true;
 		slow = false;
+		InverseDrive = 1.0;
 	}
 
 	public static DriveSystem getInstance() {
@@ -83,8 +85,8 @@ public class DriveSystem extends Subsystem {
 	 */
 	public void driveWithJoystick(Joystick joystick) {
 		// set drive variables
-		double x = joystick.getX();
-		double y = joystick.getY();
+		double x = joystick.getX() * InverseDrive * 0.8;
+		double y = joystick.getY() * InverseDrive * 0.8;
 		double rotation = joystick.getZ() * driveHandicap;
 		if (mode) {
 			double angle = gyro.getAngle();
@@ -175,6 +177,10 @@ public class DriveSystem extends Subsystem {
 			robotDrive.setMaxOutput(1.0);
 	}
 
+	public void inverseDrive() {
+		InverseDrive = InverseDrive * -1.0;
+	}
+	
 	@Override
 	protected void initDefaultCommand() {
 
