@@ -1,40 +1,42 @@
 package org.usfirst.frc.team342.RecycleRushRobot.commands.drive;
 
+import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveInverter extends Command {
+public class DriveStrafeLeftTime extends Command {
 	DriveSystem drive;
+	long stopTime;
+	
+	public DriveStrafeLeftTime() {
+		drive = DriveSystem.getInstance();
+		requires(drive);
+	}
 
 	@Override
 	protected void initialize() {
-		// TODO Auto-generated method stub
-		drive = DriveSystem.getInstance();
+		stopTime = System.currentTimeMillis() + 800;
 	}
 
 	@Override
 	protected void execute() {
-		// TODO Auto-generated method stub
-		drive.inverseDrive();
+		drive.strafeLeft(RobotMap.AUTONOMOUS_DRIVE_STRAFE_LEFT_SPEED);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		// TODO Auto-generated method stub
-		return true;
+		return stopTime <= System.currentTimeMillis();
 	}
 
 	@Override
 	protected void end() {
-		// TODO Auto-generated method stub
-
+		drive.stop();
 	}
 
 	@Override
 	protected void interrupted() {
-		// TODO Auto-generated method stub
-
+		end();
 	}
 
 }

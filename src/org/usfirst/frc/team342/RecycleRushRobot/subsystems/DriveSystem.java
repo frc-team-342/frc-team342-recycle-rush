@@ -28,7 +28,7 @@ public class DriveSystem extends Subsystem {
 	private double InverseDrive;
 
 	// slows down the drive for better control
-	private final double driveHandicap = 0.45;
+	private final double driveHandicap = 1.0;
 
 	// Variable to store the drive mode (field oriented or robot oriented)
 	private boolean mode;
@@ -54,9 +54,10 @@ public class DriveSystem extends Subsystem {
 		gyro = new Gyro(RobotMap.ANALOG_IO_DRIVE_GYRO);
 		ultrasonic = new AnalogInput(RobotMap.ANALOG_IO_DRIVE_ULTRASONIC);
 
+		// TODO the gyro does not work correctly
 		// initiate the gyro
-		gyro.initGyro();
-		gyroInitStartTime = System.currentTimeMillis();
+		// gyro.initGyro();
+		gyroInitStartTime = System.currentTimeMillis() - 10000;
 		FRCNetworkCommunicationsLibrary
 				.HALSetErrorData("The gyro is initializing" + "\n"
 						+ "DO NOT TOUCH THE ROBOT!!!" + "\n");
@@ -64,11 +65,11 @@ public class DriveSystem extends Subsystem {
 		// Set the safety to not print line annoying print lines
 		robotDrive.setSafetyEnabled(false);
 
-		// inverts the motors, because they have to be inverted 
+		// inverts the motors, because they have to be inverted
 		robotDrive.setInvertedMotor(MotorType.kRearRight, true);
 		robotDrive.setInvertedMotor(MotorType.kFrontRight, true);
 
-		mode = true;
+		mode = false;
 		slow = false;
 		InverseDrive = 1.0;
 	}
@@ -85,14 +86,14 @@ public class DriveSystem extends Subsystem {
 	 */
 	public void driveWithJoystick(Joystick joystick) {
 		// set drive variables
-		double x = joystick.getX() * InverseDrive * 0.8;
-		double y = joystick.getY() * InverseDrive * 0.8;
+		double x = joystick.getX() * InverseDrive;
+		double y = joystick.getY() * InverseDrive;
 		double rotation = joystick.getZ() * driveHandicap;
 		if (mode) {
 			double angle = gyro.getAngle();
-			this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, angle);
+			robotDrive.mecanumDrive_Cartesian(x, y, rotation, angle);
 		} else
-			this.robotDrive.mecanumDrive_Cartesian(x, y, rotation, 0);
+			robotDrive.mecanumDrive_Cartesian(x, y, rotation, 0);
 	}
 
 	/**
@@ -104,25 +105,44 @@ public class DriveSystem extends Subsystem {
 	}
 
 	/**
-	 * Drive forward at the given speed. To drive backward use a negative speed.
+	 * Drive forward at the given speed.
 	 * 
 	 * @param speed
 	 *            The speed to drive forward at
 	 */
-	// TODO Should this use the gyro?
 	public void forward(double speed) {
 		robotDrive.mecanumDrive_Cartesian(0.0, -1 * speed, 0.0, 0.0);
 	}
 
 	/**
-	 * Drive forward at the given speed. To drive backward use a negative speed.
+	 * Drive backward at the given speed.
 	 * 
 	 * @param speed
-	 *            The speed to drive backward at, this can be negative to go
-	 *            backwards
+	 *            The speed to drive backward at
 	 */
 	public void reverse(double speed) {
 		robotDrive.mecanumDrive_Cartesian(0.0, -1.0 * speed, 0.0, 0.0);
+	}
+
+	/**
+	 * drive the robot right without turning
+	 * 
+	 * @param speed
+	 *            The speed to strafe left at
+	 */
+	public void strafeRight(double speed) {
+		robotDrive.mecanumDrive_Cartesian(1.0 * speed, 0.0, 0.0, 0.0);
+	}
+
+	/**
+	 * drive the robot left without turning
+	 * 
+	 * @param speed
+	 *            The speed to strafe right at
+	 */
+	public void strafeLeft(double speed) {
+		robotDrive.mecanumDrive_Cartesian(-1.0 * speed, 0.0, 0.0,
+				0.0);
 	}
 
 	/**
@@ -178,9 +198,9 @@ public class DriveSystem extends Subsystem {
 	}
 
 	public void inverseDrive() {
-		InverseDrive = InverseDrive * -1.0;
+		InverseDrive *= -1.0;
 	}
-	
+
 	@Override
 	protected void initDefaultCommand() {
 

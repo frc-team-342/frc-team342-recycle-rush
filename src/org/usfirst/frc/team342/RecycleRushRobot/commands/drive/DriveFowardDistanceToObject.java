@@ -46,7 +46,7 @@ public class DriveFowardDistanceToObject extends Command {
 		drive.forward(driveSpeed);
 		// when the ultrasonic detects small value start adding to the counter
 		// to stop driving forward
-		if (grip.getUltrasonic() < 60)
+		if (grip.getPotentiometer() < 60)
 			counter++;
 	}
 

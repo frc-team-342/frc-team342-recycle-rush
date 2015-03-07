@@ -8,8 +8,9 @@ import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveReadDebug;
 //import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.ReadDebug;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveResetGyro;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveToggleSpeed;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripClose;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripOpen;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripClose1;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripClose2;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripClose3;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorDown;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorExtend;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorRetract;
@@ -49,10 +50,14 @@ public class OI {
 	// Game pad buttons. Axes 5 and 6 are not used. Right and left trigger
 	// control lift speed. Left thumb stick axes control scissor. The POV
 	// buttons are unused.
-	private final int JOYSTICK_ASSIST_GRIP_OPEN = 1; // While held
-	private final int JOYSTICK_ASSIST_BUTTON_2 = 2;
-	private final int JOYSTICK_ASSIST_BUTTON_3 = 3;
-	private final int JOYSTICK_ASSIST_GRIP_CLOSE = 4; // While held
+//	private final int JOYSTICK_ASSIST_GRIP_OPEN = 1; // While held
+//	private final int JOYSTICK_ASSIST_BUTTON_2 = 2;
+//	private final int JOYSTICK_ASSIST_BUTTON_3 = 3;
+//	private final int JOYSTICK_ASSIST_GRIP_CLOSE = 4; // While held
+	private final int JOYSTICK_ASSIST_GRIP_CLOSE_1 = 1; // While held
+	private final int JOYSTICK_ASSIST_GRIP_CLOSE_2 = 2;
+	private final int JOYSTICK_ASSIST_GRIP_CLOSE_3 = 3;
+	private final int JOYSTICK_ASSIST_BUTTON_4 = 4; // While held
 	private final int JOYSTICK_ASSIST_BUTTON_5 = 5;
 	private final int JOYSTICK_ASSIST_BUTTON_6 = 6;
 	private final int JOYSTICK_ASSIST_BUTTON_7 = 7;
@@ -93,7 +98,7 @@ public class OI {
 		// declare slow down button for better control over driving
 		JoystickButton driveSlowDown = new JoystickButton(driveController,
 				JOYSTICK_DRIVE_SLOW_DOWN);
-		
+
 		// declare drive invert button for joy stick
 		JoystickButton driveInvert = new JoystickButton(driveController,
 				JOYSTICK_DRIVE_INVERTER);
@@ -103,10 +108,12 @@ public class OI {
 				JOYSTICK_DRIVE_DEBUG_NUMBERS);
 
 		// declare Grip commands for assist joy stick
-		JoystickButton assistGripOpen = new JoystickButton(assistJoystick,
-				JOYSTICK_ASSIST_GRIP_OPEN);
-		JoystickButton assistGripClose = new JoystickButton(assistJoystick,
-				JOYSTICK_ASSIST_GRIP_CLOSE);
+		JoystickButton assistGripClose1 = new JoystickButton(assistJoystick,
+				JOYSTICK_ASSIST_GRIP_CLOSE_1);
+		JoystickButton assistGripClose2 = new JoystickButton(assistJoystick,
+				JOYSTICK_ASSIST_GRIP_CLOSE_2);
+		JoystickButton assistGripClose3 = new JoystickButton(assistJoystick,
+				JOYSTICK_ASSIST_GRIP_CLOSE_3);
 
 		// declare change camera command for assist joy stick
 		JoystickButton assistChangeCamera = new JoystickButton(assistJoystick,
@@ -132,7 +139,7 @@ public class OI {
 		// map the button to hold to slow down the drive for better control
 		driveSlowDown.whenPressed(new DriveToggleSpeed());
 		driveSlowDown.whenReleased(new DriveToggleSpeed());
-		
+
 		// map the button to hold to invert the drive
 		driveInvert.whenPressed(new DriveInverter());
 
@@ -140,9 +147,14 @@ public class OI {
 		driveDebugNumbers.whileHeld(new DriveReadDebug());
 
 		// map assist joy stick grip buttons to grip commands
-		assistGripOpen.whileHeld(new GripOpen());
-		assistGripClose.whileHeld(new GripClose());
+		assistGripClose1.whileHeld(new GripClose1());
 
+		// map assist joy stick grip buttons to grip commands
+		assistGripClose2.whileHeld(new GripClose2());
+		
+		// map assist joy stick grip buttons to grip commands
+		assistGripClose3.whileHeld(new GripClose3());
+		
 		// map assist joy stick change camera button to change camera command
 		assistChangeCamera.whenPressed(new ChangeCamera());
 	}

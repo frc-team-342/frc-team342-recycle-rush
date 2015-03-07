@@ -53,7 +53,7 @@ public class LiftSystem extends Subsystem {
 
 		// combine the two value for greater control, this will not allow the
 		// motor to move at values less than 20 percent of the motors capacity.
-		double speed = up + down;
+		double speed = (up + down) * 0.8;
 
 		if (((speed >= RobotMap.GAMEPAD_DEADZONE) && topSwitch.get())
 				|| ((speed <= (-1.0 * RobotMap.GAMEPAD_DEADZONE)) && bottomSwitch

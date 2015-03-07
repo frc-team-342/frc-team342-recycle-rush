@@ -5,7 +5,8 @@ import java.util.Arrays;
 import javax.crypto.spec.IvParameterSpec;
 
 import org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous.DriveToCenter;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous.PickUpObject;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous.PickUpThreeTotes;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous.PickUpRecyclingContainer;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous.PickUpToteAndContainer;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveWithJoystick;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.CameraVisionRedux;
@@ -62,7 +63,6 @@ public class RecycleRushRobot extends IterativeRobot {
 		scissor = ScissorSystem.getInstance();
 		camera = CameraVisionRedux.getInstance();
 		grip = GripSystem.getInstance();
-		
 
 		SmartDashboard.putBoolean("DB/Button 0", true);
 		SmartDashboard.putBoolean("DB/Button 1", false);
@@ -70,7 +70,8 @@ public class RecycleRushRobot extends IterativeRobot {
 		SmartDashboard.putBoolean("DB/Button 3", false);
 		// Set the default to turn right.
 		SmartDashboard.putString("DB/String 0", "right");
-		FRCNetworkCommunicationsLibrary.HALSetErrorData("Smart Dashboard set to default 'turn right'.");
+		FRCNetworkCommunicationsLibrary
+				.HALSetErrorData("Smart Dashboard set to default 'turn right'.");
 	}
 
 	/**
@@ -118,11 +119,11 @@ public class RecycleRushRobot extends IterativeRobot {
 			}
 		}
 
-		if ((System.currentTimeMillis() >= drive.gyroInitStartTime + 8000)
+		if ((System.currentTimeMillis() >= drive.gyroInitStartTime - 8000)
 				&& !gyroInitialized) {
 			FRCNetworkCommunicationsLibrary
-					.HALSetErrorData("The gyro has been initialized and the "
-							+ "robot is ready to WIN!!!!" + "\n\n\n\n");
+					.HALSetErrorData("The gyro has been initialized; "
+							+ "Stay In Milk, Drink Your Drugs, Don't Do School" + "\n\n\n\n");
 			gyroInitialized = true;
 		}
 	}
@@ -133,27 +134,36 @@ public class RecycleRushRobot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 
+		// drive to center
 		if (oldArray[0]) {
 			autonomousCommand = new DriveToCenter(angle);
 			FRCNetworkCommunicationsLibrary
 					.HALSetErrorData("Autonomous Mode: 'Drive to center and turn'"
 							+ " activated." + "\n");
-		} else if (oldArray[1]) {
-			autonomousCommand = new PickUpObject(true, angle);
-			FRCNetworkCommunicationsLibrary
-					.HALSetErrorData("Autonomous Mode: 'Pick up tote, drive to center and turn'"
-							+ " activated." + "\n");
-		} else if (oldArray[2]) {
-			autonomousCommand = new PickUpObject(false, angle);
+		}
+
+		// pick up recycling container
+		else if (oldArray[1]) {
+			autonomousCommand = new PickUpRecyclingContainer(angle);
 			FRCNetworkCommunicationsLibrary
 					.HALSetErrorData("Autonomous Mode: 'Pick up container, drive to center and turn'"
 							+ " activated." + "\n");
-		} else if (oldArray[3]) {
-			autonomousCommand = new PickUpToteAndContainer(angle);
+		}
+
+		// ALL YOUR TOTES ARE BELONG TO US!!!
+		else if (oldArray[2]) {
+			autonomousCommand = new PickUpThreeTotes();
 			FRCNetworkCommunicationsLibrary
 					.HALSetErrorData("Autonomous Mode: 'Pick up both a tote and a container then drive to center and turn'"
 							+ " activated." + "\n");
 		}
+		// unused button
+		// else if (oldArray[3]) {
+		// autonomousCommand = new PickUpObject(true, angle);
+		// FRCNetworkCommunicationsLibrary
+		// .HALSetErrorData("Autonomous Mode: 'Pick up tote, drive to center and turn'"
+		// + " activated." + "\n");
+		// }
 
 		if (angle >= 0)
 			FRCNetworkCommunicationsLibrary
@@ -189,6 +199,7 @@ public class RecycleRushRobot extends IterativeRobot {
 	 */
 	@Override
 	public void disabledInit() {
+
 	}
 
 	/**

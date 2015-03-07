@@ -10,7 +10,7 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
 /**
- * Drive to the center of the field. This has not yet been tested.
+ * Drive to the center of the field.
  */
 public class DriveToCenter extends CommandGroup {
 	public DriveToCenter(int turn) {

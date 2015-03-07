@@ -17,9 +17,9 @@ public class CameraVisionRedux extends Subsystem {
 
 	public CameraVisionRedux() {
 		frame = NIVision.imaqCreateImage(NIVision.ImageType.IMAGE_RGB, 0);
-		frontCam = NIVision.IMAQdxOpenCamera("cam0",
+		frontCam = NIVision.IMAQdxOpenCamera("cam1",
 				NIVision.IMAQdxCameraControlMode.CameraControlModeListener);
-		backCam = NIVision.IMAQdxOpenCamera("cam1",
+		backCam = NIVision.IMAQdxOpenCamera("cam2",
 				NIVision.IMAQdxCameraControlMode.CameraControlModeListener);
 		currCam = frontCam;
 		NIVision.IMAQdxConfigureGrab(frontCam);

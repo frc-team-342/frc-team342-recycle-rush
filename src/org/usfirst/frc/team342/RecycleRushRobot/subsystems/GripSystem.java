@@ -23,20 +23,20 @@ public class GripSystem extends Subsystem {
 
 	// declare motors and sensors
 	private final Talon talon;
-	private final AnalogInput ultrasonic;
+	private final AnalogInput potentiometer;
 	private final DigitalInput limitSwitchOut;
-	private final DigitalInput limitSwitchIn;
 	// the gripper calls these as a guide for where to stop the gripper
 	private final double GRIP_STRENGTH = 1.0;
+	private final double GRIP_DEADZONE = 3;
 
 	// gripper system constructor
 	private GripSystem() {
-		this.talon = new Talon(RobotMap.CAN_CHANNEL_GRIP_OPEN_CLOSE);
-		this.ultrasonic = new AnalogInput(RobotMap.ANALOG_IO_GRIP_ULTRASONIC);
-		this.limitSwitchOut = new DigitalInput(
+		talon = new Talon(RobotMap.CAN_CHANNEL_GRIP_OPEN_CLOSE);
+		potentiometer = new AnalogInput(RobotMap.ANALOG_IO_GRIP_POTENTIOMETER);
+		limitSwitchOut = new DigitalInput(
 				RobotMap.DIGITAL_IO_GRIP_LIMIT_SWITCH_OUTER_LIMIT);
-		this.limitSwitchIn = new DigitalInput(
-				RobotMap.DIGITAL_IO_GRIP_LIMIT_SWITCH_INNER_LIMIT);
+		// limitSwitchIn = new DigitalInput(
+		// RobotMap.DIGITAL_IO_GRIP_LIMIT_SWITCH_INNER_LIMIT);
 	}
 
 	/**
@@ -59,11 +59,41 @@ public class GripSystem extends Subsystem {
 		boolean closed = true;
 
 		// close if not closed
-		if (limitSwitchIn.get()) {
+		if (potentiometer.getVoltage() >= RobotMap.GRIP_POTENTIOMETER_CLOSE_VALUE) {
 			closed = false;
 			talon.set(-1 * GRIP_STRENGTH);
 		}
 
+		if (closed)
+			talon.set(0);
+
+		// return whether or not the gripper is already closed for loop
+		// statements
+		return closed;
+	}
+
+	public boolean close(int potValue) {
+		// set the default state to closed
+		boolean closed = true;
+
+		// close if not closed
+		// if ((potentiometer.getVoltage() >=
+		// RobotMap.GRIP_POTENTIOMETER_CLOSE_VALUE)) {
+		if (potentiometer.getValue() > potValue + GRIP_DEADZONE && (potentiometer.getValue() != 5)) {
+			closed = false;
+			talon.set(-1.0 * GRIP_STRENGTH);
+		}
+
+		else if ((potentiometer.getValue() <= potValue - GRIP_DEADZONE && potentiometer.getValue() != 5)
+				&& limitSwitchOut.get()) {
+			closed = false;
+			talon.set(1.0 * GRIP_STRENGTH);
+		}
+		// }
+
+		else if (potentiometer.getValue() != 5)
+			closed = false;
+		
 		if (closed)
 			talon.set(0);
 
@@ -110,8 +140,8 @@ public class GripSystem extends Subsystem {
 	/**
 	 * @return the value of the ultra sonic sensor in the front o the robot
 	 */
-	public int getUltrasonic() {
-		return ultrasonic.getValue();
+	public int getPotentiometer() {
+		return potentiometer.getValue();
 	}
 
 	@Override
