@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class DriveStrafeLeftTime extends Command {
 	DriveSystem drive;
 	long stopTime;
-	
+
 	public DriveStrafeLeftTime() {
 		drive = DriveSystem.getInstance();
 		requires(drive);

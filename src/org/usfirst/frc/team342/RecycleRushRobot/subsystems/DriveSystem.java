@@ -141,8 +141,7 @@ public class DriveSystem extends Subsystem {
 	 *            The speed to strafe right at
 	 */
 	public void strafeLeft(double speed) {
-		robotDrive.mecanumDrive_Cartesian(-1.0 * speed, 0.0, 0.0,
-				0.0);
+		robotDrive.mecanumDrive_Cartesian(-1.0 * speed, 0.0, 0.0, 0.0);
 	}
 
 	/**

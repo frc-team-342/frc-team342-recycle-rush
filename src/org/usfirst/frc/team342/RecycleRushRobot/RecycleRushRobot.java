@@ -44,7 +44,7 @@ public class RecycleRushRobot extends IterativeRobot {
 	private DriveWithJoystick runnow;
 
 	// Initialize old array of value from dash board for autonomous selection.
-	private boolean[] oldArray = { true, false, false, false };
+	private boolean[] oldArray = {true, false, false, false};
 
 	private int angle;
 
@@ -100,11 +100,9 @@ public class RecycleRushRobot extends IterativeRobot {
 		// Only test the string occasionally.
 		if (Math.floor((80 * Math.random())) == 0) {
 			String board = SmartDashboard.getString("DB/String 0");
-			if (board.equalsIgnoreCase("Right") || board.startsWith("r")
-					|| board.startsWith("R"))
+			if (board.startsWith("r") || board.startsWith("R"))
 				angle = 90;
-			else if (board.equalsIgnoreCase("Left") || board.startsWith("l")
-					|| board.startsWith("L"))
+			else if (board.startsWith("l") || board.startsWith("L"))
 				angle = -90;
 			// If this runs, someone made a mistake
 			else {
@@ -123,7 +121,8 @@ public class RecycleRushRobot extends IterativeRobot {
 				&& !gyroInitialized) {
 			FRCNetworkCommunicationsLibrary
 					.HALSetErrorData("The gyro has been initialized; "
-							+ "Stay In Milk, Drink Your Drugs, Don't Do School" + "\n\n\n\n");
+							+ "Stay In Milk, Drink Your Drugs, Don't Do School"
+							+ "\n");
 			gyroInitialized = true;
 		}
 	}
@@ -134,28 +133,33 @@ public class RecycleRushRobot extends IterativeRobot {
 	@Override
 	public void autonomousInit() {
 
-		// drive to center
+		// Drive to center
 		if (oldArray[0]) {
 			autonomousCommand = new DriveToCenter(angle);
+			SmartDashboard.putString("DB/String 5", "Drive to center and turn");
 			FRCNetworkCommunicationsLibrary
-					.HALSetErrorData("Autonomous Mode: 'Drive to center and turn'"
-							+ " activated." + "\n");
+					.HALSetErrorData("Autonomous Mode: \"Drive to center and turn\""
+							+ " activated.");
 		}
 
-		// pick up recycling container
+		// Pick up recycling container
 		else if (oldArray[1]) {
 			autonomousCommand = new PickUpRecyclingContainer(angle);
+			SmartDashboard.putString("DB/String 5",
+					"Pick up container, drive to center and turn");
 			FRCNetworkCommunicationsLibrary
-					.HALSetErrorData("Autonomous Mode: 'Pick up container, drive to center and turn'"
-							+ " activated." + "\n");
+					.HALSetErrorData("Autonomous Mode: \"Pick up container, drive to center and turn\""
+							+ " activated.");
 		}
 
 		// ALL YOUR TOTES ARE BELONG TO US!!!
 		else if (oldArray[2]) {
 			autonomousCommand = new PickUpThreeTotes();
+			SmartDashboard.putString("DB/String 5",
+					"Pick up three totes then drive to center and turn");
 			FRCNetworkCommunicationsLibrary
-					.HALSetErrorData("Autonomous Mode: 'Pick up both a tote and a container then drive to center and turn'"
-							+ " activated." + "\n");
+					.HALSetErrorData("Autonomous Mode: \"Pick up three totes then drive to center and turn\""
+							+ " activated.");
 		}
 		// unused button
 		// else if (oldArray[3]) {

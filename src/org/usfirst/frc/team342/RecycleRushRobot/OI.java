@@ -50,14 +50,10 @@ public class OI {
 	// Game pad buttons. Axes 5 and 6 are not used. Right and left trigger
 	// control lift speed. Left thumb stick axes control scissor. The POV
 	// buttons are unused.
-//	private final int JOYSTICK_ASSIST_GRIP_OPEN = 1; // While held
-//	private final int JOYSTICK_ASSIST_BUTTON_2 = 2;
-//	private final int JOYSTICK_ASSIST_BUTTON_3 = 3;
-//	private final int JOYSTICK_ASSIST_GRIP_CLOSE = 4; // While held
 	private final int JOYSTICK_ASSIST_GRIP_CLOSE_1 = 1; // While held
-	private final int JOYSTICK_ASSIST_GRIP_CLOSE_2 = 2;
-	private final int JOYSTICK_ASSIST_GRIP_CLOSE_3 = 3;
-	private final int JOYSTICK_ASSIST_BUTTON_4 = 4; // While held
+	private final int JOYSTICK_ASSIST_GRIP_CLOSE_2 = 2; // While held
+	private final int JOYSTICK_ASSIST_GRIP_CLOSE_3 = 3; // While held
+	private final int JOYSTICK_ASSIST_BUTTON_4 = 4;
 	private final int JOYSTICK_ASSIST_BUTTON_5 = 5;
 	private final int JOYSTICK_ASSIST_BUTTON_6 = 6;
 	private final int JOYSTICK_ASSIST_BUTTON_7 = 7;
@@ -151,10 +147,10 @@ public class OI {
 
 		// map assist joy stick grip buttons to grip commands
 		assistGripClose2.whileHeld(new GripClose2());
-		
+
 		// map assist joy stick grip buttons to grip commands
 		assistGripClose3.whileHeld(new GripClose3());
-		
+
 		// map assist joy stick change camera button to change camera command
 		assistChangeCamera.whenPressed(new ChangeCamera());
 	}

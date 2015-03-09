@@ -31,7 +31,7 @@ public class PickUpToteAndContainer extends CommandGroup {
 		// Set the bin on the tote and lift both.
 		// addSequential(new LiftDownToEncoder(
 		// RobotMap.AUTONOMOUS_LIFT_DOWN_ENCODER_VALUE));
-		//addSequential(new GripOpen());
+		// addSequential(new GripOpen());
 		addSequential(new LiftDown());
 		addSequential(new GripClose1());
 		// addSequential(new LiftUpToEncoder(

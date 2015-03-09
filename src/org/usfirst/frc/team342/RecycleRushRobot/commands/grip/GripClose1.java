@@ -30,8 +30,7 @@ public class GripClose1 extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return grip
-				.close(RobotMap.AUTONOMOUS_GRIP_POTENTIOMETER_CLOSED_VALUE_1);
+		return grip.moveTo(RobotMap.GRIP_POTENTIOMETER_CLOSED_VALUE_1);
 	}
 
 	@Override

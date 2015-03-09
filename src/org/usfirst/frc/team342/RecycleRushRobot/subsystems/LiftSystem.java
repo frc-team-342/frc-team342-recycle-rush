@@ -56,21 +56,26 @@ public class LiftSystem extends Subsystem {
 		double speed = (up + down) * 0.8;
 
 		if (((speed >= RobotMap.GAMEPAD_DEADZONE) && topSwitch.get())
-				|| ((speed <= (-1.0 * RobotMap.GAMEPAD_DEADZONE)) && bottomSwitch
+				|| ((speed <= -1.0 * RobotMap.GAMEPAD_DEADZONE) && bottomSwitch
 						.get()))
 			victorSP.set(speed);
 		else
 			victorSP.set(0);
 	}
 
+	/**
+	 * Lift the lift!
+	 */
 	public void up() {
 		if (!topLimit())
 			victorSP.set(RobotMap.AUTONOMOUS_LIFT_UP_SPEED);
 		else
 			victorSP.set(0.0);
-
 	}
 
+	/**
+	 * Lower the lift
+	 */
 	public void down() {
 		if (!bottomLimit())
 			victorSP.set(-1 * RobotMap.AUTONOMOUS_LIFT_DOWN_SPEED);

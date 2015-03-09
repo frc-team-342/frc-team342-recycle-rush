@@ -29,7 +29,7 @@ public class PickUpRecyclingContainer extends CommandGroup {
 		addSequential(new DriveStrafeLeftTime());
 		addSequential(new GripClose1());
 		addSequential(new LiftUpTime(RobotMap.AUTONOMOUS_LIFT_UP_TIME_VALUE));
-		
+
 		// Turn left to face the center of the field.
 		addSequential(new DriveTurnLeftAngle(90));
 

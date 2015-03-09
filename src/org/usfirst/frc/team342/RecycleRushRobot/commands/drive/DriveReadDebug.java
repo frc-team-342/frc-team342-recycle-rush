@@ -35,8 +35,8 @@ public class DriveReadDebug extends Command {
 		FRCNetworkCommunicationsLibrary.HALSetErrorData("Drive System " + "\t"
 				+ "Ultrasonic: " + drive.getDistance() + "\t" + "Gyro: "
 				+ drive.getAngle() + "\n" + "GripSystem " + "\t"
-				+ "Potentiometer: " + grip.getPotentiometer() + "\n" + "Lift " + "\t"
-				+ "Encoder: " + lift.getEncoderValue() + "\n");
+				+ "Potentiometer: " + grip.getPotentiometer() + "\n" + "Lift "
+				+ "\t" + "Encoder: " + lift.getEncoderValue() + "\n");
 	}
 
 	@Override

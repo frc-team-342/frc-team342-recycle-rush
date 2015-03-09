@@ -10,12 +10,9 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 /**
  * Gripper System class
  * 
- * This subsystem is the grip system used to grab totes and bins. The
- * GripperSystem and getInstance methods are used to initialize the system. The
- * gripClose method moves the gripper closer to a value and it will open the
- * gripper if the second value is set less than how open it currently is. The
- * Open method opens the gripper to the specified value. The Close and Open
- * methods should be called in loops. They return true when they are completed.
+ * This is the grip system used to grab totes and bins. The grip() method moves
+ * the gripper closer to a value and it will open the gripper if the second
+ * value is set less than how open it currently is.
  */
 public class GripSystem extends Subsystem {
 	// instantiate the robot
@@ -25,120 +22,123 @@ public class GripSystem extends Subsystem {
 	private final Talon talon;
 	private final AnalogInput potentiometer;
 	private final DigitalInput limitSwitchOut;
-	// the gripper calls these as a guide for where to stop the gripper
-	private final double GRIP_STRENGTH = 1.0;
-	private final double GRIP_DEADZONE = 3;
+	// This is the distance from the
+	private final double GRIP_DEAD_ZONE = 3;
 
-	// gripper system constructor
 	private GripSystem() {
 		talon = new Talon(RobotMap.CAN_CHANNEL_GRIP_OPEN_CLOSE);
 		potentiometer = new AnalogInput(RobotMap.ANALOG_IO_GRIP_POTENTIOMETER);
 		limitSwitchOut = new DigitalInput(
 				RobotMap.DIGITAL_IO_GRIP_LIMIT_SWITCH_OUTER_LIMIT);
-		// limitSwitchIn = new DigitalInput(
-		// RobotMap.DIGITAL_IO_GRIP_LIMIT_SWITCH_INNER_LIMIT);
 	}
 
-	/**
-	 * 
-	 * @return GripSystem instance
-	 */
 	public static GripSystem getInstance() {
 		return INSTANCE;
 	}
 
 	/**
-	 * closes the grip towards the specified potentiometer values
+	 * Move the gripper to a specific position.
 	 * 
-	 * @param closeTo
-	 *            close the gripper towards the specified value
-	 * @return true if gripper is between the given values
+	 * @param gripStop
+	 *            The potentiometer value to move the grip to
+	 * 
+	 * @param speed
+	 *            The speed to move the gripper, if the gripper is moving to
+	 *            fast it will not stop in the correct position
+	 * 
+	 * @return True if the gripper is close enough to where it should stop
 	 */
-	public boolean close() {
-		// set the default state to closed
-		boolean closed = true;
+	public boolean moveTo(int gripStop) {
+		// TODO The potentiometer returns a 5 sometimes regardless of the actual
+		// voltage, this causes undesirable behavior.
 
-		// close if not closed
-		if (potentiometer.getVoltage() >= RobotMap.GRIP_POTENTIOMETER_CLOSE_VALUE) {
-			closed = false;
-			talon.set(-1 * GRIP_STRENGTH);
+		// Set the default state to done
+		boolean isFinished = true;
+		// Holds the value from the potentiometer. This prevents taking multiple
+		// inputs from the potentiometer
+		int potVal = potentiometer.getValue();
+		// Sets the speed to move the grip at
+		double speed = getGripSpeed(gripStop, potVal);
+
+		// This will make the function do nothing if potentiometer is reading
+		// noise
+		if (potVal == 5)
+			isFinished = false;
+
+		// Else close the gripper if the potentiometer returns a value GREATER
+		// than the sum of the value to stop at and the acceptable "dead zone".
+		else if (potVal > gripStop + GRIP_DEAD_ZONE) {
+			isFinished = false;
+			talon.set(-1.0 * speed);
 		}
 
-		if (closed)
+		// Or open the gripper if the potentiometer returns a value LESS than
+		// the difference of the value to stop at and the acceptable
+		// "dead zone". This will also not run if the outer limit switch is
+		// pressed.
+		else if ((potVal <= gripStop - GRIP_DEAD_ZONE) && limitSwitchOut.get()) {
+			isFinished = false;
+			talon.set(1.0 * speed);
+		}
+
+		// Stop the motor if the grip is where it should be
+		if (isFinished)
 			talon.set(0);
 
-		// return whether or not the gripper is already closed for loop
-		// statements
-		return closed;
-	}
-
-	public boolean close(int potValue) {
-		// set the default state to closed
-		boolean closed = true;
-
-		// close if not closed
-		// if ((potentiometer.getVoltage() >=
-		// RobotMap.GRIP_POTENTIOMETER_CLOSE_VALUE)) {
-		if (potentiometer.getValue() > potValue + GRIP_DEADZONE && (potentiometer.getValue() != 5)) {
-			closed = false;
-			talon.set(-1.0 * GRIP_STRENGTH);
-		}
-
-		else if ((potentiometer.getValue() <= potValue - GRIP_DEADZONE && potentiometer.getValue() != 5)
-				&& limitSwitchOut.get()) {
-			closed = false;
-			talon.set(1.0 * GRIP_STRENGTH);
-		}
-		// }
-
-		else if (potentiometer.getValue() != 5)
-			closed = false;
-		
-		if (closed)
-			talon.set(0);
-
-		// return whether or not the gripper is already closed for loop
-		// statements
-		return closed;
+		// return true if the grip is finished
+		return isFinished;
 	}
 
 	/**
-	 * opens the gripper until stop is reached by the potentiometer value this
-	 * should be called in a loop
+	 * Get the speed to close the grip at for better precision
 	 * 
-	 * @param stop
-	 *            potentiometer value for where to open or close the griper
-	 *            towards
-	 * @return true if potentiometer detects the gripper as more open or equal
-	 *         to the stop value
+	 * @param target
+	 *            The target distance
+	 * @return The speed to move the grip at
 	 */
-	public boolean open() {
-		// set default state to open
-		boolean open = true;
+	private double getGripSpeed(int targetDistance, int potentiometerValue) {
+		// Speed holds the speed of the motor
+		double speed;
+		// Set the target distance to the distance from the target potentiometer
+		// value using the absolute value of their difference.
+		int distanceFromTarget = Math.abs(targetDistance - potentiometerValue);
 
-		// set the motor to the default strength and open if not already fully
-		// open
-		if (limitSwitchOut.get()) {
-			talon.set(GRIP_STRENGTH);
-			open = false;
-		}
+		// Set the speed to 1 if the grip is more than 16 potentiometer units
+		// from where it should be
+		if (distanceFromTarget >= 16)
+			speed = 1.0;
 
-		// stops the motor if the open function is complete
-		if (open)
-			open = true;
+		// Set the speed using a linear function of the speed if the distance is
+		// between 5 and 16 potentiometer units from its target. The equation is
+		// f(x)=x/16 where x is the distance from the target and f(x) returns
+		// the speed.
+		// TODO This could replaced with a more fit equation as long as long as
+		// all the values in its domain return a value between 0 and 1
+		else if ((distanceFromTarget < 16) && (distanceFromTarget > 5))
+			speed = distanceFromTarget / 16;
 
-		return open;
+		// Set the speed to 0.3 if the grip is 5 potentiometer units from where
+		// it should be
+		else if (distanceFromTarget <= 5)
+			speed = 0.3;
+
+		// Fail-safe in case none of the above conditions are true, this should
+		// not be a possible condition
+		else
+			speed = 0.0;
+
+		return speed;
 	}
 
 	/**
-	 * stop the gripper
+	 * set the grip speed to 0
 	 */
 	public void stop() {
-		talon.set(0);
+		talon.set(0.0);
 	}
 
 	/**
-	 * @return the value of the ultra sonic sensor in the front o the robot
+	 * @return the value of the potentiometer
 	 */
 	public int getPotentiometer() {
 		return potentiometer.getValue();

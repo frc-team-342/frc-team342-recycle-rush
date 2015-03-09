@@ -49,7 +49,7 @@ public class RobotMap {
 	public static final int AUTONOMOUS_DRIVE_BACKWARD_DISTANCE_TO_CENTER = 2500;
 	// Autonomous distance from tote to bin
 	public static final int AUTONOMOUS_DRIVE_FORWARD_DISTANCE_TO_TOTE_FROM_CONTAINER = 80;
-	
+
 	// Autonomous lift speeds
 	public static final double AUTONOMOUS_LIFT_UP_SPEED = 0.3;
 	public static final double AUTONOMOUS_LIFT_DOWN_SPEED = 0.3;
@@ -62,15 +62,15 @@ public class RobotMap {
 	// Autonomous lift up time when encoder is not on robot
 	public static final int AUTONOMOUS_LIFT_UP_TIME_VALUE = 1200;
 	public static final int AUTONOMOUS_LIFT_DOWN_TIME_VALUE = 1000;
-	
-	// Autonomous grip potentiometer values for various close commands
-	public static final int AUTONOMOUS_GRIP_POTENTIOMETER_CLOSED_VALUE_1 = 59;
-	public static final int AUTONOMOUS_GRIP_POTENTIOMETER_CLOSED_VALUE_2 = 42;
-	public static final int AUTONOMOUS_GRIP_POTENTIOMETER_CLOSED_VALUE_3 = 15;
 
 	// set the value for the dead zone for the controller's
 	public static final double GAMEPAD_DEADZONE = 0.2;
 	
-	// set the lowest value of the grip potentiometer to stop closing
-	public static final double GRIP_POTENTIOMETER_CLOSE_VALUE = 0.8;
+	// Grip potentiometer values for various close commands
+	public static final int GRIP_POTENTIOMETER_CLOSED_VALUE_1 = 59;
+	public static final int GRIP_POTENTIOMETER_CLOSED_VALUE_2 = 42;
+	public static final int GRIP_POTENTIOMETER_CLOSED_VALUE_3 = 15;
+	
+	// Grip speed
+	public static final double GRIP_SPEED = 0.9;
 }
