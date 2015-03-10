@@ -11,7 +11,7 @@ public class LiftUpToEncoder extends Command {
 
 	public LiftUpToEncoder(int target) {
 		lift = LiftSystem.getInstance();
-		requires(this.lift);
+		requires(lift);
 		targetHeight = target;
 	}
 

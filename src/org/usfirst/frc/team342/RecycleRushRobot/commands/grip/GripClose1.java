@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class GripClose1 extends Command {
 	GripSystem grip;
-	boolean isClosed;
 
 	public GripClose1() {
 		grip = GripSystem.getInstance();
@@ -20,7 +19,7 @@ public class GripClose1 extends Command {
 
 	@Override
 	protected void initialize() {
-		isClosed = false;
+
 	}
 
 	@Override

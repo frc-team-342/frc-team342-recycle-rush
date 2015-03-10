@@ -2,7 +2,7 @@ package org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous;
 
 import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveForwardRelativeDistance;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveTurnLeftAngle;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveRotateLeftAngle;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripClose1;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftDown;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftDownToEncoder;
@@ -38,7 +38,7 @@ public class PickUpToteAndContainer extends CommandGroup {
 		// RobotMap.AUTONOMOUS_LIFT_UP_ENCODER_VALUE));
 
 		// Turn towards the center of the field
-		addSequential(new DriveTurnLeftAngle(90));
+		addSequential(new DriveRotateLeftAngle(90));
 
 		// Drive to the center of the field
 		addSequential(new DriveToCenter(angle));

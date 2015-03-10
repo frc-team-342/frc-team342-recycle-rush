@@ -8,11 +8,14 @@ package org.usfirst.frc.team342.RecycleRushRobot;
  */
 public class RobotMap {
 
+	// ANALOG 3 button
+
 	// Drive System Components
 	public static final int PWM_FRONT_RIGHT_DRIVE_MOTOR = 6;
 	public static final int PWM_REAR_RIGHT_DRIVE_MOTOR = 7;
 	public static final int PWM_FRONT_LEFT_DRIVE_MOTOR = 8;
 	public static final int PWM_REAR_LEFT_DRIVE_MOTOR = 9;
+	// TODO TEMPORAILY CHANGED PORT NUMBER FOR GYRO AND
 	public static final int ANALOG_IO_DRIVE_GYRO = 0;
 	public static final int ANALOG_IO_DRIVE_ULTRASONIC = 1;
 
@@ -34,6 +37,7 @@ public class RobotMap {
 	// Gripper System Components
 	public static final int CAN_CHANNEL_GRIP_OPEN_CLOSE = 3;
 	public static final int ANALOG_IO_GRIP_POTENTIOMETER = 2;
+	public static final int ANALOG_IO_GRIP_FRONT_COLLISION = 3;
 	public static final int DIGITAL_IO_GRIP_LIMIT_SWITCH_OUTER_LIMIT = 8;
 	public static final int DIGITAL_IO_GRIP_LIMIT_SWITCH_INNER_LIMIT = 9;
 
@@ -41,18 +45,19 @@ public class RobotMap {
 	public static final double AUTONOMOUS_DRIVE_FORWARD_SPEED = 0.3;
 	public static final double AUTONOMOUS_DRIVE_REVERSE_SPEED = 0.3;
 	public static final double AUTONOMOUS_DRIVE_TURN_RIGHT_SPEED = 0.3;
-	public static final double AUTONOMOUS_DRIVE_TURN_LEFT_SPEED = 0.3;
+	// TODO change this to a higher
+	public static final double AUTONOMOUS_DRIVE_TURN_LEFT_SPEED = 0.5;
 	public static final double AUTONOMOUS_DRIVE_STRAFE_RIGHT_SPEED = 0.3;
 	public static final double AUTONOMOUS_DRIVE_STRAFE_LEFT_SPEED = 1.0;
 	// Autonomous distances to drive using ultrasonic
-	public static final int AUTONOMOUS_DRIVE_FORWARD_DISTANCE_TO_CENTER = 2900;
-	public static final int AUTONOMOUS_DRIVE_BACKWARD_DISTANCE_TO_CENTER = 2500;
+	public static final int AUTONOMOUS_DRIVE_FORWARD_DISTANCE_TO_CENTER = 1900;
 	// Autonomous distance from tote to bin
 	public static final int AUTONOMOUS_DRIVE_FORWARD_DISTANCE_TO_TOTE_FROM_CONTAINER = 80;
+	public static final int AUTONOMOUS_DRIVE_FORWARD_TIME_BETWEEN_TOTES = 300;
 
 	// Autonomous lift speeds
-	public static final double AUTONOMOUS_LIFT_UP_SPEED = 0.3;
-	public static final double AUTONOMOUS_LIFT_DOWN_SPEED = 0.3;
+	public static final double AUTONOMOUS_LIFT_UP_SPEED = 1.0;
+	public static final double AUTONOMOUS_LIFT_DOWN_SPEED = 0.6;
 
 	// Autonomous lift encoder values
 	// TODO test the encoder
@@ -63,14 +68,18 @@ public class RobotMap {
 	public static final int AUTONOMOUS_LIFT_UP_TIME_VALUE = 1200;
 	public static final int AUTONOMOUS_LIFT_DOWN_TIME_VALUE = 1000;
 
+	// Autonomous lift up time when encoder is not on robot
+	public static final int AUTONOMOUS_LIFT_UP_RELATIVE_ENCODER_VALUE = 1000;
+	public static final int AUTONOMOUS_LIFT_DOWN_RELATIVE_ENCODER_VALUE = 50;
+
 	// set the value for the dead zone for the controller's
 	public static final double GAMEPAD_DEADZONE = 0.2;
-	
+
 	// Grip potentiometer values for various close commands
-	public static final int GRIP_POTENTIOMETER_CLOSED_VALUE_1 = 59;
-	public static final int GRIP_POTENTIOMETER_CLOSED_VALUE_2 = 42;
-	public static final int GRIP_POTENTIOMETER_CLOSED_VALUE_3 = 15;
-	
+	public static final int GRIP_POTENTIOMETER_CLOSED_VALUE_1 = 180;
+	public static final int GRIP_POTENTIOMETER_CLOSED_VALUE_2 = 443;
+	public static final int GRIP_POTENTIOMETER_CLOSED_VALUE_3 = 650;
+
 	// Grip speed
 	public static final double GRIP_SPEED = 0.9;
 }

@@ -11,11 +11,13 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class LiftSystem extends Subsystem {
 	private static final LiftSystem INSTANCE = new LiftSystem();
+
 	private final VictorSP victorSP;
 
 	private final DigitalInput topSwitch;
 	private final DigitalInput bottomSwitch;
 
+	// The encoderA and encoderB variables make it easier to set up the encoder
 	private final DigitalInput encoderA;
 	private final DigitalInput encoderB;
 	private final Encoder encoder;
@@ -31,7 +33,9 @@ public class LiftSystem extends Subsystem {
 				RobotMap.DIGITAL_IO_LIFT_QUADRATURE_ENCODER_A);
 		encoderB = new DigitalInput(
 				RobotMap.DIGITAL_IO_LIFT_QUADRATURE_ENCODER_B);
-		encoder = new Encoder(encoderA, encoderB, false, EncodingType.k4X);
+		// encoder order is reversed to make the encoder go up when the lift
+		// goes up
+		encoder = new Encoder(encoderB, encoderA, false, EncodingType.k4X);
 	}
 
 	@Override
@@ -53,7 +57,7 @@ public class LiftSystem extends Subsystem {
 
 		// combine the two value for greater control, this will not allow the
 		// motor to move at values less than 20 percent of the motors capacity.
-		double speed = (up + down) * 0.8;
+		double speed = (up + down) * 1.0;
 
 		if (((speed >= RobotMap.GAMEPAD_DEADZONE) && topSwitch.get())
 				|| ((speed <= -1.0 * RobotMap.GAMEPAD_DEADZONE) && bottomSwitch
@@ -61,6 +65,9 @@ public class LiftSystem extends Subsystem {
 			victorSP.set(speed);
 		else
 			victorSP.set(0);
+		
+		if (!bottomSwitch.get())
+			encoder.reset();
 	}
 
 	/**
@@ -109,5 +116,12 @@ public class LiftSystem extends Subsystem {
 	 */
 	public int getEncoderValue() {
 		return encoder.get();
+	}
+
+	/**
+	 * reset the encoder
+	 */
+	public void resetEncoder() {
+		encoder.reset();
 	}
 }

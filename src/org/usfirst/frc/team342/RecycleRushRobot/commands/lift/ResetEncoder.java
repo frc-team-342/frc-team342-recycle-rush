@@ -4,19 +4,15 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.LiftSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class LiftDownRelativeEncoder extends Command {
+public class ResetEncoder extends Command {
 	LiftSystem lift;
-	int stopValue;
 
 	/**
-	 * Lower the lift the given encoder units
-	 * 
-	 * @param encoderValue
-	 *            Relative value to lower the encoder down
+	 * reset the encoder to 0, no other comments necessary
 	 */
-	public LiftDownRelativeEncoder(int encoderValue) {
+	public ResetEncoder() {
 		lift = LiftSystem.getInstance();
-		stopValue = lift.getEncoderValue() - encoderValue;
+		requires(lift);
 	}
 
 	@Override
@@ -26,20 +22,17 @@ public class LiftDownRelativeEncoder extends Command {
 
 	@Override
 	protected void execute() {
-		lift.down();
+		lift.resetEncoder();
 	}
 
-	/**
-	 * Stops the lift when it reaches the relative value.
-	 */
 	@Override
 	protected boolean isFinished() {
-		return lift.getEncoderValue() <= stopValue;
+		return true;
 	}
 
 	@Override
 	protected void end() {
-		lift.stop();
+		// Do nothing
 	}
 
 	@Override

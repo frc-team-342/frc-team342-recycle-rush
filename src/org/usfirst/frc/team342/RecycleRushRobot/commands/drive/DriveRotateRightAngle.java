@@ -5,31 +5,29 @@ import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveTurnRightAngle extends Command {
+public class DriveRotateRightAngle extends Command {
 	DriveSystem drive;
-	private double angle;
-	private double targetangle;
+	private double targetAngle;
 
-	public DriveTurnRightAngle(int target) {
+	public DriveRotateRightAngle(int target) {
 		drive = DriveSystem.getInstance();
 		requires(drive);
-		targetangle = target + drive.getAngle();
+		targetAngle = drive.getAngle() + target;
 	}
 
 	@Override
 	protected void initialize() {
-		angle = drive.getAngle();
+		
 	}
 
 	@Override
 	protected void execute() {
 		drive.turn(RobotMap.AUTONOMOUS_DRIVE_TURN_RIGHT_SPEED);
-		angle = drive.getAngle();
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return (angle >= targetangle);
+		return (drive.getAngle() >= targetAngle);
 	}
 
 	@Override

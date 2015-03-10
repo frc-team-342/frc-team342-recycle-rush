@@ -41,7 +41,7 @@ public class OI {
 	private final int JOYSTICK_DRIVE_SCISSOR_UP = 5;
 	private final int JOYSTICK_DRIVE_SCISSOR_EXTEND = 6;
 	private final int JOYSTICK_DRIVE_BUTTON_7 = 7;
-	private final int JOYSTICK_DRIVE_CHANGE_MODE = 8;
+	private final int JOYSTICK_DRIVE_BUTTON_8 = 8;
 	private final int JOYSTICK_DRIVE_INVERTER = 9;
 	private final int JOYSTICK_DRIVE_BUTTON_10 = 10;
 	private final int JOYSTICK_DRIVE_SLOW_DOWN = 11; // while held
@@ -87,10 +87,6 @@ public class OI {
 		JoystickButton driveChangeCamera = new JoystickButton(driveController,
 				JOYSTICK_DRIVE_CHANGE_CAMERA);
 
-		// declare change mode button for changing driving mode
-		JoystickButton driveChangeMode = new JoystickButton(driveController,
-				JOYSTICK_DRIVE_CHANGE_MODE);
-
 		// declare slow down button for better control over driving
 		JoystickButton driveSlowDown = new JoystickButton(driveController,
 				JOYSTICK_DRIVE_SLOW_DOWN);
@@ -128,9 +124,6 @@ public class OI {
 
 		// map drive controller change camera button to change camera command
 		driveChangeCamera.whenPressed(new ChangeCamera());
-
-		// map the function to switch between field oriented drive
-		driveChangeMode.whenPressed(new DriveChangeMode());
 
 		// map the button to hold to slow down the drive for better control
 		driveSlowDown.whenPressed(new DriveToggleSpeed());

@@ -21,15 +21,24 @@ public class GripSystem extends Subsystem {
 	// declare motors and sensors
 	private final Talon talon;
 	private final AnalogInput potentiometer;
+	private final AnalogInput button;
 	private final DigitalInput limitSwitchOut;
 	// This is the distance from the
 	private final double GRIP_DEAD_ZONE = 3;
+	// Value for the grip to move at full speed if it is more than that far from
+	// being closed on an object
+	private final int POTENTIOMETER_FULL_SPEED_VALUE = 100;
 
 	private GripSystem() {
+		// Initializes a talon motor for the grip, the potentiometer to get the
+		// position of the grip, and the limit switch is a fail safe to stop the
+		// lift if it goes to far.
 		talon = new Talon(RobotMap.CAN_CHANNEL_GRIP_OPEN_CLOSE);
 		potentiometer = new AnalogInput(RobotMap.ANALOG_IO_GRIP_POTENTIOMETER);
 		limitSwitchOut = new DigitalInput(
 				RobotMap.DIGITAL_IO_GRIP_LIMIT_SWITCH_OUTER_LIMIT);
+		button = new AnalogInput(
+				RobotMap.ANALOG_IO_GRIP_FRONT_COLLISION);
 	}
 
 	public static GripSystem getInstance() {
@@ -49,9 +58,6 @@ public class GripSystem extends Subsystem {
 	 * @return True if the gripper is close enough to where it should stop
 	 */
 	public boolean moveTo(int gripStop) {
-		// TODO The potentiometer returns a 5 sometimes regardless of the actual
-		// voltage, this causes undesirable behavior.
-
 		// Set the default state to done
 		boolean isFinished = true;
 		// Holds the value from the potentiometer. This prevents taking multiple
@@ -98,34 +104,21 @@ public class GripSystem extends Subsystem {
 	 */
 	private double getGripSpeed(int targetDistance, int potentiometerValue) {
 		// Speed holds the speed of the motor
-		double speed;
+		double speed = 1.0;
 		// Set the target distance to the distance from the target potentiometer
 		// value using the absolute value of their difference.
 		int distanceFromTarget = Math.abs(targetDistance - potentiometerValue);
 
-		// Set the speed to 1 if the grip is more than 16 potentiometer units
-		// from where it should be
-		if (distanceFromTarget >= 16)
-			speed = 1.0;
-
 		// Set the speed using a linear function of the speed if the distance is
-		// between 5 and 16 potentiometer units from its target. The equation is
+		// bless than 16 potentiometer units from its target. The equation is
 		// f(x)=x/16 where x is the distance from the target and f(x) returns
 		// the speed.
-		// TODO This could replaced with a more fit equation as long as long as
-		// all the values in its domain return a value between 0 and 1
-		else if ((distanceFromTarget < 16) && (distanceFromTarget > 5))
-			speed = distanceFromTarget / 16;
+		if (distanceFromTarget <= POTENTIOMETER_FULL_SPEED_VALUE)
+			speed = distanceFromTarget / POTENTIOMETER_FULL_SPEED_VALUE;
 
-		// Set the speed to 0.3 if the grip is 5 potentiometer units from where
-		// it should be
-		else if (distanceFromTarget <= 5)
+		// Set the speed to 0.3 if it would otherwise be lower than that
+		if (speed < 0.3)
 			speed = 0.3;
-
-		// Fail-safe in case none of the above conditions are true, this should
-		// not be a possible condition
-		else
-			speed = 0.0;
 
 		return speed;
 	}
@@ -143,10 +136,16 @@ public class GripSystem extends Subsystem {
 	public int getPotentiometer() {
 		return potentiometer.getValue();
 	}
+	
+	/**
+	 * @return the value of the potentiometer
+	 */
+	public int getButton() {
+		return button.getValue();
+	}
 
 	@Override
 	protected void initDefaultCommand() {
 
 	}
-
 }

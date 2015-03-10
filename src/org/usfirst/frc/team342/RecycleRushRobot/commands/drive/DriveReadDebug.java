@@ -29,14 +29,16 @@ public class DriveReadDebug extends Command {
 		System.out.println("Drive System " + "\t" + "Ultrasonic: "
 				+ drive.getDistance() + "\t" + "Gyro: " + drive.getAngle()
 				+ "\n" + "GripSystem " + "\t" + "Potentiometer: "
-				+ grip.getPotentiometer() + "\n" + "Lift " + "\t" + "Encoder: "
+				+ grip.getPotentiometer() + "\t" + "Switch: "
+				+ grip.getButton() + "\n" + "Lift " + "\t" + "Encoder: "
 				+ lift.getEncoderValue());
 
 		FRCNetworkCommunicationsLibrary.HALSetErrorData("Drive System " + "\t"
 				+ "Ultrasonic: " + drive.getDistance() + "\t" + "Gyro: "
 				+ drive.getAngle() + "\n" + "GripSystem " + "\t"
-				+ "Potentiometer: " + grip.getPotentiometer() + "\n" + "Lift "
-				+ "\t" + "Encoder: " + lift.getEncoderValue() + "\n");
+				+ "Potentiometer: " + grip.getPotentiometer() + "\t"
+				+ "Switch: " + grip.getButton() + "\n" + "Lift " + "\t"
+				+ "Encoder: " + lift.getEncoderValue());
 	}
 
 	@Override

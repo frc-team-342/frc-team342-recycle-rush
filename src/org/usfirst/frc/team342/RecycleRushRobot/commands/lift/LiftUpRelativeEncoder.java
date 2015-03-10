@@ -10,16 +10,19 @@ public class LiftUpRelativeEncoder extends Command {
 
 	/**
 	 * Lift the lift the given encoder units
-	 * @param encoderValue Value to lift the encoder up
+	 * 
+	 * @param encoderValue
+	 *            Relative value to lift the encoder up
 	 */
 	public LiftUpRelativeEncoder(int encoderValue) {
 		lift = LiftSystem.getInstance();
+		requires(lift);
 		stopValue = lift.getEncoderValue() + encoderValue;
 	}
 
 	@Override
 	protected void initialize() {
-		
+
 	}
 
 	@Override
@@ -27,6 +30,9 @@ public class LiftUpRelativeEncoder extends Command {
 		lift.up();
 	}
 
+	/**
+	 * Stops the lift when it reaches the relative value.
+	 */
 	@Override
 	protected boolean isFinished() {
 		return lift.getEncoderValue() >= stopValue;

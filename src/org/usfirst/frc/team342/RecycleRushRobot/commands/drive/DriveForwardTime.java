@@ -1,19 +1,17 @@
 package org.usfirst.frc.team342.RecycleRushRobot.commands.drive;
 
-import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveReverseReleativeDistance extends Command {
+public class DriveForwardTime extends Command {
 	DriveSystem drive;
-	private int distance;
-	private int targetDistance;
+	long stopTime;
 
-	public DriveReverseReleativeDistance(int target) {
+	public DriveForwardTime(long timeToDrive) {
 		drive = DriveSystem.getInstance();
 		requires(drive);
-		targetDistance = drive.getDistance() - target;
+		stopTime = System.currentTimeMillis() + timeToDrive;
 	}
 
 	@Override
@@ -23,14 +21,12 @@ public class DriveReverseReleativeDistance extends Command {
 
 	@Override
 	protected void execute() {
-		drive.reverse(RobotMap.AUTONOMOUS_DRIVE_REVERSE_SPEED);
-		distance = drive.getDistance();
+		drive.forward(0.3);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		// Stop the robot when it gets to the target distance
-		return (distance <= targetDistance);
+		return System.currentTimeMillis() >= stopTime;
 	}
 
 	@Override

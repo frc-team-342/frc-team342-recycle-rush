@@ -44,7 +44,7 @@ public class RecycleRushRobot extends IterativeRobot {
 	private DriveWithJoystick runnow;
 
 	// Initialize old array of value from dash board for autonomous selection.
-	private boolean[] oldArray = {true, false, false, false};
+	private boolean[] oldArray = { true, false, false, false };
 
 	private int angle;
 
@@ -117,7 +117,7 @@ public class RecycleRushRobot extends IterativeRobot {
 			}
 		}
 
-		if ((System.currentTimeMillis() >= drive.gyroInitStartTime - 8000)
+		if ((System.currentTimeMillis() >= drive.gyroInitStartTime + 5000)
 				&& !gyroInitialized) {
 			FRCNetworkCommunicationsLibrary
 					.HALSetErrorData("The gyro has been initialized; "

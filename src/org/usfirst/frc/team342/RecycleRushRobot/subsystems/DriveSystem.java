@@ -54,10 +54,9 @@ public class DriveSystem extends Subsystem {
 		gyro = new Gyro(RobotMap.ANALOG_IO_DRIVE_GYRO);
 		ultrasonic = new AnalogInput(RobotMap.ANALOG_IO_DRIVE_ULTRASONIC);
 
-		// TODO the gyro does not work correctly
 		// initiate the gyro
-		// gyro.initGyro();
-		gyroInitStartTime = System.currentTimeMillis() - 10000;
+		gyro.initGyro();
+		gyroInitStartTime = System.currentTimeMillis();
 		FRCNetworkCommunicationsLibrary
 				.HALSetErrorData("The gyro is initializing" + "\n"
 						+ "DO NOT TOUCH THE ROBOT!!!" + "\n");
@@ -89,11 +88,9 @@ public class DriveSystem extends Subsystem {
 		double x = joystick.getX() * InverseDrive;
 		double y = joystick.getY() * InverseDrive;
 		double rotation = joystick.getZ() * driveHandicap;
-		if (mode) {
-			double angle = gyro.getAngle();
-			robotDrive.mecanumDrive_Cartesian(x, y, rotation, angle);
-		} else
-			robotDrive.mecanumDrive_Cartesian(x, y, rotation, 0);
+
+		// Drive the robot
+		robotDrive.mecanumDrive_Cartesian(x, y, rotation, 0);
 	}
 
 	/**
@@ -159,6 +156,7 @@ public class DriveSystem extends Subsystem {
 	 */
 	public void turn(double speed) {
 		robotDrive.mecanumDrive_Cartesian(0, 0, speed, 0);
+		System.out.println(speed);
 	}
 
 	/**
@@ -196,6 +194,9 @@ public class DriveSystem extends Subsystem {
 			robotDrive.setMaxOutput(1.0);
 	}
 
+	/**
+	 * Inverse the drive speed by multiplying it by negative 1
+	 */
 	public void inverseDrive() {
 		InverseDrive *= -1.0;
 	}
