@@ -7,13 +7,15 @@ import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.Talon;
+import edu.wpi.first.wpilibj.TalonSRX;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class LiftSystem extends Subsystem {
 	private static final LiftSystem INSTANCE = new LiftSystem();
 
-	private final VictorSP victorSP;
+	private final Talon talon;
 
 	private final DigitalInput topSwitch;
 	private final DigitalInput bottomSwitch;
@@ -24,8 +26,8 @@ public class LiftSystem extends Subsystem {
 	private final Encoder encoder;
 
 	public LiftSystem() {
-		// TODO motor problems probably preventalbe...
-		victorSP = new VictorSP(RobotMap.VICTOR_SP_LIFT);
+		// TODO motor temporaliy changed...
+		talon = new Talon(RobotMap.VICTOR_SP_LIFT);
 		topSwitch = new DigitalInput(RobotMap.DIGITAL_IO_LIFT_LIMIT_SWITCH_UP);
 		bottomSwitch = new DigitalInput(
 				RobotMap.DIGITAL_IO_LIFT_LIMIT_SWITCH_DOWN);
@@ -54,7 +56,7 @@ public class LiftSystem extends Subsystem {
 	 */
 	public void liftWithJoystick(Joystick joystick) {
 		double up = joystick.getRawAxis(3);
-		double down = -1 * joystick.getRawAxis(2);
+		double down = (-1 * joystick.getRawAxis(2)) * 0.5;
 
 		// combine the two value for greater control, this will not allow the
 		// motor to move at values less than 20 percent of the motors capacity.
@@ -63,9 +65,9 @@ public class LiftSystem extends Subsystem {
 		if (((speed >= RobotMap.GAMEPAD_DEADZONE) && topSwitch.get())
 				|| ((speed <= -1.0 * RobotMap.GAMEPAD_DEADZONE) && bottomSwitch
 						.get()))
-			victorSP.set(speed);
+			talon.set(speed);
 		else
-			victorSP.set(0);
+			talon.set(0);
 
 		if (!bottomSwitch.get())
 			encoder.reset();
@@ -76,9 +78,9 @@ public class LiftSystem extends Subsystem {
 	 */
 	public void up() {
 		if (!topLimit())
-			victorSP.set(RobotMap.AUTONOMOUS_LIFT_UP_SPEED);
+			talon.set(RobotMap.AUTONOMOUS_LIFT_UP_SPEED);
 		else
-			victorSP.set(0.0);
+			talon.set(0.0);
 	}
 
 	/**
@@ -86,16 +88,16 @@ public class LiftSystem extends Subsystem {
 	 */
 	public void down() {
 		if (!bottomLimit())
-			victorSP.set(-1 * RobotMap.AUTONOMOUS_LIFT_DOWN_SPEED);
+			talon.set(-1 * RobotMap.AUTONOMOUS_LIFT_DOWN_SPEED);
 		else
-			victorSP.set(0.0);
+			talon.set(0.0);
 	}
 
 	/**
 	 * sets the lift speed to 0.0
 	 */
 	public void stop() {
-		victorSP.set(0.0);
+		talon.set(0.0);
 	}
 
 	/**

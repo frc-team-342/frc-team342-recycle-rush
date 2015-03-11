@@ -65,7 +65,7 @@ public class RobotMap {
 	// TODO figure out good encoder values for various tasks such as lifting to
 	// the height of one tote, two totes and three totes
 	// Autonomous lift encoder values
-	public static final int AUTONOMOUS_LIFT_UP_ENCODER_VALUE = 100;
+	public static final int AUTONOMOUS_LIFT_UP_ENCODER_VALUE = 2000;
 	public static final int AUTONOMOUS_LIFT_DOWN_ENCODER_VALUE = 100;
 
 	// Autonomous lift to relative values

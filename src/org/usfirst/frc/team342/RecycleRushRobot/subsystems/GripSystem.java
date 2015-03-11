@@ -32,8 +32,7 @@ public class GripSystem extends Subsystem {
 	private final int POTENTIOMETER_SLOW_DOWN_DISTANCE = 100;
 	// Grip button midpoint value to decide whether the robot is touching
 	// something or not
-	// TODO Verify that this is a good number to use
-	public final int GRIP_BUTTON_MIDPOINT = 2000;
+	public final int GRIP_BUTTON_MIDPOINT = 2176;
 
 	private GripSystem() {
 		// Initializes a talon motor for the grip, the potentiometer to get the

@@ -4,6 +4,7 @@ import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveResetGyro;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveRotateLeftAngle;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveStrafeLeftTime;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripMove1;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripMove2;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftUpToEncoder;
 
@@ -27,7 +28,7 @@ public class PickUpRecyclingContainer extends CommandGroup {
 		// Close the grip to a specified value.
 		// TODO the turn angles are supposed to make the robot turn 90 degrees,
 		// but the turn is not exact
-		addParallel(new GripMove2());
+		addParallel(new GripMove1());
 		addSequential(new LiftUpToEncoder(
 				RobotMap.AUTONOMOUS_LIFT_UP_ENCODER_VALUE));
 

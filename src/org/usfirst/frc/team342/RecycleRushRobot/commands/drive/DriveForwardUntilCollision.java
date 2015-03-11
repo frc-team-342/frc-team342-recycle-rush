@@ -18,8 +18,6 @@ public class DriveForwardUntilCollision extends Command {
 		drive = DriveSystem.getInstance();
 		grip = GripSystem.getInstance();
 		requires(drive);
-		// TODO should this require grip? It only uses the grip to detect the
-		// output of a button
 	}
 
 	@Override

@@ -41,7 +41,7 @@ public class RecycleRushRobot extends IterativeRobot {
 	private DriveWithJoystick runnow;
 
 	// Initialize old array of value from dash board for autonomous selection.
-	private boolean[] oldArray = {true, false, false, false};
+	private boolean[] oldArray = { true, false, false, false };
 
 	// Declare a variable to store the angle to turn in degrees for autonomous
 	private int angle;
@@ -70,7 +70,6 @@ public class RecycleRushRobot extends IterativeRobot {
 		SmartDashboard.putBoolean("DB/Button 3", false);
 		// Set the default to turn right.
 		SmartDashboard.putString("DB/String 0", "right");
-		// TODO The robot is not outputting these to the smart dash board
 		// anymore
 		FRCNetworkCommunicationsLibrary
 				.HALSetErrorData("Smart Dashboard set to default 'turn right'.");
@@ -162,6 +161,7 @@ public class RecycleRushRobot extends IterativeRobot {
 					.HALSetErrorData("Autonomous Mode: \"Pick up three totes then drive to center and turn\""
 							+ " activated.");
 		}
+		
 		// unused button
 		// else if (oldArray[3]) {
 		// autonomousCommand = new PickUpObject(true, angle);
