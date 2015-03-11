@@ -1,16 +1,13 @@
 package org.usfirst.frc.team342.RecycleRushRobot;
 
 import org.usfirst.frc.team342.RecycleRushRobot.commands.camera.ChangeCamera;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveChangeMode;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveInverter;
-//import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveInvertControl;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveReadDebug;
-//import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.ReadDebug;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveResetGyro;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveToggleSpeed;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripClose1;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripClose2;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripClose3;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripMove1;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripMove2;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripMove3;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorDown;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorExtend;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorRetract;
@@ -34,6 +31,7 @@ public class OI {
 
 	// Joy stick buttons, axes 1 and 2 are for drive control. Axis 3 is not
 	// used. POV buttons are unused.
+	// TODO make buttons for lifting to automatic values
 	private final int JOYSTICK_DRIVE_CHANGE_CAMERA = 1;
 	private final int JOYSTICK_DRIVE_RESET_GYRO = 2;
 	private final int JOYSTICK_DRIVE_SCISSOR_DOWN = 3;
@@ -136,13 +134,13 @@ public class OI {
 		driveDebugNumbers.whileHeld(new DriveReadDebug());
 
 		// map assist joy stick grip buttons to grip commands
-		assistGripClose1.whileHeld(new GripClose1());
+		assistGripClose1.whileHeld(new GripMove1());
 
 		// map assist joy stick grip buttons to grip commands
-		assistGripClose2.whileHeld(new GripClose2());
+		assistGripClose2.whileHeld(new GripMove2());
 
 		// map assist joy stick grip buttons to grip commands
-		assistGripClose3.whileHeld(new GripClose3());
+		assistGripClose3.whileHeld(new GripMove3());
 
 		// map assist joy stick change camera button to change camera command
 		assistChangeCamera.whenPressed(new ChangeCamera());

@@ -2,12 +2,9 @@ package org.usfirst.frc.team342.RecycleRushRobot;
 
 import java.util.Arrays;
 
-import javax.crypto.spec.IvParameterSpec;
-
 import org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous.DriveToCenter;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous.PickUpThreeTotes;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous.PickUpRecyclingContainer;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous.PickUpToteAndContainer;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous.PickUpThreeTotes;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveWithJoystick;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.CameraVisionRedux;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
@@ -44,9 +41,12 @@ public class RecycleRushRobot extends IterativeRobot {
 	private DriveWithJoystick runnow;
 
 	// Initialize old array of value from dash board for autonomous selection.
-	private boolean[] oldArray = { true, false, false, false };
+	private boolean[] oldArray = {true, false, false, false};
 
+	// Declare a variable to store the angle to turn in degrees for autonomous
 	private int angle;
+	// The robot turn functions are inexact and these help to turn the robot to
+	// the correct direction.
 
 	private boolean gyroInitialized;
 
@@ -70,6 +70,8 @@ public class RecycleRushRobot extends IterativeRobot {
 		SmartDashboard.putBoolean("DB/Button 3", false);
 		// Set the default to turn right.
 		SmartDashboard.putString("DB/String 0", "right");
+		// TODO The robot is not outputting these to the smart dash board
+		// anymore
 		FRCNetworkCommunicationsLibrary
 				.HALSetErrorData("Smart Dashboard set to default 'turn right'.");
 	}
@@ -101,9 +103,9 @@ public class RecycleRushRobot extends IterativeRobot {
 		if (Math.floor((80 * Math.random())) == 0) {
 			String board = SmartDashboard.getString("DB/String 0");
 			if (board.startsWith("r") || board.startsWith("R"))
-				angle = 90;
+				angle = RobotMap.AUTONOMOUS_DRIVE_ROTATE_RIGHT_ANGLE;
 			else if (board.startsWith("l") || board.startsWith("L"))
-				angle = -90;
+				angle = -1 * RobotMap.AUTONOMOUS_DRIVE_ROTATE_LEFT_ANGLE;
 			// If this runs, someone made a mistake
 			else {
 				FRCNetworkCommunicationsLibrary
@@ -113,7 +115,7 @@ public class RecycleRushRobot extends IterativeRobot {
 								+ "YOU MISSPELLED EITHER LEFT OR RIGHT AND "
 								+ "NOW THE ROBOT IS GOING TO GO RIGHT NO MATTER WHAT AND "
 								+ "IT IS ALL YOUR FAULT!!!" + "\n");
-				angle = 90;
+				angle = RobotMap.AUTONOMOUS_DRIVE_ROTATE_RIGHT_ANGLE;
 			}
 		}
 
@@ -155,8 +157,7 @@ public class RecycleRushRobot extends IterativeRobot {
 		// ALL YOUR TOTES ARE BELONG TO US!!!
 		else if (oldArray[2]) {
 			autonomousCommand = new PickUpThreeTotes();
-			SmartDashboard.putString("DB/String 5",
-					"Pick up three totes then drive to center and turn");
+			SmartDashboard.putString("DB/String 5", "Pick up three totes");
 			FRCNetworkCommunicationsLibrary
 					.HALSetErrorData("Autonomous Mode: \"Pick up three totes then drive to center and turn\""
 							+ " activated.");
@@ -171,12 +172,12 @@ public class RecycleRushRobot extends IterativeRobot {
 
 		if (angle >= 0)
 			FRCNetworkCommunicationsLibrary
-					.HALSetErrorData("The autonomous robot will turn right. "
-							+ "\n");
+					.HALSetErrorData("The autonomous robot will turn right "
+							+ angle + " degrees." + "\n");
 		else if (angle < 0)
 			FRCNetworkCommunicationsLibrary
-					.HALSetErrorData("The autonomous robot will turn left. "
-							+ "\n");
+					.HALSetErrorData("The autonomous robot will turn left "
+							+ angle + " degrees." + "\n");
 
 		autonomousCommand.start();
 	}

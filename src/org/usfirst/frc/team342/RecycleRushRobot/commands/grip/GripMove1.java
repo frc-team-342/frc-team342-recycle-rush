@@ -9,18 +9,17 @@ import edu.wpi.first.wpilibj.command.Command;
  * this function is not yet implemented. If called it should open the gripper
  * all the way.
  */
-public class GripClose3 extends Command {
+public class GripMove1 extends Command {
 	GripSystem grip;
-	boolean isClosed;
 
-	public GripClose3() {
+	public GripMove1() {
 		grip = GripSystem.getInstance();
 		requires(grip);
 	}
 
 	@Override
 	protected void initialize() {
-		isClosed = false;
+
 	}
 
 	@Override
@@ -30,7 +29,7 @@ public class GripClose3 extends Command {
 
 	@Override
 	protected boolean isFinished() {
-		return grip.moveTo(RobotMap.GRIP_POTENTIOMETER_CLOSED_VALUE_3);
+		return grip.moveTo(RobotMap.GRIP_POTENTIOMETER_CLOSED_VALUE_1);
 	}
 
 	@Override

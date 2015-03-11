@@ -18,7 +18,7 @@ public class DriveToggleSpeed extends Command {
 
 	@Override
 	protected void execute() {
-		drive.toggleSpeed();
+		drive.toggleSlow();
 	}
 
 	@Override

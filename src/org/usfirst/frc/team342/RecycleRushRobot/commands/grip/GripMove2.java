@@ -9,11 +9,11 @@ import edu.wpi.first.wpilibj.command.Command;
  * this function is not yet implemented. If called it should open the gripper
  * all the way.
  */
-public class GripClose2 extends Command {
+public class GripMove2 extends Command {
 	GripSystem grip;
 	boolean isClosed;
 
-	public GripClose2() {
+	public GripMove2() {
 		grip = GripSystem.getInstance();
 		requires(grip);
 	}

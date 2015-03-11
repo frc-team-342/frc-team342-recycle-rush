@@ -2,6 +2,7 @@ package org.usfirst.frc.team342.RecycleRushRobot.subsystems;
 
 import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 
+import edu.wpi.first.wpilibj.CANTalon;
 import edu.wpi.first.wpilibj.CounterBase.EncodingType;
 import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.Encoder;
@@ -23,8 +24,8 @@ public class LiftSystem extends Subsystem {
 	private final Encoder encoder;
 
 	public LiftSystem() {
+		// TODO motor problems probably preventalbe...
 		victorSP = new VictorSP(RobotMap.VICTOR_SP_LIFT);
-
 		topSwitch = new DigitalInput(RobotMap.DIGITAL_IO_LIFT_LIMIT_SWITCH_UP);
 		bottomSwitch = new DigitalInput(
 				RobotMap.DIGITAL_IO_LIFT_LIMIT_SWITCH_DOWN);
@@ -65,7 +66,7 @@ public class LiftSystem extends Subsystem {
 			victorSP.set(speed);
 		else
 			victorSP.set(0);
-		
+
 		if (!bottomSwitch.get())
 			encoder.reset();
 	}

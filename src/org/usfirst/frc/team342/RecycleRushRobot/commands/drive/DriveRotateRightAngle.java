@@ -17,12 +17,12 @@ public class DriveRotateRightAngle extends Command {
 
 	@Override
 	protected void initialize() {
-		
+
 	}
 
 	@Override
 	protected void execute() {
-		drive.turn(RobotMap.AUTONOMOUS_DRIVE_TURN_RIGHT_SPEED);
+		drive.turn(RobotMap.AUTONOMOUS_DRIVE_ROTATE_RIGHT_SPEED);
 	}
 
 	@Override

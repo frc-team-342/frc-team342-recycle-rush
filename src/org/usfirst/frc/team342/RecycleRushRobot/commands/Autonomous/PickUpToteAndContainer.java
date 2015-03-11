@@ -3,11 +3,9 @@ package org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous;
 import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveForwardRelativeDistance;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveRotateLeftAngle;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripClose1;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripMove1;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftDown;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftDownToEncoder;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftUpTime;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftUpToEncoder;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -17,7 +15,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class PickUpToteAndContainer extends CommandGroup {
 	public PickUpToteAndContainer(int angle) {
 		// Close the grip around container
-		addSequential(new GripClose1());
+		addSequential(new GripMove1());
 
 		// Lift up to drive forward and place the bin on a tote
 		// addSequential(new LiftUpToEncoder(
@@ -33,7 +31,7 @@ public class PickUpToteAndContainer extends CommandGroup {
 		// RobotMap.AUTONOMOUS_LIFT_DOWN_ENCODER_VALUE));
 		// addSequential(new GripOpen());
 		addSequential(new LiftDown());
-		addSequential(new GripClose1());
+		addSequential(new GripMove1());
 		// addSequential(new LiftUpToEncoder(
 		// RobotMap.AUTONOMOUS_LIFT_UP_ENCODER_VALUE));
 

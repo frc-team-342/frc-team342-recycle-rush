@@ -2,17 +2,24 @@ package org.usfirst.frc.team342.RecycleRushRobot.commands.drive;
 
 import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
+import org.usfirst.frc.team342.RecycleRushRobot.subsystems.GripSystem;
 
 import edu.wpi.first.wpilibj.command.Command;
 
-public class DriveRotateLeftAngle extends Command {
+public class DriveForwardUntilCollision extends Command {
 	DriveSystem drive;
-	private double targetangle;
+	GripSystem grip;
 
-	public DriveRotateLeftAngle(int target) {
+	/**
+	 * Drives forward until the button in the grip system detects a frontal
+	 * collision
+	 */
+	public DriveForwardUntilCollision() {
 		drive = DriveSystem.getInstance();
+		grip = GripSystem.getInstance();
 		requires(drive);
-		targetangle = drive.getAngle() - target;
+		// TODO should this require grip? It only uses the grip to detect the
+		// output of a button
 	}
 
 	@Override
@@ -22,12 +29,12 @@ public class DriveRotateLeftAngle extends Command {
 
 	@Override
 	protected void execute() {
-		drive.turn(-1 * RobotMap.AUTONOMOUS_DRIVE_ROTATE_LEFT_SPEED);
+		drive.forward(RobotMap.AUTONOMOUS_DRIVE_FORWARD_SPEED);
 	}
 
 	@Override
 	protected boolean isFinished() {
-		return (drive.getAngle() <= targetangle);
+		return grip.isForwardContact();
 	}
 
 	@Override

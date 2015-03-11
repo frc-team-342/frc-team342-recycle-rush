@@ -1,11 +1,11 @@
 package org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous;
 
 import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveForwardTime;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveForwardUntilCollision;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveRotateRightAngle;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripClose1;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripClose2;
-import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripClose3;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripMove1;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripMove2;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripMove3;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftDownToEncoder;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftUpRelativeEncoder;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftUpToEncoder;
@@ -18,66 +18,63 @@ public class PickUpThreeTotes extends CommandGroup {
 		// TODO Make a valiant attempt to pick up three totes in autonomous
 
 		// Grip first tote
-		// uses the most-closed setting
-		addSequential(new GripClose1());
+		// Uses the most-closed setting
+		addSequential(new GripMove1());
 
-		// lift up
+		// Lift up
 		addSequential(new LiftUpToEncoder(
 				RobotMap.AUTONOMOUS_LIFT_UP_ENCODER_VALUE));
 
-		// drive forward to second tote
-		addSequential(new DriveForwardTime(
-				RobotMap.AUTONOMOUS_DRIVE_FORWARD_TIME_BETWEEN_TOTES));
+		// Drive forward to the second tote
+		addSequential(new DriveForwardUntilCollision());
 
-		// lower the lift
-		addSequential(new LiftUpToEncoder(
-				RobotMap.AUTONOMOUS_LIFT_UP_ENCODER_VALUE));
-
-		// open grip
-		addSequential(new GripClose2());
-
-		// lower the lift
+		// Lower the lift
+		// This is parallel because the grip should open at the same time as the
+		// lift lowers to save time and hopefully smooth out the gripping
+		addParallel(new LiftDownToEncoder(
+				RobotMap.AUTONOMOUS_LIFT_DOWN_ENCODER_VALUE));
+		// Open grip
+		addSequential(new GripMove2());
+		// Lower the lift
 		addSequential(new LiftDownToEncoder(
 				RobotMap.AUTONOMOUS_LIFT_DOWN_ENCODER_VALUE));
-
-		// close the grip
-		addSequential(new GripClose1());
-
-		// lift the lift to the height of 1 tote
+		// Close the grip
+		addSequential(new GripMove1());
+		// Lift the lift to the height of 1 tote
 		addSequential(new LiftUpToEncoder(
 				RobotMap.AUTONOMOUS_LIFT_UP_ENCODER_VALUE));
 
-		// drive to the third
-		addSequential(new DriveForwardTime(
-				RobotMap.AUTONOMOUS_DRIVE_FORWARD_TIME_BETWEEN_TOTES));
+		// Drive to the third tote
+		addSequential(new DriveForwardUntilCollision());
 
-		// lower the lift
+		// Lower the lift
+		// This is parallel because the grip should open at the same time as the
+		// lift lowers to save time and hopefully smooth out the gripping
+		addParallel(new LiftDownToEncoder(
+				RobotMap.AUTONOMOUS_LIFT_DOWN_ENCODER_VALUE));
+		// Open grip
+		addSequential(new GripMove2());
+		// Lower the lift
 		addSequential(new LiftDownToEncoder(
 				RobotMap.AUTONOMOUS_LIFT_DOWN_ENCODER_VALUE));
+		// Close the grip
+		addSequential(new GripMove1());
+		// Lift the lift a little
+		addSequential(new LiftUpRelativeEncoder(
+				RobotMap.AUTONOMOUS_LIFT_UP_RELATIVE_ENCODER_VALUE));
 
-		// open grip
-		addSequential(new GripClose2());
+		// Turn right to face the center of the field
+		addSequential(new DriveRotateRightAngle(
+				RobotMap.AUTONOMOUS_DRIVE_ROTATE_RIGHT_ANGLE));
+		// Drive to the center of the field and rotate
+		addSequential(new DriveToCenter(
+				RobotMap.AUTONOMOUS_DRIVE_ROTATE_RIGHT_ANGLE));
 
-		// lower the lift
-		// addSequential(new LiftDownToEncoder(RobotMap.));
+		// Lower the lift all the way
+		addSequential(new LiftDownToEncoder(0));
 
-		// close the grip
-		addSequential(new GripClose1());
-
-		// lift the lift a little
-		addSequential(new LiftUpRelativeEncoder(100));
-
-		// turn right
-		addSequential(new DriveRotateRightAngle(90));
-
-		// drive to the center
-		addSequential(new DriveToCenter(90));
-
-		// lower the lift
-		addSequential(new LiftDownToEncoder(50));
-
-		// open grip to get full points!
-		addSequential(new GripClose3());
+		// Open grip to get full points!
+		addSequential(new GripMove3());
 	}
 
 }

@@ -15,19 +15,25 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  * value is set less than how open it currently is.
  */
 public class GripSystem extends Subsystem {
-	// instantiate the robot
 	private static final GripSystem INSTANCE = new GripSystem();
 
-	// declare motors and sensors
+	// Declare motors and sensors
 	private final Talon talon;
 	private final AnalogInput potentiometer;
 	private final AnalogInput button;
 	private final DigitalInput limitSwitchOut;
-	// This is the distance from the
-	private final double GRIP_DEAD_ZONE = 3;
-	// Value for the grip to move at full speed if it is more than that far from
-	// being closed on an object
-	private final int POTENTIOMETER_FULL_SPEED_VALUE = 100;
+
+	// Dead zone used to detect if the grip is close enough to being closed,
+	// this is necessary because higher motor speeds can make grip stopping
+	// function inaccurate
+	private final double GRIP_DEAD_ZONE = 7;
+	// Value for the grip to start to slow down if it is this close to reaching
+	// its target distance
+	private final int POTENTIOMETER_SLOW_DOWN_DISTANCE = 100;
+	// Grip button midpoint value to decide whether the robot is touching
+	// something or not
+	// TODO Verify that this is a good number to use
+	public final int GRIP_BUTTON_MIDPOINT = 2000;
 
 	private GripSystem() {
 		// Initializes a talon motor for the grip, the potentiometer to get the
@@ -37,8 +43,7 @@ public class GripSystem extends Subsystem {
 		potentiometer = new AnalogInput(RobotMap.ANALOG_IO_GRIP_POTENTIOMETER);
 		limitSwitchOut = new DigitalInput(
 				RobotMap.DIGITAL_IO_GRIP_LIMIT_SWITCH_OUTER_LIMIT);
-		button = new AnalogInput(
-				RobotMap.ANALOG_IO_GRIP_FRONT_COLLISION);
+		button = new AnalogInput(RobotMap.ANALOG_IO_GRIP_FRONT_COLLISION);
 	}
 
 	public static GripSystem getInstance() {
@@ -55,7 +60,8 @@ public class GripSystem extends Subsystem {
 	 *            The speed to move the gripper, if the gripper is moving to
 	 *            fast it will not stop in the correct position
 	 * 
-	 * @return True if the gripper is close enough to where it should stop
+	 * @return True if the gripper is within a small value of where it should
+	 *         stop at
 	 */
 	public boolean moveTo(int gripStop) {
 		// Set the default state to done
@@ -66,14 +72,9 @@ public class GripSystem extends Subsystem {
 		// Sets the speed to move the grip at
 		double speed = getGripSpeed(gripStop, potVal);
 
-		// This will make the function do nothing if potentiometer is reading
-		// noise
-		if (potVal == 5)
-			isFinished = false;
-
-		// Else close the gripper if the potentiometer returns a value GREATER
+		// Close the gripper if the potentiometer returns a value GREATER
 		// than the sum of the value to stop at and the acceptable "dead zone".
-		else if (potVal > gripStop + GRIP_DEAD_ZONE) {
+		if (potVal > gripStop + GRIP_DEAD_ZONE) {
 			isFinished = false;
 			talon.set(-1.0 * speed);
 		}
@@ -82,16 +83,16 @@ public class GripSystem extends Subsystem {
 		// the difference of the value to stop at and the acceptable
 		// "dead zone". This will also not run if the outer limit switch is
 		// pressed.
-		else if ((potVal <= gripStop - GRIP_DEAD_ZONE) && limitSwitchOut.get()) {
+		else if (potVal <= gripStop - GRIP_DEAD_ZONE && limitSwitchOut.get()) {
 			isFinished = false;
-			talon.set(1.0 * speed);
+			talon.set(speed);
 		}
 
 		// Stop the motor if the grip is where it should be
 		if (isFinished)
 			talon.set(0);
 
-		// return true if the grip is finished
+		// Return true if the grip is finished moving
 		return isFinished;
 	}
 
@@ -103,18 +104,19 @@ public class GripSystem extends Subsystem {
 	 * @return The speed to move the grip at
 	 */
 	private double getGripSpeed(int targetDistance, int potentiometerValue) {
-		// Speed holds the speed of the motor
+		// Holds the speed of the motor, default if not changed in the following
+		// conditionals is full speed
 		double speed = 1.0;
 		// Set the target distance to the distance from the target potentiometer
 		// value using the absolute value of their difference.
 		int distanceFromTarget = Math.abs(targetDistance - potentiometerValue);
 
-		// Set the speed using a linear function of the speed if the distance is
-		// bless than 16 potentiometer units from its target. The equation is
-		// f(x)=x/16 where x is the distance from the target and f(x) returns
-		// the speed.
-		if (distanceFromTarget <= POTENTIOMETER_FULL_SPEED_VALUE)
-			speed = distanceFromTarget / POTENTIOMETER_FULL_SPEED_VALUE;
+		// If the POTENTIOMETER_SLOW_DOWN_DISTANCE is d, set the speed using a
+		// linear function of the speed if the distance is less than d
+		// potentiometer units from its target. The equation is f(x)=x/d where x
+		// is the distance from the target and f(x) returns the speed.
+		if (distanceFromTarget <= POTENTIOMETER_SLOW_DOWN_DISTANCE)
+			speed = distanceFromTarget / POTENTIOMETER_SLOW_DOWN_DISTANCE;
 
 		// Set the speed to 0.3 if it would otherwise be lower than that
 		if (speed < 0.3)
@@ -124,24 +126,35 @@ public class GripSystem extends Subsystem {
 	}
 
 	/**
-	 * set the grip speed to 0
+	 * Set the grip speed to 0
 	 */
 	public void stop() {
 		talon.set(0.0);
 	}
 
 	/**
-	 * @return the value of the potentiometer
+	 * @return The value of the potentiometer
 	 */
 	public int getPotentiometer() {
 		return potentiometer.getValue();
 	}
-	
+
 	/**
-	 * @return the value of the potentiometer
+	 * @return The value of the button
 	 */
 	public int getButton() {
 		return button.getValue();
+	}
+
+	/**
+	 * Detect if the robot is touching something in front of it such as a tote
+	 * 
+	 * @return True if the robot is touching something in front of it
+	 */
+	public boolean isForwardContact() {
+		// if the button is being pressed (returning a value higher than its
+		// default output) return trueF
+		return button.getValue() > GRIP_BUTTON_MIDPOINT;
 	}
 
 	@Override
