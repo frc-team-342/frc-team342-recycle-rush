@@ -107,6 +107,8 @@ public class DriveSystem extends Subsystem {
 	 *            A value from -1.0 to 1.0 for speed of drive backward
 	 */
 	public void reverse(double speed) {
+		// I think this has to be negative 1 because the drive is intended for
+		// joysticks
 		robotDrive.mecanumDrive_Cartesian(0.0, -1.0 * speed, 0.0,
 				gyro.getAngle());
 	}

@@ -2,6 +2,7 @@ package org.usfirst.frc.team342.RecycleRushRobot.commands.Autonomous;
 
 import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveForwardUntilCollision;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveResetGyro;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveRotateRightAngle;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripMove1;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripMove2;
@@ -16,12 +17,14 @@ public class PickUpThreeTotes extends CommandGroup {
 
 	public PickUpThreeTotes() {
 		// TODO Make a valiant attempt to pick up three totes in autonomous
+		// TODO determine exact values
 
 		// Grip first tote
 		// Uses the most-closed setting
 		addSequential(new GripMove1());
 
 		// Lift up
+		// TODO this would probably work more reliably as a relative value
 		addSequential(new LiftUpToEncoder(
 				RobotMap.AUTONOMOUS_LIFT_UP_ENCODER_VALUE));
 
@@ -41,6 +44,7 @@ public class PickUpThreeTotes extends CommandGroup {
 		// Close the grip
 		addSequential(new GripMove1());
 		// Lift the lift to the height of 1 tote
+		// TODO this would probably work more reliably as a relative value
 		addSequential(new LiftUpToEncoder(
 				RobotMap.AUTONOMOUS_LIFT_UP_ENCODER_VALUE));
 
@@ -66,6 +70,8 @@ public class PickUpThreeTotes extends CommandGroup {
 		// Turn right to face the center of the field
 		addSequential(new DriveRotateRightAngle(
 				RobotMap.AUTONOMOUS_DRIVE_ROTATE_RIGHT_ANGLE));
+		// Reset the gyro after facing towards center
+		addSequential(new DriveResetGyro());
 		// Drive to the center of the field and rotate
 		addSequential(new DriveToCenter(
 				RobotMap.AUTONOMOUS_DRIVE_ROTATE_RIGHT_ANGLE));

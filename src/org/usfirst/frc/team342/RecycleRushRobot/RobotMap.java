@@ -48,8 +48,8 @@ public class RobotMap {
 	public static final double AUTONOMOUS_DRIVE_ROTATE_LEFT_SPEED = 0.5;
 
 	// Autonomous rotation angle constants
-	public static final int AUTONOMOUS_DRIVE_ROTATE_RIGHT_ANGLE = 70;
-	public static final int AUTONOMOUS_DRIVE_ROTATE_LEFT_ANGLE = 70;
+	public static final int AUTONOMOUS_DRIVE_ROTATE_RIGHT_ANGLE = 77;
+	public static final int AUTONOMOUS_DRIVE_ROTATE_LEFT_ANGLE = 77;
 
 	// Autonomous distances to drive using ultrasonic
 	public static final int AUTONOMOUS_DRIVE_FORWARD_DISTANCE_TO_CENTER = 1900;

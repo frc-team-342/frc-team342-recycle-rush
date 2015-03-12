@@ -12,7 +12,7 @@ public class DriveForwardToDistance extends Command {
 
 	public DriveForwardToDistance(int target) {
 		drive = DriveSystem.getInstance();
-		requires(this.drive);
+		requires(drive);
 		targetDistance = target;
 	}
 
