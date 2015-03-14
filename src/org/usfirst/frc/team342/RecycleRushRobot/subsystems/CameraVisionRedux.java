@@ -30,7 +30,7 @@ public class CameraVisionRedux extends Subsystem {
 
 	@Override
 	protected void initDefaultCommand() {
-		this.setDefaultCommand(new SeeWithCamera());
+		setDefaultCommand(new SeeWithCamera());
 	}
 
 	public static CameraVisionRedux getInstance() {

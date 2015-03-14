@@ -71,8 +71,7 @@ public class RecycleRushRobot extends IterativeRobot {
 		// Set the default to turn right.
 		SmartDashboard.putString("DB/String 0", "right");
 		// anymore
-		FRCNetworkCommunicationsLibrary
-				.HALSetErrorData("Smart Dashboard set to default 'turn right'.");
+		FRCNetworkCommunicationsLibrary.HALSetErrorData("You're not my dad.");
 	}
 
 	/**
@@ -161,7 +160,7 @@ public class RecycleRushRobot extends IterativeRobot {
 					.HALSetErrorData("Autonomous Mode: \"Pick up three totes then drive to center and turn\""
 							+ " activated.");
 		}
-		
+
 		// unused button
 		// else if (oldArray[3]) {
 		// autonomousCommand = new PickUpObject(true, angle);

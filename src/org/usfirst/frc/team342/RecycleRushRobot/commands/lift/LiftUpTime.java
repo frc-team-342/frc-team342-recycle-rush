@@ -9,11 +9,10 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class LiftUpTime extends Command {
 	LiftSystem lift;
-	private long startTime;
 	private long target;
 
 	public LiftUpTime(long duration) {
-		target = System.currentTimeMillis() + duration;
+		target = duration;
 		lift = LiftSystem.getInstance();
 		requires(lift);
 	}
@@ -21,7 +20,7 @@ public class LiftUpTime extends Command {
 	// Called just before this Command runs the first time
 	@Override
 	protected void initialize() {
-		startTime = System.currentTimeMillis();
+		target += System.currentTimeMillis();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -33,7 +32,7 @@ public class LiftUpTime extends Command {
 	// Make this return true when this Command no longer needs to run execute()
 	@Override
 	protected boolean isFinished() {
-		return (lift.topLimit() || target <= System.currentTimeMillis());
+		return target <= System.currentTimeMillis();
 	}
 
 	// Called once after isFinished returns true

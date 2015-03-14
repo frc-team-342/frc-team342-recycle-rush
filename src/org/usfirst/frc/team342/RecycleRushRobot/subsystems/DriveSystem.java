@@ -26,7 +26,9 @@ public class DriveSystem extends Subsystem {
 	private double InverseDrive;
 
 	// slows down the drive for better control
-	private final double driveHandicap = 1.0;
+	private final double ROTATION_HANDICAP = 1.0;
+	private final double DRIVE_DEAD_ZONE_MAX = 0.15;
+	private final double DRIVE_DEAD_ZONE_MIN = 0.05;
 
 	// Variable to set the speed mode
 	private boolean slow;
@@ -82,11 +84,15 @@ public class DriveSystem extends Subsystem {
 		// set drive variables
 		double x = joystick.getX() * InverseDrive;
 		double y = joystick.getY() * InverseDrive;
-		double rotation = joystick.getZ() * driveHandicap;
+		double rotation = joystick.getZ() * ROTATION_HANDICAP;
+		double combined = x + y + rotation;
 
 		// Drive the robot
 		// This is the only non field-oriented drive function
-		robotDrive.mecanumDrive_Cartesian(x, y, rotation, 0.0);
+		if (combined > DRIVE_DEAD_ZONE_MAX || combined < DRIVE_DEAD_ZONE_MAX)
+			robotDrive.mecanumDrive_Cartesian(x, y, rotation, 0.0);
+		else
+			robotDrive.mecanumDrive_Cartesian(0.0, 0.0, 0.0, 0.0);
 	}
 
 	/**
@@ -108,7 +114,8 @@ public class DriveSystem extends Subsystem {
 	 */
 	public void reverse(double speed) {
 		// I think this has to be negative 1 because the drive is intended for
-		// joysticks
+		// joy stick
+
 		robotDrive.mecanumDrive_Cartesian(0.0, -1.0 * speed, 0.0,
 				gyro.getAngle());
 	}
@@ -142,8 +149,7 @@ public class DriveSystem extends Subsystem {
 	 *            A value from -1.0 to 1.0 for speed of the robot turn
 	 */
 	public void turn(double speed) {
-		robotDrive.mecanumDrive_Cartesian(0, 0, speed, 0);
-		System.out.println(speed);
+		robotDrive.mecanumDrive_Cartesian(0, 0, speed, gyro.getAngle());
 	}
 
 	/**

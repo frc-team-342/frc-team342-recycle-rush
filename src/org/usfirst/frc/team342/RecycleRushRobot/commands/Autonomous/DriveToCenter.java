@@ -4,7 +4,6 @@ import org.usfirst.frc.team342.RecycleRushRobot.RobotMap;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveForwardToDistance;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveRotateLeftAngle;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveRotateRightAngle;
-import org.usfirst.frc.team342.RecycleRushRobot.subsystems.DriveSystem;
 
 import edu.wpi.first.wpilibj.command.CommandGroup;
 
@@ -13,7 +12,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
  */
 public class DriveToCenter extends CommandGroup {
 	public DriveToCenter(int rotate) {
-		DriveSystem drive = DriveSystem.getInstance();
 		// Drive to the center of the field
 		addSequential(new DriveForwardToDistance(
 				RobotMap.AUTONOMOUS_DRIVE_FORWARD_DISTANCE_TO_CENTER));

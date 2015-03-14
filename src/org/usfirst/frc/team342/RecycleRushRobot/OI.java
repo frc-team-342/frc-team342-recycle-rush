@@ -1,6 +1,7 @@
 package org.usfirst.frc.team342.RecycleRushRobot;
 
 import org.usfirst.frc.team342.RecycleRushRobot.commands.camera.ChangeCamera;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveForwardUntilCollision;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveInverter;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveReadDebug;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveResetGyro;
@@ -8,6 +9,9 @@ import org.usfirst.frc.team342.RecycleRushRobot.commands.drive.DriveToggleSpeed;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripMove1;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripMove2;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.grip.GripMove3;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftDown;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftUp;
+import org.usfirst.frc.team342.RecycleRushRobot.commands.lift.LiftUpTime;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorDown;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorExtend;
 import org.usfirst.frc.team342.RecycleRushRobot.commands.scissor.ScissorRetract;
@@ -35,6 +39,7 @@ public class OI {
 	private final int JOYSTICK_DRIVE_CHANGE_CAMERA = 1;
 	private final int JOYSTICK_DRIVE_RESET_GYRO = 2;
 	private final int JOYSTICK_DRIVE_SCISSOR_DOWN = 3;
+
 	private final int JOYSTICK_DRIVE_SCISSOR_RETRACT = 4;
 	private final int JOYSTICK_DRIVE_SCISSOR_UP = 5;
 	private final int JOYSTICK_DRIVE_SCISSOR_EXTEND = 6;
@@ -54,7 +59,7 @@ public class OI {
 	private final int JOYSTICK_ASSIST_BUTTON_4 = 4;
 	private final int JOYSTICK_ASSIST_BUTTON_5 = 5;
 	private final int JOYSTICK_ASSIST_BUTTON_6 = 6;
-	private final int JOYSTICK_ASSIST_BUTTON_7 = 7;
+	private final int JOYSTICK_ASSIST_LIFT_UP_TIME = 7;
 	private final int JOYSTICK_ASSIST_CHANGE_CAMERA = 8;
 	// Thumb stick buttons will probably not be used
 	private final int JOYSTICK_ASSIST_BUTTON_9 = 9;
@@ -62,8 +67,8 @@ public class OI {
 
 	private OI() {
 		// declare controllers
-		this.driveController = new Joystick(JOYSTICK_DRIVE);
-		this.assistJoystick = new Joystick(JOYSTICK_ASSIST);
+		driveController = new Joystick(JOYSTICK_DRIVE);
+		assistJoystick = new Joystick(JOYSTICK_ASSIST);
 
 		// declare scissor controls for the drive controller
 		JoystickButton driveScissorUp = new JoystickButton(driveController,
@@ -105,6 +110,10 @@ public class OI {
 		JoystickButton assistGripClose3 = new JoystickButton(assistJoystick,
 				JOYSTICK_ASSIST_GRIP_CLOSE_3);
 
+		// declare drive test command for assist joy stick
+		JoystickButton assistLiftTest = new JoystickButton(assistJoystick,
+				JOYSTICK_ASSIST_LIFT_UP_TIME);
+
 		// declare change camera command for assist joy stick
 		JoystickButton assistChangeCamera = new JoystickButton(assistJoystick,
 				JOYSTICK_ASSIST_CHANGE_CAMERA);
@@ -141,6 +150,9 @@ public class OI {
 
 		// map assist joy stick grip buttons to grip commands
 		assistGripClose3.whileHeld(new GripMove3());
+
+		// map assist joy stick drive test button to drive command
+		assistLiftTest.whileHeld(new LiftDown());
 
 		// map assist joy stick change camera button to change camera command
 		assistChangeCamera.whenPressed(new ChangeCamera());

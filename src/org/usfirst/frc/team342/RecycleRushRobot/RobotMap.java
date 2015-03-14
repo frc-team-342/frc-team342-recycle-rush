@@ -48,11 +48,11 @@ public class RobotMap {
 	public static final double AUTONOMOUS_DRIVE_ROTATE_LEFT_SPEED = 0.5;
 
 	// Autonomous rotation angle constants
-	public static final int AUTONOMOUS_DRIVE_ROTATE_RIGHT_ANGLE = 77;
+	public static final int AUTONOMOUS_DRIVE_ROTATE_RIGHT_ANGLE = 90;
 	public static final int AUTONOMOUS_DRIVE_ROTATE_LEFT_ANGLE = 77;
 
 	// Autonomous distances to drive using ultrasonic
-	public static final int AUTONOMOUS_DRIVE_FORWARD_DISTANCE_TO_CENTER = 1900;
+	public static final int AUTONOMOUS_DRIVE_FORWARD_DISTANCE_TO_CENTER = 1550;
 	// Autonomous distance from tote to bin
 	public static final int AUTONOMOUS_DRIVE_FORWARD_DISTANCE_TO_TOTE_FROM_CONTAINER = 80;
 	// Autonomous time to drive if there is no way to detect a tote in the front
@@ -65,15 +65,15 @@ public class RobotMap {
 	// TODO figure out good encoder values for various tasks such as lifting to
 	// the height of one tote, two totes and three totes
 	// Autonomous lift encoder values
-	public static final int AUTONOMOUS_LIFT_UP_ENCODER_VALUE = 2000;
-	public static final int AUTONOMOUS_LIFT_DOWN_ENCODER_VALUE = 100;
+	public static final int AUTONOMOUS_LIFT_UP_ENCODER_VALUE = 0;
+	public static final int AUTONOMOUS_LIFT_DOWN_ENCODER_VALUE = 0;
 
 	// Autonomous lift to relative values
 	public static final int AUTONOMOUS_LIFT_UP_RELATIVE_ENCODER_VALUE = 50;
 	public static final int AUTONOMOUS_LIFT_DOWN_RELATIVE_ENCODER_VALUE = 50;
 
 	// Autonomous lift times when encoder is not on robot
-	public static final int AUTONOMOUS_LIFT_UP_TIME_VALUE = 1200;
+	public static final int AUTONOMOUS_LIFT_UP_TIME_VALUE = 2300;
 	public static final int AUTONOMOUS_LIFT_DOWN_TIME_VALUE = 1000;
 
 	// Set the value for the dead zone for the controllers

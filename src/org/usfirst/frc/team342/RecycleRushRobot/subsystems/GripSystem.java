@@ -118,8 +118,8 @@ public class GripSystem extends Subsystem {
 			speed = distanceFromTarget / POTENTIOMETER_SLOW_DOWN_DISTANCE;
 
 		// Set the speed to 0.3 if it would otherwise be lower than that
-		if (speed < 0.3)
-			speed = 0.3;
+		if (speed < 0.4)
+			speed = 0.4;
 
 		return speed;
 	}
