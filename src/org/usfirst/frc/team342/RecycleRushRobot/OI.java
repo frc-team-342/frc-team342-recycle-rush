@@ -36,7 +36,8 @@ public class OI {
 	// Joy stick buttons, axes 1 and 2 are for drive control. Axis 3 is not
 	// used. POV buttons are unused.
 	// TODO make buttons for lifting to automatic values
-	private final int JOYSTICK_DRIVE_CHANGE_CAMERA = 1;
+	// TODO Re-do change camera
+	//private final int JOYSTICK_DRIVE_CHANGE_CAMERA = 1;
 	private final int JOYSTICK_DRIVE_RESET_GYRO = 2;
 	private final int JOYSTICK_DRIVE_SCISSOR_DOWN = 3;
 
@@ -60,7 +61,7 @@ public class OI {
 	private final int JOYSTICK_ASSIST_BUTTON_5 = 5;
 	private final int JOYSTICK_ASSIST_BUTTON_6 = 6;
 	private final int JOYSTICK_ASSIST_LIFT_UP_TIME = 7;
-	private final int JOYSTICK_ASSIST_CHANGE_CAMERA = 8;
+	// private final int JOYSTICK_ASSIST_CHANGE_CAMERA = 8;
 	// Thumb stick buttons will probably not be used
 	private final int JOYSTICK_ASSIST_BUTTON_9 = 9;
 	private final int JOYSTICK_ASSIST_BUTTON_10 = 10;
@@ -87,8 +88,8 @@ public class OI {
 				JOYSTICK_DRIVE_RESET_GYRO);
 
 		// declare camera changing button for drive controller
-		JoystickButton driveChangeCamera = new JoystickButton(driveController,
-				JOYSTICK_DRIVE_CHANGE_CAMERA);
+	//	JoystickButton driveChangeCamera = new JoystickButton(driveController,
+		//		JOYSTICK_DRIVE_CHANGE_CAMERA);
 
 		// declare slow down button for better control over driving
 		JoystickButton driveSlowDown = new JoystickButton(driveController,
@@ -115,8 +116,9 @@ public class OI {
 				JOYSTICK_ASSIST_LIFT_UP_TIME);
 
 		// declare change camera command for assist joy stick
-		JoystickButton assistChangeCamera = new JoystickButton(assistJoystick,
-				JOYSTICK_ASSIST_CHANGE_CAMERA);
+		// JoystickButton assistChangeCamera = new
+		// JoystickButton(assistJoystick,
+		// JOYSTICK_ASSIST_CHANGE_CAMERA);
 
 		// map controls to commands
 
@@ -130,7 +132,7 @@ public class OI {
 		driveResetGyro.whenPressed(new DriveResetGyro());
 
 		// map drive controller change camera button to change camera command
-		driveChangeCamera.whenPressed(new ChangeCamera());
+		//driveChangeCamera.whenPressed(new ChangeCamera());
 
 		// map the button to hold to slow down the drive for better control
 		driveSlowDown.whenPressed(new DriveToggleSpeed());
@@ -155,7 +157,7 @@ public class OI {
 		assistLiftTest.whileHeld(new LiftDown());
 
 		// map assist joy stick change camera button to change camera command
-		assistChangeCamera.whenPressed(new ChangeCamera());
+		// assistChangeCamera.whenPressed(new ChangeCamera());
 	}
 
 	public static OI getInstance() {

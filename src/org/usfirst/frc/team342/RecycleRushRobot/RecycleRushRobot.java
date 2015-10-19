@@ -71,7 +71,7 @@ public class RecycleRushRobot extends IterativeRobot {
 		// Set the default to turn right.
 		SmartDashboard.putString("DB/String 0", "right");
 		// anymore
-		FRCNetworkCommunicationsLibrary.HALSetErrorData("You're not my dad.");
+		FRCNetworkCommunicationsLibrary.HALSetErrorData("xX420NoscopeXx (Robot) connected, Reck them scrubs");
 	}
 
 	/**
@@ -120,8 +120,8 @@ public class RecycleRushRobot extends IterativeRobot {
 		if ((System.currentTimeMillis() >= drive.gyroInitStartTime + 5000)
 				&& !gyroInitialized) {
 			FRCNetworkCommunicationsLibrary
-					.HALSetErrorData("The gyro has been initialized; "
-							+ "Stay In Milk, Drink Your Drugs, Don't Do School"
+					.HALSetErrorData("Gyro Init; "
+							+ "Robot Gyro Ready Good Luck Have Fun!"
 							+ "\n");
 			gyroInitialized = true;
 		}

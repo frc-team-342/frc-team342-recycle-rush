@@ -6,11 +6,11 @@ import edu.wpi.first.wpilibj.command.Command;
 
 public class ChangeCamera extends Command {
 
-	private CameraVisionRedux camera;
+	private CameraVisionRedux Cam;
 
 	public ChangeCamera() {
-		camera = CameraVisionRedux.getInstance();
-		// requires(camera);
+		Cam = CameraVisionRedux.getInstance();
+		requires(Cam);
 
 	}
 
@@ -21,7 +21,7 @@ public class ChangeCamera extends Command {
 
 	@Override
 	protected void execute() {
-		camera.ChangeCamera();
+		Cam.ChangeCamera();
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class ChangeCamera extends Command {
 
 	@Override
 	protected void end() {
-		// camera.StopSeeingIsBelieving();
+		//camera.StopSeeingIsBelieving();
 	}
 
 	@Override

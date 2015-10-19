@@ -34,8 +34,6 @@ public class RobotMap {
 	public static final int CAN_CHANNEL_GRIP_OPEN_CLOSE = 3;
 	public static final int ANALOG_IO_GRIP_POTENTIOMETER = 2;
 	public static final int ANALOG_IO_GRIP_FRONT_COLLISION = 3;
-	public static final int DIGITAL_IO_GRIP_LIMIT_SWITCH_OUTER_LIMIT = 8;
-	public static final int DIGITAL_IO_GRIP_LIMIT_SWITCH_INNER_LIMIT = 9;
 
 	// Autonomous drive constants
 	public static final double AUTONOMOUS_DRIVE_FORWARD_SPEED = 0.3;
@@ -65,8 +63,6 @@ public class RobotMap {
 	// TODO figure out good encoder values for various tasks such as lifting to
 	// the height of one tote, two totes and three totes
 	// Autonomous lift encoder values
-	public static final int AUTONOMOUS_LIFT_UP_ENCODER_VALUE = 0;
-	public static final int AUTONOMOUS_LIFT_DOWN_ENCODER_VALUE = 0;
 
 	// Autonomous lift to relative values
 	public static final int AUTONOMOUS_LIFT_UP_RELATIVE_ENCODER_VALUE = 50;
@@ -80,7 +76,7 @@ public class RobotMap {
 	public static final double GAMEPAD_DEADZONE = 0.2;
 
 	// Grip potentiometer values for various close commands
-	public static final int GRIP_POTENTIOMETER_CLOSED_VALUE_1 = 180;
+	public static final int GRIP_POTENTIOMETER_CLOSED_VALUE_1 = 165;
 	public static final int GRIP_POTENTIOMETER_CLOSED_VALUE_2 = 443;
 	public static final int GRIP_POTENTIOMETER_CLOSED_VALUE_3 = 650;
 

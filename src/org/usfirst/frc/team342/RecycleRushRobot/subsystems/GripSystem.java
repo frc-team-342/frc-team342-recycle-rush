@@ -21,12 +21,11 @@ public class GripSystem extends Subsystem {
 	private final Talon talon;
 	private final AnalogInput potentiometer;
 	private final AnalogInput button;
-	private final DigitalInput limitSwitchOut;
 
 	// Dead zone used to detect if the grip is close enough to being closed,
 	// this is necessary because higher motor speeds can make grip stopping
 	// function inaccurate
-	private final double GRIP_DEAD_ZONE = 7;
+	private final double GRIP_DEAD_ZONE = 10;
 	// Value for the grip to start to slow down if it is this close to reaching
 	// its target distance
 	private final int POTENTIOMETER_SLOW_DOWN_DISTANCE = 100;
@@ -40,8 +39,6 @@ public class GripSystem extends Subsystem {
 		// lift if it goes to far.
 		talon = new Talon(RobotMap.CAN_CHANNEL_GRIP_OPEN_CLOSE);
 		potentiometer = new AnalogInput(RobotMap.ANALOG_IO_GRIP_POTENTIOMETER);
-		limitSwitchOut = new DigitalInput(
-				RobotMap.DIGITAL_IO_GRIP_LIMIT_SWITCH_OUTER_LIMIT);
 		button = new AnalogInput(RobotMap.ANALOG_IO_GRIP_FRONT_COLLISION);
 	}
 
@@ -82,7 +79,7 @@ public class GripSystem extends Subsystem {
 		// the difference of the value to stop at and the acceptable
 		// "dead zone". This will also not run if the outer limit switch is
 		// pressed.
-		else if (potVal <= gripStop - GRIP_DEAD_ZONE && limitSwitchOut.get()) {
+		else if (potVal <= gripStop - GRIP_DEAD_ZONE) {
 			isFinished = false;
 			talon.set(speed);
 		}
